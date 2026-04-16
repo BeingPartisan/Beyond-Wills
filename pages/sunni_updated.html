@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sunni Hanafi Inheritance Calculator</title>
+  <style>
+    :root {
+      --primary: #3b82f6;
+      --primary-dark: #2563eb;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --danger: #ef4444;
+      --radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
+      border-radius: var(--radius) var(--radius) 0 0;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    }
+
+    .header h1 {
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .header p {
+      color: #94a3b8;
+      font-size: 1rem;
+    }
+
+    .content {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 30px;
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
+      margin-bottom: 24px;
+      border: 1px solid var(--border);
+    }
+
+    h2 {
+      color: var(--text);
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+      border-bottom: 2px solid var(--bg);
+      padding-bottom: 10px;
+    }
+
+    h3 {
+      color: var(--primary);
+      font-size: 1.2rem;
+      margin-bottom: 16px;
+      margin-top: 24px;
+    }
+
+    .question p {
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      font-size: 0.95rem;
+    }
+
+    .question,
+    .input-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #334155;
+      font-size: 0.95rem;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: all 0.2s;
+      color: var(--text);
+      background: #fff;
+    }
+
+    input:focus,
+    select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .radio-option {
+      flex: 1;
+      min-width: 140px;
+      position: relative;
+    }
+
+    .radio-option label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-weight: 500;
+      margin: 0;
+      background: #f8fafc;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    .radio-option label:hover {
+      border-color: #cbd5e1;
+      background: #f1f5f9;
+    }
+
+    .radio-option.selected label {
+      border-color: var(--primary);
+      background: #eff6ff;
+      color: var(--primary-dark);
+    }
+
+    .buttons {
+      display: flex;
+      gap: 16px;
+      margin-top: 32px;
+      justify-content: space-between;
+    }
+
+    .btn {
+      padding: 14px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      flex: 1;
+      text-align: center;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: #e2e8f0;
+      color: #475569;
+    }
+
+    .btn-secondary:hover {
+      background: #cbd5e1;
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .number-input {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 10px;
+      justify-content: center;
+    }
+
+    .number-btn {
+      width: 44px;
+      height: 44px;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      background: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: var(--text);
+      transition: all 0.2s;
+      font-weight: bold;
+    }
+
+    .number-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: #f8fafc;
+    }
+
+    .number-display {
+      font-size: 1.4rem;
+      font-weight: 600;
+      min-width: 40px;
+      text-align: center;
+    }
+
+    .heir-card {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 16px;
+      border-left: 4px solid var(--primary);
+      position: relative;
+    }
+
+    .heir-card h4 {
+      margin-bottom: 16px;
+      color: var(--text);
+      font-size: 1.1rem;
+    }
+
+    .step-indicator {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+    }
+
+    .step-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #e2e8f0;
+      transition: all 0.3s;
+    }
+
+    .step-dot.active {
+      background: var(--primary);
+      transform: scale(1.2);
+    }
+
+    .step-dot.completed {
+      background: #93c5fd;
+    }
+
+    .results {
+      margin-bottom: 32px;
+      margin-top: 20px;
+    }
+
+    .summary-card {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      padding: 24px;
+      border-radius: var(--radius);
+      margin-bottom: 24px;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+    }
+
+    .summary-card h3 {
+      color: rgba(255, 255, 255, 0.9);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      margin-top: 0;
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+      font-size: 1.1rem;
+    }
+
+    .summary-card .amount {
+      font-size: 2rem;
+      font-weight: 700;
+    }
+
+    .heir-card .share {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin: 8px 0;
+    }
+
+    .heir-card .fraction {
+      display: inline-block;
+      background: #dbeafe;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      color: var(--primary-dark);
+      margin-right: 8px;
+      font-weight: 600;
+    }
+
+    .heir-card .reason {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+
+    .no-share {
+      border-left-color: var(--danger);
+      background: #fef2f2;
+    }
+
+    .no-share .share {
+      color: var(--danger);
+      font-weight: 600;
+      font-size: 1.2rem;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .info-box,
+    .warning-box {
+      background: #eff6ff;
+      border-left: 4px solid var(--primary);
+      padding: 16px;
+      border-radius: 0 8px 8px 0;
+      color: #1e40af;
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .warning-box {
+      background: #fffbeb;
+      border-left-color: #f59e0b;
+      color: #b45309;
+    }
+
+    .special-case {
+      background: #fffbeb;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 20px;
+      border: 1px solid #fde68a;
+    }
+
+    .special-case h4 {
+      color: #b45309;
+      margin-bottom: 8px;
+      margin-top: 0;
+    }
+
+    .special-case p {
+      color: #92400e;
+      font-size: 0.95rem;
+    }
+
+    @media print {
+      body {
+        background: white;
+      }
+
+      .header {
+        background: #1e293b !important;
+        color: white !important;
+        border-radius: 0;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .buttons {
+        display: none !important;
+      }
+
+      .content,
+      .results {
+        box-shadow: none;
+        border: 1px solid #e2e8f0;
+      }
+    }
+
+/* -------------------------------------------- */
+      .back-home-btn {
+          position: fixed;
+          top: 20px;
+          left: 20px;
+          background: rgba(255, 255, 255, 0.95);
+          color: #1e293b;
+          padding: 10px 16px;
+          border-radius: 999px;
+          text-decoration: none;
+          font-weight: 600;
+          font-size: 0.9rem;
+          border: 1px solid #e2e8f0;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+          backdrop-filter: blur(8px);
+          transition: all 0.25s ease;
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          z-index: 1000;
+      }
+
+      .back-home-btn .arrow {
+          font-size: 1.1rem;
+          transition: transform 0.2s ease;
+      }
+
+      .back-home-btn:hover {
+          transform: translateY(-3px);
+          border-color: #3b82f6;
+          box-shadow: 0 8px 18px rgba(59, 130, 246, 0.25);
+      }
+
+      .back-home-btn:hover .arrow {
+          transform: translateX(-3px);
+      }
+
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <!-- Back to Home Button -->
+    <a href="../index.html#calculator" class="back-home-btn">
+        <span class="arrow">←</span> Back to Home
+    </a>
+
+    <div class="header">
+      <h1>Sunni Hanafi Inheritance Calculator</h1>
+      <p>Calculate Islamic inheritance shares according to Quranic principles</p>
+    </div>
+
+    <div id="wizard" class="content">
+      <div class="step-indicator" id="stepIndicator"></div>
+      <div id="stepContent"></div>
+      <div class="buttons">
+        <button class="btn btn-secondary" id="backBtn" onclick="goBack()">Back</button>
+        <button class="btn btn-primary" id="nextBtn" onclick="goNext()">Next</button>
+      </div>
+    </div>
+
+    <div id="results" class="content hidden"></div>
+  </div>
+
+  <script>
+    let currentStep = 0;
+    let data = { deceasedGender: '', isSunniMuslim: null, totalEstate: 100, spouse: { alive: null, count: 0 }, father: { alive: null }, mother: { alive: null }, sons: { count: 0 }, daughters: { count: 0 }, sonsOfSons: { count: 0 }, daughtersOfSons: { count: 0 }, paternalGrandfather: { alive: null }, paternalGrandmother: { alive: null }, maternalGrandmother: { alive: null }, fullBrothers: { count: 0 }, fullSisters: { count: 0 }, consanguineBrothers: { count: 0 }, consanguineSisters: { count: 0 }, uterineBrothers: { count: 0 }, uterineSisters: { count: 0 } };
+    const steps = [{ id: 'religion', title: 'Religious Confirmation', required: true }, { id: 'deceased', title: 'Deceased Information', required: true }, { id: 'estate', title: 'Estate Value', required: true }, { id: 'spouse', title: 'Spouse', required: true }, { id: 'spouseCount', title: 'Number of Spouses', required: false }, { id: 'father', title: 'Father', required: true }, { id: 'mother', title: 'Mother', required: true }, { id: 'sons', title: 'Sons', required: true }, { id: 'daughters', title: 'Daughters', required: true }, { id: 'sonsOfSons', title: 'Sons of Sons', required: false }, { id: 'daughtersOfSons', title: 'Daughters of Sons', required: false }, { id: 'paternalGrandfather', title: 'Paternal Grandfather', required: false }, { id: 'paternalGrandmother', title: 'Paternal Grandmother', required: false }, { id: 'maternalGrandmother', title: 'Maternal Grandmother', required: false }, { id: 'fullBrothers', title: 'Full Brothers', required: false }, { id: 'fullSisters', title: 'Full Sisters', required: false }, { id: 'consanguineBrothers', title: 'Consanguine Brothers', required: false }, { id: 'consanguineSisters', title: 'Consanguine Sisters', required: false }, { id: 'uterineSiblings', title: 'Uterine Siblings', required: false }];
+
+    function shouldSkipStep(stepId) {
+      switch (stepId) {
+        case 'spouseCount': return data.spouse.alive !== true || data.deceasedGender !== 'male';
+        case 'sonsOfSons': case 'daughtersOfSons': return data.sons.count > 0;
+        case 'paternalGrandfather': return data.father.alive === true;
+        case 'paternalGrandmother': case 'maternalGrandmother': return data.mother.alive === true;
+        case 'fullBrothers': case 'fullSisters': case 'consanguineBrothers': case 'consanguineSisters': case 'uterineSiblings': return data.sons.count > 0 || data.sonsOfSons.count > 0 || data.father.alive === true;
+        default: return false;
+      }
+    }
+    function getActiveSteps() { return steps.filter(s => !shouldSkipStep(s.id)); }
+
+    function renderStepIndicator() {
+      const activeSteps = getActiveSteps();
+      const currentActiveIndex = activeSteps.findIndex(s => s.id === steps[currentStep].id);
+      let html = '';
+      activeSteps.forEach((_, i) => {
+        let cls = 'step-dot';
+        if (i < currentActiveIndex) cls += ' completed';
+        if (i === currentActiveIndex) cls += ' active';
+        html += `<div class="${cls}"></div>`;
+      });
+      document.getElementById('stepIndicator').innerHTML = html;
+    }
+
+    function renderStep() {
+      while (currentStep < steps.length && shouldSkipStep(steps[currentStep].id)) { currentStep++; }
+      if (currentStep >= steps.length) { showResults(); return; }
+      renderStepIndicator();
+      const step = steps[currentStep];
+      let html = '';
+
+      switch (step.id) {
+        case 'religion':
+          html = `<div class="question"><h2>Is the deceased a Sunni Muslim?</h2><p>This calculator is specifically designed for Sunni Hanafi inheritance law.</p><div class="radio-group"><div class="radio-option ${data.isSunniMuslim === true ? 'selected' : ''}" onclick="selectOption('isSunniMuslim', true)"><label>Yes</label></div><div class="radio-option ${data.isSunniMuslim === false ? 'selected' : ''}" onclick="selectOption('isSunniMuslim', false)"><label>No</label></div></div></div>`;
+          if (data.isSunniMuslim === false) { html += `<div class="warning-box"><p>This calculator only applies to Sunni Muslim inheritance. Different laws apply to other faiths and sects.</p></div>`; } break;
+        case 'deceased':
+          html = `<div class="question"><h2>Who has passed away?</h2><p>Please select the gender of the deceased person.</p><div class="radio-group"><div class="radio-option ${data.deceasedGender === 'male' ? 'selected' : ''}" onclick="selectOption('deceasedGender', 'male')"><label>Male (Husband/Father)</label></div><div class="radio-option ${data.deceasedGender === 'female' ? 'selected' : ''}" onclick="selectOption('deceasedGender', 'female')"><label>Female (Wife/Mother)</label></div></div></div>`; break;
+        case 'estate':
+          html = `<div class="question"><h2>What is the total estate value?</h2><p>Enter the value after debts, funeral expenses, and bequests are deducted.</p><div class="input-group"><label>Total Estate Value</label><input type="number" id="estateInput" value="${data.totalEstate || ''}" placeholder="Enter amount" onchange="data.totalEstate = parseFloat(this.value) || 100"></div></div><div class="info-box"><p><strong>Note:</strong> Wasiyyah (bequest) cannot exceed 1/3 of the estate for non-heirs.</p></div>`; break;
+        case 'spouse':
+          const spouseType = data.deceasedGender === 'male' ? 'wife/wives' : 'husband';
+          html = `<div class="question"><h2>Is the ${spouseType} alive?</h2><div class="radio-group"><div class="radio-option ${data.spouse.alive === true ? 'selected' : ''}" onclick="selectOption('spouse.alive', true)"><label>Yes</label></div><div class="radio-option ${data.spouse.alive === false ? 'selected' : ''}" onclick="selectOption('spouse.alive', false)"><label>No</label></div></div></div>`; break;
+        case 'spouseCount':
+          html = `<div class="question"><h2>How many wives are alive?</h2><div class="number-input"><button class="number-btn" onclick="adjustCount('spouse.count', -1)">-</button><div class="number-display">${data.spouse.count}</div><button class="number-btn" onclick="adjustCount('spouse.count', 1)">+</button></div></div>`; break;
+        case 'father':
+          html = `<div class="question"><h2>Is the father alive?</h2><div class="radio-group"><div class="radio-option ${data.father.alive === true ? 'selected' : ''}" onclick="selectOption('father.alive', true)"><label>Yes</label></div><div class="radio-option ${data.father.alive === false ? 'selected' : ''}" onclick="selectOption('father.alive', false)"><label>No</label></div></div></div>`; break;
+        case 'mother':
+          html = `<div class="question"><h2>Is the mother alive?</h2><div class="radio-group"><div class="radio-option ${data.mother.alive === true ? 'selected' : ''}" onclick="selectOption('mother.alive', true)"><label>Yes</label></div><div class="radio-option ${data.mother.alive === false ? 'selected' : ''}" onclick="selectOption('mother.alive', false)"><label>No</label></div></div></div>`; break;
+        case 'sons':
+          html = `<div class="question"><h2>How many sons?</h2><div class="number-input"><button class="number-btn" onclick="adjustCount('sons.count', -1)">-</button><div class="number-display">${data.sons.count}</div><button class="number-btn" onclick="adjustCount('sons.count', 1)">+</button></div></div>`; break;
+        case 'daughters':
+          html = `<div class="question"><h2>How many daughters?</h2><div class="number-input"><button class="number-btn" onclick="adjustCount('daughters.count', -1)">-</button><div class="number-display">${data.daughters.count}</div><button class="number-btn" onclick="adjustCount('daughters.count', 1)">+</button></div></div>`; break;
+        case 'sonsOfSons':
+          html = `<div class="question"><h2>How many sons of sons (grandsons)?</h2><div class="number-input"><button class="number-btn" onclick="adjustCount('sonsOfSons.count', -1)">-</button><div class="number-display">${data.sonsOfSons.count}</div><button class="number-btn" onclick="adjustCount('sonsOfSons.count', 1)">+</button></div></div>`; break;
+        case 'daughtersOfSons':
+          html = `<div class="question"><h2>How many daughters of sons?</h2><div class="number-input"><button class="number-btn" onclick="adjustCount('daughtersOfSons.count', -1)">-</button><div class="number-display">${data.daughtersOfSons.count}</div><button class="number-btn" onclick="adjustCount('daughtersOfSons.count', 1)">+</button></div></div>`; break;
+        case 'paternalGrandfather':
+          html = `<div class="question"><h2>Is the paternal grandfather alive?</h2><div class="radio-group"><div class="radio-option ${data.paternalGrandfather.alive === true ? 'selected' : ''}" onclick="selectOption('paternalGrandfather.alive', true)"><label>Yes</label></div><div class="radio-option ${data.paternalGrandfather.alive === false ? 'selected' : ''}" onclick="selectOption('paternalGrandfather.alive', false)"><label>No</label></div></div></div>`; break;
+        case 'paternalGrandmother':
+          html = `<div class="question"><h2>Is the paternal grandmother alive?</h2><div class="radio-group"><div class="radio-option ${data.paternalGrandmother.alive === true ? 'selected' : ''}" onclick="selectOption('paternalGrandmother.alive', true)"><label>Yes</label></div><div class="radio-option ${data.paternalGrandmother.alive === false ? 'selected' : ''}" onclick="selectOption('paternalGrandmother.alive', false)"><label>No</label></div></div></div>`; break;
+        case 'maternalGrandmother':
+          html = `<div class="question"><h2>Is the maternal grandmother alive?</h2><div class="radio-group"><div class="radio-option ${data.maternalGrandmother.alive === true ? 'selected' : ''}" onclick="selectOption('maternalGrandmother.alive', true)"><label>Yes</label></div><div class="radio-option ${data.maternalGrandmother.alive === false ? 'selected' : ''}" onclick="selectOption('maternalGrandmother.alive', false)"><label>No</label></div></div></div>`; break;
+        case 'fullBrothers':
+          html = `<div class="question"><h2>How many full brothers?</h2><div class="number-input"><button class="number-btn" onclick="adjustCount('fullBrothers.count', -1)">-</button><div class="number-display">${data.fullBrothers.count}</div><button class="number-btn" onclick="adjustCount('fullBrothers.count', 1)">+</button></div></div>`; break;
+        case 'fullSisters':
+          html = `<div class="question"><h2>How many full sisters?</h2><div class="number-input"><button class="number-btn" onclick="adjustCount('fullSisters.count', -1)">-</button><div class="number-display">${data.fullSisters.count}</div><button class="number-btn" onclick="adjustCount('fullSisters.count', 1)">+</button></div></div>`; break;
+        case 'consanguineBrothers':
+          html = `<div class="question"><h2>How many consanguine brothers?</h2><div class="number-input"><button class="number-btn" onclick="adjustCount('consanguineBrothers.count', -1)">-</button><div class="number-display">${data.consanguineBrothers.count}</div><button class="number-btn" onclick="adjustCount('consanguineBrothers.count', 1)">+</button></div></div>`; break;
+        case 'consanguineSisters':
+          html = `<div class="question"><h2>How many consanguine sisters?</h2><div class="number-input"><button class="number-btn" onclick="adjustCount('consanguineSisters.count', -1)">-</button><div class="number-display">${data.consanguineSisters.count}</div><button class="number-btn" onclick="adjustCount('consanguineSisters.count', 1)">+</button></div></div>`; break;
+        case 'uterineSiblings':
+          html = `<div class="question"><h2>How many uterine siblings?</h2><div class="input-group"><label style="text-align:center">Uterine Brothers</label><div class="number-input"><button class="number-btn" onclick="adjustCount('uterineBrothers.count', -1)">-</button><div class="number-display">${data.uterineBrothers.count}</div><button class="number-btn" onclick="adjustCount('uterineBrothers.count', 1)">+</button></div></div><div class="input-group" style="margin-top: 16px;"><label style="text-align:center">Uterine Sisters</label><div class="number-input"><button class="number-btn" onclick="adjustCount('uterineSisters.count', -1)">-</button><div class="number-display">${data.uterineSisters.count}</div><button class="number-btn" onclick="adjustCount('uterineSisters.count', 1)">+</button></div></div></div>`; break;
+      }
+      document.getElementById('stepContent').innerHTML = html;
+      document.getElementById('backBtn').style.display = currentStep === 0 ? 'none' : 'block';
+      document.getElementById('nextBtn').textContent = currentStep === getActiveSteps().length - 1 ? 'Calculate' : 'Next';
+      document.getElementById('nextBtn').disabled = !canProceed();
+    }
+
+    function selectOption(path, value) { const parts = path.split('.'); if (parts.length === 2) { data[parts[0]][parts[1]] = value; } else { data[path] = value; } renderStep(); }
+    function adjustCount(path, delta) { const parts = path.split('.'); let current = data[parts[0]][parts[1]]; let newVal = Math.max(0, current + delta); if (path === 'spouse.count') newVal = Math.min(4, newVal); data[parts[0]][parts[1]] = newVal; renderStep(); }
+    function canProceed() { const step = steps[currentStep]; switch (step.id) { case 'religion': return data.isSunniMuslim === true; case 'deceased': return data.deceasedGender !== ''; case 'spouse': return data.spouse.alive !== null; case 'spouseCount': return data.spouse.count > 0; case 'father': return data.father.alive !== null; case 'mother': return data.mother.alive !== null; case 'paternalGrandfather': return data.paternalGrandfather.alive !== null; case 'paternalGrandmother': return data.paternalGrandmother.alive !== null; case 'maternalGrandmother': return data.maternalGrandmother.alive !== null; default: return true; } }
+    function goBack() { do { currentStep--; } while (currentStep > 0 && shouldSkipStep(steps[currentStep].id)); renderStep(); }
+    function goNext() { currentStep++; renderStep(); }
+
+// case 'estate': return data.totalEstate > 0
+
+    function calculateInheritance() {
+      const estate = data.totalEstate; const heirs = []; let totalShares = 0;
+      const hasSons = data.sons.count > 0; const hasDaughters = data.daughters.count > 0; const hasChildren = hasSons || hasDaughters;
+      const hasSonsOfSons = data.sonsOfSons.count > 0; const hasDescendants = hasChildren || hasSonsOfSons || data.daughtersOfSons.count > 0;
+      const hasFather = data.father.alive; const hasGrandfather = data.paternalGrandfather.alive;
+
+      if (data.spouse.alive) {
+        let spouseFraction, reason;
+        if (data.deceasedGender === 'male') {
+          const count = data.spouse.count || 1;
+          if (hasDescendants) { spouseFraction = 1 / 8; reason = `Wife/wives receive 1/8. Shared equally among ${count}.`; }
+          else { spouseFraction = 1 / 4; reason = `Wife/wives receive 1/4. Shared equally among ${count}.`; }
+          heirs.push({ name: `Wife (${count})`, fraction: spouseFraction, share: spouseFraction, reason, type: 'sharer', count });
+        } else {
+          if (hasDescendants) { spouseFraction = 1 / 4; reason = 'Husband receives 1/4.'; }
+          else { spouseFraction = 1 / 2; reason = 'Husband receives 1/2.'; }
+          heirs.push({ name: 'Husband', fraction: spouseFraction, share: spouseFraction, reason, type: 'sharer', count: 1 });
+        }
+        totalShares += spouseFraction;
+      }
+
+      if (data.father.alive) {
+        if (hasDescendants) { heirs.push({ name: 'Father', fraction: 1 / 6, share: 1 / 6, reason: 'Father receives 1/6 as a sharer.', type: 'sharer', count: 1, alsoResidue: !hasSons && !hasSonsOfSons }); totalShares += 1 / 6; }
+      }
+
+      if (data.mother.alive) {
+        let motherFraction, reason;
+        const totalSiblings = data.fullBrothers.count + data.fullSisters.count + data.consanguineBrothers.count + data.consanguineSisters.count + data.uterineBrothers.count + data.uterineSisters.count;
+        if (hasDescendants) { motherFraction = 1 / 6; reason = 'Mother receives 1/6.'; }
+        else if (totalSiblings >= 2) { motherFraction = 1 / 6; reason = 'Mother receives 1/6 (multiple siblings present).'; }
+        else { motherFraction = 1 / 3; reason = 'Mother receives 1/3.'; }
+        heirs.push({ name: 'Mother', fraction: motherFraction, share: motherFraction, reason, type: 'sharer', count: 1 });
+        totalShares += motherFraction;
+      }
+
+      if (!data.mother.alive) {
+        const grandmothers = [];
+        if (data.paternalGrandmother.alive) grandmothers.push('Paternal');
+        if (data.maternalGrandmother.alive) grandmothers.push('Maternal');
+        if (grandmothers.length > 0) {
+          const share = 1 / 6; const perGrandmother = share / grandmothers.length;
+          grandmothers.forEach(type => { heirs.push({ name: `${type} Grandmother`, fraction: perGrandmother, share: perGrandmother, reason: 'Grandmother receives 1/6.', type: 'sharer', count: 1 }); });
+          totalShares += share;
+        }
+      }
+
+      if (!data.father.alive && data.paternalGrandfather.alive) {
+        if (hasDescendants) { heirs.push({ name: 'Paternal Grandfather', fraction: 1 / 6, share: 1 / 6, reason: 'Grandfather receives 1/6.', type: 'sharer', count: 1, alsoResidue: !hasSons && !hasSonsOfSons }); totalShares += 1 / 6; }
+      }
+
+      if (!hasSons && hasDaughters) {
+        let daughterFraction, reason;
+        if (data.daughters.count === 1) { daughterFraction = 1 / 2; reason = 'Single daughter receives 1/2.'; }
+        else { daughterFraction = 2 / 3; reason = 'Multiple daughters share 2/3.'; }
+        heirs.push({ name: `Daughter${data.daughters.count > 1 ? 's' : ''} (${data.daughters.count})`, fraction: daughterFraction, share: daughterFraction, reason, type: 'sharer', count: data.daughters.count });
+        totalShares += daughterFraction;
+      }
+
+      if (!hasSons && data.daughtersOfSons.count > 0) {
+        let sdFraction = 0, reason = '';
+        if (data.daughters.count === 0) {
+          if (data.daughtersOfSons.count === 1) { sdFraction = 1 / 2; reason = "Son's daughter receives 1/2."; }
+          else { sdFraction = 2 / 3; reason = "Son's daughters share 2/3."; }
+        } else if (data.daughters.count === 1) { sdFraction = 1 / 6; reason = "Son's daughter(s) receive 1/6 completion share."; }
+
+        if (sdFraction > 0) { heirs.push({ name: `Son's Daughter${data.daughtersOfSons.count > 1 ? 's' : ''} (${data.daughtersOfSons.count})`, fraction: sdFraction, share: sdFraction, reason, type: 'sharer', count: data.daughtersOfSons.count }); totalShares += sdFraction; }
+        else if (data.daughters.count >= 2) { heirs.push({ name: `Son's Daughter${data.daughtersOfSons.count > 1 ? 's' : ''} (${data.daughtersOfSons.count})`, fraction: 0, share: 0, reason: "Excluded by multiple daughters.", type: 'excluded', count: data.daughtersOfSons.count }); }
+      }
+
+      const totalUterine = data.uterineBrothers.count + data.uterineSisters.count;
+      if (totalUterine > 0) {
+        if (hasDescendants || hasFather || hasGrandfather) { heirs.push({ name: `Uterine Sibling${totalUterine > 1 ? 's' : ''} (${totalUterine})`, fraction: 0, share: 0, reason: 'Excluded by descendants/father.', type: 'excluded', count: totalUterine }); }
+        else {
+          let uterineFraction = totalUterine === 1 ? 1 / 6 : 1 / 3;
+          heirs.push({ name: `Uterine Sibling${totalUterine > 1 ? 's' : ''} (${totalUterine})`, fraction: uterineFraction, share: uterineFraction, reason: `Uterine siblings receive ${totalUterine === 1 ? '1/6' : '1/3'}.`, type: 'sharer', count: totalUterine });
+          totalShares += uterineFraction;
+        }
+      }
+
+      if (!hasSons && !hasSonsOfSons && !hasFather && !hasGrandfather && data.fullBrothers.count === 0 && data.fullSisters.count > 0) {
+        let fsFraction = data.fullSisters.count === 1 ? 1 / 2 : 2 / 3;
+        heirs.push({ name: `Full Sister${data.fullSisters.count > 1 ? 's' : ''} (${data.fullSisters.count})`, fraction: fsFraction, share: fsFraction, reason: 'Full sisters receive share.', type: 'sharer', count: data.fullSisters.count });
+        totalShares += fsFraction;
+      }
+
+      if (!hasSons && !hasSonsOfSons && !hasFather && !hasGrandfather && data.fullBrothers.count === 0 && data.consanguineBrothers.count === 0 && data.consanguineSisters.count > 0) {
+        if (data.fullSisters.count === 0) {
+          let csFraction = data.consanguineSisters.count === 1 ? 1 / 2 : 2 / 3;
+          heirs.push({ name: `Consanguine Sister${data.consanguineSisters.count > 1 ? 's' : ''} (${data.consanguineSisters.count})`, fraction: csFraction, share: csFraction, reason: 'Consanguine sisters receive share.', type: 'sharer', count: data.consanguineSisters.count });
+          totalShares += csFraction;
+        } else if (data.fullSisters.count === 1) {
+          heirs.push({ name: `Consanguine Sister${data.consanguineSisters.count > 1 ? 's' : ''} (${data.consanguineSisters.count})`, fraction: 1 / 6, share: 1 / 6, reason: 'Completion share of 1/6.', type: 'sharer', count: data.consanguineSisters.count });
+          totalShares += 1 / 6;
+        } else { heirs.push({ name: `Consanguine Sister${data.consanguineSisters.count > 1 ? 's' : ''} (${data.consanguineSisters.count})`, fraction: 0, share: 0, reason: 'Excluded by multiple full sisters.', type: 'excluded', count: data.consanguineSisters.count }); }
+      }
+
+      let residue = 1 - totalShares;
+      const residuaries = [];
+
+      if (hasSons) {
+        const totalParts = (data.sons.count * 2) + data.daughters.count;
+        const sonShare = (2 / totalParts) * residue; const daughterShare = data.daughters.count > 0 ? (1 / totalParts) * residue : 0;
+        residuaries.push({ name: `Son${data.sons.count > 1 ? 's' : ''} (${data.sons.count})`, share: sonShare * data.sons.count, perPerson: sonShare, reason: 'Sons receive residue.', type: 'residuary', count: data.sons.count });
+        if (data.daughters.count > 0) { residuaries.push({ name: `Daughter${data.daughters.count > 1 ? 's' : ''} (${data.daughters.count})`, share: daughterShare * data.daughters.count, perPerson: daughterShare, reason: 'Daughters receive residue with sons.', type: 'residuary', count: data.daughters.count }); }
+        residue = 0;
+      } else if (hasSonsOfSons) {
+        const totalParts = (data.sonsOfSons.count * 2) + data.daughtersOfSons.count;
+        const ssShare = (2 / totalParts) * residue; const sdShare = data.daughtersOfSons.count > 0 ? (1 / totalParts) * residue : 0;
+        residuaries.push({ name: `Son's Son${data.sonsOfSons.count > 1 ? 's' : ''} (${data.sonsOfSons.count})`, share: ssShare * data.sonsOfSons.count, perPerson: ssShare, reason: "Son's sons receive residue.", type: 'residuary', count: data.sonsOfSons.count });
+        if (data.daughtersOfSons.count > 0) {
+          const sdIndex = heirs.findIndex(h => h.name.includes("Son's Daughter"));
+          if (sdIndex !== -1) { totalShares -= heirs[sdIndex].share; heirs.splice(sdIndex, 1); residue = 1 - totalShares; }
+          residuaries.push({ name: `Son's Daughter${data.daughtersOfSons.count > 1 ? 's' : ''} (${data.daughtersOfSons.count})`, share: sdShare * data.daughtersOfSons.count, perPerson: sdShare, reason: "Receive residue with son's sons.", type: 'residuary', count: data.daughtersOfSons.count });
+        }
+        residue = 0;
+      } else if (hasFather && residue > 0) {
+        const fatherHeir = heirs.find(h => h.name === 'Father');
+        if (fatherHeir) { fatherHeir.share += residue; fatherHeir.reason += ` Also takes residue.`; }
+        else { residuaries.push({ name: 'Father', share: residue, reason: 'Father takes residue.', type: 'residuary', count: 1 }); }
+        residue = 0;
+      } else if (hasGrandfather && !hasFather && residue > 0) {
+        const gfHeir = heirs.find(h => h.name === 'Paternal Grandfather');
+        if (gfHeir) { gfHeir.share += residue; gfHeir.reason += ` Also takes residue.`; }
+        else { residuaries.push({ name: 'Paternal Grandfather', share: residue, reason: 'Grandfather takes residue.', type: 'residuary', count: 1 }); }
+        residue = 0;
+      } else if (data.fullBrothers.count > 0 && residue > 0) {
+        const totalParts = (data.fullBrothers.count * 2) + data.fullSisters.count;
+        const brotherShare = (2 / totalParts) * residue; const sisterShare = data.fullSisters.count > 0 ? (1 / totalParts) * residue : 0;
+        residuaries.push({ name: `Full Brother${data.fullBrothers.count > 1 ? 's' : ''} (${data.fullBrothers.count})`, share: brotherShare * data.fullBrothers.count, perPerson: brotherShare, reason: 'Full brothers take residue.', type: 'residuary', count: data.fullBrothers.count });
+        if (data.fullSisters.count > 0) {
+          const fsIndex = heirs.findIndex(h => h.name.includes('Full Sister'));
+          if (fsIndex !== -1) { totalShares -= heirs[fsIndex].share; heirs.splice(fsIndex, 1); }
+          residuaries.push({ name: `Full Sister${data.fullSisters.count > 1 ? 's' : ''} (${data.fullSisters.count})`, share: sisterShare * data.fullSisters.count, perPerson: sisterShare, reason: 'Full sisters take residue with brothers.', type: 'residuary', count: data.fullSisters.count });
+        }
+        residue = 0;
+      } else if (data.consanguineBrothers.count > 0 && residue > 0) {
+        const totalParts = (data.consanguineBrothers.count * 2) + data.consanguineSisters.count;
+        const brotherShare = (2 / totalParts) * residue; const sisterShare = data.consanguineSisters.count > 0 ? (1 / totalParts) * residue : 0;
+        residuaries.push({ name: `Consanguine Brother${data.consanguineBrothers.count > 1 ? 's' : ''} (${data.consanguineBrothers.count})`, share: brotherShare * data.consanguineBrothers.count, perPerson: brotherShare, reason: 'Consanguine brothers take residue.', type: 'residuary', count: data.consanguineBrothers.count });
+        if (data.consanguineSisters.count > 0) {
+          const csIndex = heirs.findIndex(h => h.name.includes('Consanguine Sister'));
+          if (csIndex !== -1) { totalShares -= heirs[csIndex].share; heirs.splice(csIndex, 1); }
+          residuaries.push({ name: `Consanguine Sister${data.consanguineSisters.count > 1 ? 's' : ''} (${data.consanguineSisters.count})`, share: sisterShare * data.consanguineSisters.count, perPerson: sisterShare, reason: 'Take residue with consanguine brothers.', type: 'residuary', count: data.consanguineSisters.count });
+        }
+        residue = 0;
+      } else if (data.fullSisters.count > 0 && (hasDaughters || data.daughtersOfSons.count > 0) && residue > 0) {
+        const fsHeir = heirs.find(h => h.name.includes('Full Sister'));
+        if (fsHeir) { totalShares -= fsHeir.share; heirs.splice(heirs.indexOf(fsHeir), 1); }
+        residuaries.push({ name: `Full Sister${data.fullSisters.count > 1 ? 's' : ''} (${data.fullSisters.count})`, share: residue, reason: 'Full sisters become residuaries with daughters.', type: 'residuary', count: data.fullSisters.count });
+        residue = 0;
+      }
+
+      heirs.push(...residuaries);
+      let finalTotal = heirs.filter(h => h.type !== 'excluded').reduce((sum, h) => sum + h.share, 0);
+      let aulApplied = false;
+      if (finalTotal > 1.001) { aulApplied = true; heirs.forEach(h => { if (h.type !== 'excluded') { h.share = h.share / finalTotal; } }); }
+      let raddApplied = false;
+      if (finalTotal < 0.999 && residuaries.length === 0) {
+        raddApplied = true;
+        const eligibleForRadd = heirs.filter(h => h.type === 'sharer' && !h.name.includes('Husband') && !h.name.includes('Wife'));
+        if (eligibleForRadd.length > 0) {
+          const totalEligible = eligibleForRadd.reduce((sum, h) => sum + h.share, 0); const raddAmount = 1 - finalTotal;
+          eligibleForRadd.forEach(h => { h.share += (h.share / totalEligible) * raddAmount; h.reason += ' (Includes Radd)'; });
+        }
+      }
+      return { heirs: heirs.filter(h => h.share > 0 || h.type === 'excluded'), aulApplied, raddApplied, estate };
+    }
+
+    function formatCurrency(amount) { return new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(amount); }
+    function fractionToString(decimal) {
+      const fractions = [[1, '1 (Whole)'], [1 / 2, '1/2'], [1 / 3, '1/3'], [2 / 3, '2/3'], [1 / 4, '1/4'], [3 / 4, '3/4'], [1 / 6, '1/6'], [5 / 6, '5/6'], [1 / 8, '1/8'], [7 / 8, '7/8'], [1 / 12, '1/12'], [1 / 24, '1/24']];
+      for (const [val, str] of fractions) { if (Math.abs(decimal - val) < 0.001) return str; }
+      return (decimal * 100).toFixed(1) + '%';
+    }
+
+    function showResults() {
+      document.getElementById('wizard').classList.add('hidden');
+      const resultsDiv = document.getElementById('results');
+      resultsDiv.classList.remove('hidden');
+      const { heirs, aulApplied, raddApplied, estate } = calculateInheritance();
+
+      let html = `<h2>Inheritance Distribution</h2><div class="summary-card"><h3>Total Estate Value</h3><div class="amount">${formatCurrency(estate)}</div></div>`;
+      if (aulApplied) { html += `<div class="special-case"><h4>Aul Applied</h4><p>Total shares exceeded estate. Proportionately reduced.</p></div>`; }
+      if (raddApplied) { html += `<div class="special-case"><h4>Radd Applied</h4><p>Residue returned to eligible sharers.</p></div>`; }
+
+      heirs.forEach(heir => {
+        const amount = heir.share * estate; const perPerson = heir.count > 1 ? amount / heir.count : amount;
+        const isExcluded = heir.type === 'excluded';
+        html += `<div class="heir-card ${isExcluded ? 'no-share' : ''}"><h4>${heir.name}</h4>${isExcluded ? '<div class="share">Excluded</div>' : `<div class="share">${formatCurrency(amount)}</div><span class="fraction">${fractionToString(heir.share)}</span><span class="fraction">${(heir.share * 100).toFixed(2)}%</span>${heir.count > 1 ? `<span class="fraction">${formatCurrency(perPerson)} each</span>` : ''}`}<div class="reason">${heir.reason}</div></div>`;
+      });
+      html += `<button class="btn btn-primary" onclick="restart()" style="width:100%; margin-top:20px;">Start New Calculation</button>`;
+      resultsDiv.innerHTML = html;
+    }
+
+    function restart() {
+      currentStep = 0;
+      data = { deceasedGender: '', isSunniMuslim: null, totalEstate: 100, spouse: { alive: null, count: 0 }, father: { alive: null }, mother: { alive: null }, sons: { count: 0 }, daughters: { count: 0 }, sonsOfSons: { count: 0 }, daughtersOfSons: { count: 0 }, paternalGrandfather: { alive: null }, paternalGrandmother: { alive: null }, maternalGrandmother: { alive: null }, fullBrothers: { count: 0 }, fullSisters: { count: 0 }, consanguineBrothers: { count: 0 }, consanguineSisters: { count: 0 }, uterineBrothers: { count: 0 }, uterineSisters: { count: 0 } };
+      document.getElementById('results').classList.add('hidden');
+      document.getElementById('wizard').classList.remove('hidden');
+      renderStep();
+    }
+    renderStep();
+  </script>
+</body>
+
+</html>

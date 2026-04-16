@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shia Inheritance Calculator - Islamic Succession Law</title>
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --primary-dark: #2563eb;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --danger: #ef4444;
+            --radius: 12px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            border-radius: var(--radius) var(--radius) 0 0;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .header p {
+            color: #94a3b8;
+            font-size: 1rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
+            margin-bottom: 24px;
+            border: 1px solid var(--border);
+        }
+
+        h2 {
+            color: var(--text);
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+            border-bottom: 2px solid var(--bg);
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-bottom: 16px;
+            margin-top: 24px;
+        }
+
+        p.step-description {
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            font-size: 0.95rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #334155;
+            font-size: 0.95rem;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.2s;
+            color: var(--text);
+            background: #fff;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .radio-option {
+            flex: 1;
+            min-width: 140px;
+            position: relative;
+        }
+
+        .radio-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .radio-option label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+            margin: 0;
+            background: #f8fafc;
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+        .radio-option label:hover {
+            border-color: #cbd5e1;
+            background: #f1f5f9;
+        }
+
+        .radio-option input[type="radio"]:checked+label {
+            border-color: var(--primary);
+            background: #eff6ff;
+            color: var(--primary-dark);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 16px;
+            margin-top: 32px;
+            justify-content: space-between;
+        }
+
+        .btn {
+            padding: 14px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            flex: 1;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: #e2e8f0;
+            color: #475569;
+        }
+
+        .btn-secondary:hover {
+            background: #cbd5e1;
+        }
+
+        .add-btn {
+            width: 100%;
+            padding: 14px;
+            background: #f8fafc;
+            border: 2px dashed #cbd5e1;
+            color: var(--text-muted);
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .add-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: #eff6ff;
+        }
+
+        .remove-btn {
+            background: #fee2e2;
+            color: var(--danger);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s;
+            margin-top: 10px;
+        }
+
+        .remove-btn:hover {
+            background: #fca5a5;
+        }
+
+        .heir-card {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 16px;
+            border-left: 4px solid var(--primary);
+            position: relative;
+        }
+
+        .heir-card h4 {
+            margin-bottom: 16px;
+            color: var(--text);
+            font-size: 1.1rem;
+        }
+
+        .heir-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 10px;
+            align-items: end;
+        }
+
+        @media (max-width: 600px) {
+            .heir-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+        }
+
+        .step-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #e2e8f0;
+            transition: all 0.3s;
+        }
+
+        .step-dot.active {
+            background: var(--primary);
+            transform: scale(1.2);
+        }
+
+        .step-dot.completed {
+            background: #93c5fd;
+        }
+
+        .result-section {
+            margin-bottom: 32px;
+            margin-top: 20px;
+        }
+
+        .summary-box {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 24px;
+            border-radius: var(--radius);
+            margin-bottom: 24px;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+
+        .summary-box h3 {
+            color: rgba(255, 255, 255, 0.9);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            margin-top: 0;
+            padding-bottom: 12px;
+            margin-bottom: 16px;
+            font-size: 1.1rem;
+        }
+
+        .summary-stat {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .share-item {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 16px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .share-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .share-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--text);
+        }
+
+        .share-fraction {
+            background: #dbeafe;
+            color: var(--primary-dark);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .share-bar {
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 12px 0;
+        }
+
+        .share-bar-fill {
+            height: 100%;
+            background: var(--primary);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .share-reason {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
+        }
+
+        .excluded-item {
+            background: #fffbeb;
+            border-left: 4px solid #f59e0b;
+            padding: 16px;
+            margin-bottom: 12px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .excluded-name {
+            font-weight: 600;
+            color: #b45309;
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .info-text,
+        .disclaimer {
+            background: #eff6ff;
+            border-left: 4px solid var(--primary);
+            padding: 16px;
+            border-radius: 0 8px 8px 0;
+            color: #1e40af;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .disclaimer {
+            background: #fffbeb;
+            border-left-color: #f59e0b;
+            color: #b45309;
+            margin-top: 20px;
+        }
+
+        .class-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .class-1 {
+            background: #e0e7ff;
+            color: #3730a3;
+        }
+
+        .class-2 {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .class-3 {
+            background: #fce7f3;
+            color: #9d174d;
+        }
+
+        .class-spouse {
+            background: #fae8ff;
+            color: #86198f;
+        }
+
+        .review-section {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            border: 1px solid var(--border);
+        }
+
+        .review-section h4 {
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+
+        .review-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .review-item:last-child {
+            border-bottom: none;
+        }
+
+        .predeceased-section {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px dashed var(--border);
+        }
+
+        .predeceased-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+
+            .header {
+                background: #1e293b !important;
+                color: white !important;
+                border-radius: 0;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .btn-group,
+            .add-btn,
+            .remove-btn {
+                display: none !important;
+            }
+
+            .card {
+                box-shadow: none;
+                border: 1px solid #e2e8f0;
+            }
+        }
+
+/* -------------------------------------------- */
+        .back-home-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            color: #1e293b;
+            padding: 10px 16px;
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            backdrop-filter: blur(8px);
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            z-index: 1000;
+        }
+
+        .back-home-btn .arrow {
+            font-size: 1.1rem;
+            transition: transform 0.2s ease;
+        }
+
+        .back-home-btn:hover {
+            transform: translateY(-3px);
+            border-color: #3b82f6;
+            box-shadow: 0 8px 18px rgba(59, 130, 246, 0.25);
+        }
+
+        .back-home-btn:hover .arrow {
+            transform: translateX(-3px);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Back to Home Button -->
+        <a href="../index.html#calculator" class="back-home-btn">
+            <span class="arrow">←</span> Back to Home
+        </a>
+
+        <!-- Header Area -->
+        <div class="header">
+            <h1>Shia Inheritance Calculator</h1>
+            <p>Calculate inheritance shares according to Shia Muslim law</p>
+        </div>
+
+        <div class="card">
+            <div class="step-indicator" id="stepIndicator"></div>
+            <div id="wizardContent"></div>
+            <div class="btn-group" id="btnGroup">
+                <button class="btn btn-secondary" id="prevBtn" onclick="prevStep()">Previous</button>
+                <button class="btn btn-primary" id="nextBtn" onclick="nextStep()">Next</button>
+            </div>
+        </div>
+        <div id="resultsSection" class="hidden"></div>
+    </div>
+
+    <script>
+        let currentStep = 0;
+        const totalSteps = 8;
+
+        let state = {
+            deceasedGender: '', spouse: { alive: false, name: '' }, father: { alive: false, name: '' }, mother: { alive: false, name: '' },
+            children: [], siblings: [], paternalGrandfather: { alive: false, name: '' }, paternalGrandmother: { alive: false, name: '' },
+            maternalGrandfather: { alive: false, name: '' }, maternalGrandmother: { alive: false, name: '' }, unclesAunts: []
+        };
+
+        document.addEventListener('DOMContentLoaded', function () {
+            renderStep(); updateStepIndicator();
+        });
+
+        function updateStepIndicator() {
+            const indicator = document.getElementById('stepIndicator');
+            indicator.innerHTML = '';
+            for (let i = 0; i < totalSteps; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'step-dot';
+                if (i < currentStep) dot.classList.add('completed');
+                if (i === currentStep) dot.classList.add('active');
+                indicator.appendChild(dot);
+            }
+        }
+
+        function renderStep() {
+            const content = document.getElementById('wizardContent');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            prevBtn.classList.toggle('hidden', currentStep === 0);
+            nextBtn.textContent = currentStep === totalSteps - 1 ? 'Calculate Shares' : 'Next';
+
+            switch (currentStep) {
+                case 0: renderDeceasedGenderStep(content); break; case 1: renderSpouseStep(content); break;
+                case 2: renderParentsStep(content); break; case 3: renderChildrenStep(content); break;
+                case 4: renderSiblingsStep(content); break; case 5: renderGrandparentsStep(content); break;
+                case 6: renderUnclesAuntsStep(content); break; case 7: renderReviewStep(content); break;
+            }
+            updateStepIndicator();
+        }
+
+        function nextStep() {
+            if (currentStep === 0 && !state.deceasedGender) { alert('Please select the gender of the deceased.'); return; }
+            if (currentStep < totalSteps - 1) { currentStep++; renderStep(); } else { calculateAndShowResults(); }
+        }
+
+        function prevStep() { if (currentStep > 0) { currentStep--; renderStep(); } }
+
+        function renderDeceasedGenderStep(container) {
+            container.innerHTML = `
+                <h2>Step 1: About the Deceased</h2>
+                <p class="step-description">Please select the gender of the deceased person whose estate is being distributed.</p>
+                <div class="form-group">
+                    <label>Gender of the Deceased</label>
+                    <div class="radio-group">
+                        <div class="radio-option"><input type="radio" name="deceasedGender" id="male" value="male" ${state.deceasedGender === 'male' ? 'checked' : ''} onchange="state.deceasedGender = 'male'"><label for="male">Male</label></div>
+                        <div class="radio-option"><input type="radio" name="deceasedGender" id="female" value="female" ${state.deceasedGender === 'female' ? 'checked' : ''} onchange="state.deceasedGender = 'female'"><label for="female">Female</label></div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderSpouseStep(container) {
+            const spouseLabel = state.deceasedGender === 'male' ? 'Wife' : 'Husband';
+            container.innerHTML = `
+                <h2>Step 2: Spouse</h2>
+                <p class="step-description">Is the ${spouseLabel.toLowerCase()} of the deceased alive?</p>
+                <div class="form-group">
+                    <label>Is the ${spouseLabel} alive?</label>
+                    <div class="radio-group">
+                        <div class="radio-option"><input type="radio" name="spouseAlive" id="spouseYes" value="yes" ${state.spouse.alive ? 'checked' : ''} onchange="toggleSpouse(true)"><label for="spouseYes">Yes</label></div>
+                        <div class="radio-option"><input type="radio" name="spouseAlive" id="spouseNo" value="no" ${!state.spouse.alive ? 'checked' : ''} onchange="toggleSpouse(false)"><label for="spouseNo">No</label></div>
+                    </div>
+                </div>
+                <div class="form-group ${state.spouse.alive ? '' : 'hidden'}" id="spouseNameGroup">
+                    <label>${spouseLabel}'s Name (optional)</label>
+                    <input type="text" id="spouseName" placeholder="Enter name" value="${state.spouse.name}" onchange="state.spouse.name = this.value">
+                </div>
+            `;
+        }
+
+        function toggleSpouse(alive) { state.spouse.alive = alive; document.getElementById('spouseNameGroup').classList.toggle('hidden', !alive); }
+
+        function renderParentsStep(container) {
+            container.innerHTML = `
+                <h2>Step 3: Parents</h2>
+                <p class="step-description">Please indicate which parents of the deceased are alive.</p>
+                <div class="heir-card">
+                    <h4>Father</h4>
+                    <div class="form-group">
+                        <label>Is the Father alive?</label>
+                        <div class="radio-group">
+                            <div class="radio-option"><input type="radio" name="fatherAlive" id="fatherYes" value="yes" ${state.father.alive ? 'checked' : ''} onchange="toggleParent('father', true)"><label for="fatherYes">Yes</label></div>
+                            <div class="radio-option"><input type="radio" name="fatherAlive" id="fatherNo" value="no" ${!state.father.alive ? 'checked' : ''} onchange="toggleParent('father', false)"><label for="fatherNo">No</label></div>
+                        </div>
+                    </div>
+                    <div class="form-group ${state.father.alive ? '' : 'hidden'}" id="fatherNameGroup">
+                        <label>Father's Name (optional)</label>
+                        <input type="text" placeholder="Enter name" value="${state.father.name}" onchange="state.father.name = this.value">
+                    </div>
+                </div>
+                <div class="heir-card">
+                    <h4>Mother</h4>
+                    <div class="form-group">
+                        <label>Is the Mother alive?</label>
+                        <div class="radio-group">
+                            <div class="radio-option"><input type="radio" name="motherAlive" id="motherYes" value="yes" ${state.mother.alive ? 'checked' : ''} onchange="toggleParent('mother', true)"><label for="motherYes">Yes</label></div>
+                            <div class="radio-option"><input type="radio" name="motherAlive" id="motherNo" value="no" ${!state.mother.alive ? 'checked' : ''} onchange="toggleParent('mother', false)"><label for="motherNo">No</label></div>
+                        </div>
+                    </div>
+                    <div class="form-group ${state.mother.alive ? '' : 'hidden'}" id="motherNameGroup">
+                        <label>Mother's Name (optional)</label>
+                        <input type="text" placeholder="Enter name" value="${state.mother.name}" onchange="state.mother.name = this.value">
+                    </div>
+                </div>
+            `;
+        }
+
+        function toggleParent(parent, alive) { state[parent].alive = alive; document.getElementById(parent + 'NameGroup').classList.toggle('hidden', !alive); }
+
+        function renderChildrenStep(container) {
+            let childrenHtml = state.children.map((child, index) => `
+                <div class="heir-card">
+                    <button class="remove-btn" style="position:absolute; top:20px; right:20px; margin:0;" onclick="removeChild(${index})">Remove</button>
+                    <h4>Child ${index + 1}</h4>
+                    <div class="heir-row">
+                        <div class="form-group" style="margin:0;"><label>Name (optional)</label><input type="text" placeholder="Enter name" value="${child.name}" onchange="updateChild(${index}, 'name', this.value)"></div>
+                        <div class="form-group" style="margin:0;"><label>Gender</label><select onchange="updateChild(${index}, 'gender', this.value)"><option value="male" ${child.gender === 'male' ? 'selected' : ''}>Son</option><option value="female" ${child.gender === 'female' ? 'selected' : ''}>Daughter</option></select></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Is this child alive?</label>
+                        <div class="radio-group">
+                            <div class="radio-option"><input type="radio" name="child${index}Alive" id="child${index}Yes" value="yes" ${child.alive ? 'checked' : ''} onchange="updateChild(${index}, 'alive', true)"><label for="child${index}Yes">Yes, Alive</label></div>
+                            <div class="radio-option"><input type="radio" name="child${index}Alive" id="child${index}No" value="no" ${!child.alive ? 'checked' : ''} onchange="updateChild(${index}, 'alive', false)"><label for="child${index}No">Predeceased</label></div>
+                        </div>
+                    </div>
+                    ${!child.alive ? `
+                        <div class="predeceased-section">
+                            <p class="predeceased-label">Lineal descendants of predeceased child (grandchildren):</p>
+                            ${child.descendants.map((desc, di) => `
+                                <div class="heir-row" style="margin-bottom:10px;">
+                                    <div class="form-group" style="margin-bottom:0;"><input type="text" placeholder="Name" value="${desc.name}" onchange="updateDescendant(${index}, ${di}, 'name', this.value)"></div>
+                                    <div class="form-group" style="margin-bottom:0;"><select onchange="updateDescendant(${index}, ${di}, 'gender', this.value)"><option value="male" ${desc.gender === 'male' ? 'selected' : ''}>Grandson</option><option value="female" ${desc.gender === 'female' ? 'selected' : ''}>Granddaughter</option></select></div>
+                                </div>
+                            `).join('')}
+                            <button class="add-btn" style="margin-top:10px;" onclick="addDescendant(${index})">+ Add Grandchild</button>
+                        </div>
+                    ` : ''}
+                </div>
+            `).join('');
+
+            container.innerHTML = `
+                <h2>Step 4: Children</h2>
+                <p class="step-description">Add all children of the deceased. If a child is predeceased, add their lineal descendants.</p>
+                <div class="info-text">In Shia law, grandchildren can inherit through a predeceased parent by stirpital succession.</div>
+                ${childrenHtml}
+                <button class="add-btn" onclick="addChild()">+ Add Child</button>
+            `;
+        }
+
+        function addChild() { state.children.push({ name: '', gender: 'male', alive: true, descendants: [] }); renderStep(); }
+        function removeChild(index) { state.children.splice(index, 1); renderStep(); }
+        function updateChild(index, field, value) { state.children[index][field] = value; if (field === 'alive' && value === true) { state.children[index].descendants = []; } renderStep(); }
+        function addDescendant(childIndex) { state.children[childIndex].descendants.push({ name: '', gender: 'male' }); renderStep(); }
+        function updateDescendant(childIndex, descIndex, field, value) { state.children[childIndex].descendants[descIndex][field] = value; }
+
+        function renderSiblingsStep(container) {
+            let siblingsHtml = state.siblings.map((sibling, index) => `
+                <div class="heir-card">
+                    <button class="remove-btn" style="position:absolute; top:20px; right:20px; margin:0;" onclick="removeSibling(${index})">Remove</button>
+                    <h4>Sibling ${index + 1}</h4>
+                    <div class="heir-row">
+                        <div class="form-group" style="margin:0;"><label>Name (optional)</label><input type="text" placeholder="Enter name" value="${sibling.name}" onchange="updateSibling(${index}, 'name', this.value)"></div>
+                        <div class="form-group" style="margin:0;"><label>Gender</label><select onchange="updateSibling(${index}, 'gender', this.value)"><option value="male" ${sibling.gender === 'male' ? 'selected' : ''}>Brother</option><option value="female" ${sibling.gender === 'female' ? 'selected' : ''}>Sister</option></select></div>
+                    </div>
+                    <div class="form-group"><label>Type of Sibling</label><select onchange="updateSibling(${index}, 'type', this.value)"><option value="full" ${sibling.type === 'full' ? 'selected' : ''}>Full (same father and mother)</option><option value="consanguine" ${sibling.type === 'consanguine' ? 'selected' : ''}>Consanguine (same father only)</option><option value="uterine" ${sibling.type === 'uterine' ? 'selected' : ''}>Uterine (same mother only)</option></select></div>
+                    <div class="form-group">
+                        <label>Is this sibling alive?</label>
+                        <div class="radio-group">
+                            <div class="radio-option"><input type="radio" name="sibling${index}Alive" id="sibling${index}Yes" value="yes" ${sibling.alive ? 'checked' : ''} onchange="updateSibling(${index}, 'alive', true)"><label for="sibling${index}Yes">Yes, Alive</label></div>
+                            <div class="radio-option"><input type="radio" name="sibling${index}Alive" id="sibling${index}No" value="no" ${!sibling.alive ? 'checked' : ''} onchange="updateSibling(${index}, 'alive', false)"><label for="sibling${index}No">Predeceased</label></div>
+                        </div>
+                    </div>
+                    ${!sibling.alive ? `
+                        <div class="predeceased-section">
+                            <p class="predeceased-label">Lineal descendants of predeceased sibling:</p>
+                            ${sibling.descendants.map((desc, di) => `
+                                <div class="heir-row" style="margin-bottom:10px;">
+                                    <div class="form-group" style="margin-bottom:0;"><input type="text" placeholder="Name" value="${desc.name}" onchange="updateSiblingDescendant(${index}, ${di}, 'name', this.value)"></div>
+                                    <div class="form-group" style="margin-bottom:0;"><select onchange="updateSiblingDescendant(${index}, ${di}, 'gender', this.value)"><option value="male" ${desc.gender === 'male' ? 'selected' : ''}>Male</option><option value="female" ${desc.gender === 'female' ? 'selected' : ''}>Female</option></select></div>
+                                </div>
+                            `).join('')}
+                            <button class="add-btn" style="margin-top:10px;" onclick="addSiblingDescendant(${index})">+ Add Descendant</button>
+                        </div>
+                    ` : ''}
+                </div>
+            `).join('');
+
+            container.innerHTML = `
+                <h2>Step 5: Siblings</h2>
+                <p class="step-description">Add all siblings of the deceased. Please specify whether each sibling is full, consanguine, or uterine.</p>
+                <div class="info-text"><strong>Full:</strong> Share both parents<br><strong>Consanguine:</strong> Share father<br><strong>Uterine:</strong> Share mother</div>
+                ${siblingsHtml}
+                <button class="add-btn" onclick="addSibling()">+ Add Sibling</button>
+            `;
+        }
+
+        function addSibling() { state.siblings.push({ name: '', gender: 'male', type: 'full', alive: true, descendants: [] }); renderStep(); }
+        function removeSibling(index) { state.siblings.splice(index, 1); renderStep(); }
+        function updateSibling(index, field, value) { state.siblings[index][field] = value; if (field === 'alive' && value === true) { state.siblings[index].descendants = []; } renderStep(); }
+        function addSiblingDescendant(siblingIndex) { state.siblings[siblingIndex].descendants.push({ name: '', gender: 'male' }); renderStep(); }
+        function updateSiblingDescendant(siblingIndex, descIndex, field, value) { state.siblings[siblingIndex].descendants[descIndex][field] = value; }
+
+        function renderGrandparentsStep(container) {
+            container.innerHTML = `
+                <h2>Step 6: Grandparents</h2>
+                <p class="step-description">Please indicate which grandparents of the deceased are alive.</p>
+                <h3 style="margin: 20px 0 15px;">Paternal Side (Father's Parents)</h3>
+                <div class="heir-card">
+                    <h4>Paternal Grandfather</h4>
+                    <div class="form-group">
+                        <div class="radio-group">
+                            <div class="radio-option"><input type="radio" name="pgfAlive" id="pgfYes" value="yes" ${state.paternalGrandfather.alive ? 'checked' : ''} onchange="toggleGrandparent('paternalGrandfather', true)"><label for="pgfYes">Yes</label></div>
+                            <div class="radio-option"><input type="radio" name="pgfAlive" id="pgfNo" value="no" ${!state.paternalGrandfather.alive ? 'checked' : ''} onchange="toggleGrandparent('paternalGrandfather', false)"><label for="pgfNo">No</label></div>
+                        </div>
+                    </div>
+                    <div class="form-group ${state.paternalGrandfather.alive ? '' : 'hidden'}" id="paternalGrandfatherNameGroup"><label>Name (optional)</label><input type="text" placeholder="Enter name" value="${state.paternalGrandfather.name}" onchange="state.paternalGrandfather.name = this.value"></div>
+                </div>
+                <div class="heir-card">
+                    <h4>Paternal Grandmother</h4>
+                    <div class="form-group">
+                        <div class="radio-group">
+                            <div class="radio-option"><input type="radio" name="pgmAlive" id="pgmYes" value="yes" ${state.paternalGrandmother.alive ? 'checked' : ''} onchange="toggleGrandparent('paternalGrandmother', true)"><label for="pgmYes">Yes</label></div>
+                            <div class="radio-option"><input type="radio" name="pgmAlive" id="pgmNo" value="no" ${!state.paternalGrandmother.alive ? 'checked' : ''} onchange="toggleGrandparent('paternalGrandmother', false)"><label for="pgmNo">No</label></div>
+                        </div>
+                    </div>
+                    <div class="form-group ${state.paternalGrandmother.alive ? '' : 'hidden'}" id="paternalGrandmotherNameGroup"><label>Name (optional)</label><input type="text" placeholder="Enter name" value="${state.paternalGrandmother.name}" onchange="state.paternalGrandmother.name = this.value"></div>
+                </div>
+                <h3 style="margin: 30px 0 15px;">Maternal Side (Mother's Parents)</h3>
+                <div class="heir-card">
+                    <h4>Maternal Grandfather</h4>
+                    <div class="form-group">
+                        <div class="radio-group">
+                            <div class="radio-option"><input type="radio" name="mgfAlive" id="mgfYes" value="yes" ${state.maternalGrandfather.alive ? 'checked' : ''} onchange="toggleGrandparent('maternalGrandfather', true)"><label for="mgfYes">Yes</label></div>
+                            <div class="radio-option"><input type="radio" name="mgfAlive" id="mgfNo" value="no" ${!state.maternalGrandfather.alive ? 'checked' : ''} onchange="toggleGrandparent('maternalGrandfather', false)"><label for="mgfNo">No</label></div>
+                        </div>
+                    </div>
+                    <div class="form-group ${state.maternalGrandfather.alive ? '' : 'hidden'}" id="maternalGrandfatherNameGroup"><label>Name (optional)</label><input type="text" placeholder="Enter name" value="${state.maternalGrandfather.name}" onchange="state.maternalGrandfather.name = this.value"></div>
+                </div>
+                <div class="heir-card">
+                    <h4>Maternal Grandmother</h4>
+                    <div class="form-group">
+                        <div class="radio-group">
+                            <div class="radio-option"><input type="radio" name="mgmAlive" id="mgmYes" value="yes" ${state.maternalGrandmother.alive ? 'checked' : ''} onchange="toggleGrandparent('maternalGrandmother', true)"><label for="mgmYes">Yes</label></div>
+                            <div class="radio-option"><input type="radio" name="mgmAlive" id="mgmNo" value="no" ${!state.maternalGrandmother.alive ? 'checked' : ''} onchange="toggleGrandparent('maternalGrandmother', false)"><label for="mgmNo">No</label></div>
+                        </div>
+                    </div>
+                    <div class="form-group ${state.maternalGrandmother.alive ? '' : 'hidden'}" id="maternalGrandmotherNameGroup"><label>Name (optional)</label><input type="text" placeholder="Enter name" value="${state.maternalGrandmother.name}" onchange="state.maternalGrandmother.name = this.value"></div>
+                </div>
+            `;
+        }
+
+        function toggleGrandparent(gp, alive) { state[gp].alive = alive; document.getElementById(gp + 'NameGroup').classList.toggle('hidden', !alive); }
+
+        function renderUnclesAuntsStep(container) {
+            let unclesAuntsHtml = state.unclesAunts.map((ua, index) => `
+                <div class="heir-card">
+                    <button class="remove-btn" style="position:absolute; top:20px; right:20px; margin:0;" onclick="removeUncleAunt(${index})">Remove</button>
+                    <h4>${ua.gender === 'male' ? 'Uncle' : 'Aunt'} ${index + 1}</h4>
+                    <div class="heir-row">
+                        <div class="form-group" style="margin:0;"><label>Name (optional)</label><input type="text" placeholder="Enter name" value="${ua.name}" onchange="updateUncleAunt(${index}, 'name', this.value)"></div>
+                        <div class="form-group" style="margin:0;"><label>Gender</label><select onchange="updateUncleAunt(${index}, 'gender', this.value)"><option value="male" ${ua.gender === 'male' ? 'selected' : ''}>Uncle</option><option value="female" ${ua.gender === 'female' ? 'selected' : ''}>Aunt</option></select></div>
+                    </div>
+                    <div class="heir-row">
+                        <div class="form-group" style="margin:0;"><label>Side</label><select onchange="updateUncleAunt(${index}, 'side', this.value)"><option value="paternal" ${ua.side === 'paternal' ? 'selected' : ''}>Paternal (Father's side)</option><option value="maternal" ${ua.side === 'maternal' ? 'selected' : ''}>Maternal (Mother's side)</option></select></div>
+                        <div class="form-group" style="margin:0;"><label>Type</label><select onchange="updateUncleAunt(${index}, 'type', this.value)"><option value="full" ${ua.type === 'full' ? 'selected' : ''}>Full</option><option value="consanguine" ${ua.type === 'consanguine' ? 'selected' : ''}>Consanguine</option><option value="uterine" ${ua.type === 'uterine' ? 'selected' : ''}>Uterine</option></select></div>
+                    </div>
+                </div>
+            `).join('');
+
+            container.innerHTML = `
+                <h2>Step 7: Uncles and Aunts</h2>
+                <p class="step-description">Add uncles and aunts of the deceased (siblings of the deceased's parents).</p>
+                <div class="info-text">Uncles and aunts belong to Class III and only inherit if there are no Class I or Class II heirs.</div>
+                ${unclesAuntsHtml}
+                <button class="add-btn" onclick="addUncleAunt()">+ Add Uncle/Aunt</button>
+            `;
+        }
+
+        function addUncleAunt() { state.unclesAunts.push({ name: '', gender: 'male', side: 'paternal', type: 'full' }); renderStep(); }
+        function removeUncleAunt(index) { state.unclesAunts.splice(index, 1); renderStep(); }
+        function updateUncleAunt(index, field, value) { state.unclesAunts[index][field] = value; if (field === 'gender') renderStep(); }
+
+        function renderReviewStep(container) {
+            const spouseLabel = state.deceasedGender === 'male' ? 'Wife' : 'Husband';
+            let childrenSummary = state.children.length === 0 ? 'None' : state.children.map(c => `${c.name || (c.gender === 'male' ? 'Son' : 'Daughter')}${!c.alive ? ' (predeceased)' : ''}`).join(', ');
+            let siblingsSummary = state.siblings.length === 0 ? 'None' : state.siblings.map(s => `${s.name || (s.gender === 'male' ? 'Brother' : 'Sister')} (${s.type})${!s.alive ? ' - predeceased' : ''}`).join(', ');
+
+            container.innerHTML = `
+                <h2>Step 8: Review Information</h2>
+                <p class="step-description">Please review all the information before calculating inheritance shares.</p>
+                
+                <div class="review-section"><h4>Deceased</h4><div class="review-item"><span>Gender</span><span>${state.deceasedGender === 'male' ? 'Male' : 'Female'}</span></div></div>
+                <div class="review-section"><h4>Spouse</h4><div class="review-item"><span>${spouseLabel}</span><span>${state.spouse.alive ? (state.spouse.name || 'Yes (alive)') : 'No'}</span></div></div>
+                <div class="review-section"><h4>Parents</h4><div class="review-item"><span>Father</span><span>${state.father.alive ? (state.father.name || 'Yes (alive)') : 'No'}</span></div><div class="review-item"><span>Mother</span><span>${state.mother.alive ? (state.mother.name || 'Yes (alive)') : 'No'}</span></div></div>
+                <div class="review-section"><h4>Children</h4><div class="review-item"><span>Children</span><span>${childrenSummary}</span></div></div>
+                <div class="review-section"><h4>Siblings</h4><div class="review-item"><span>Siblings</span><span>${siblingsSummary}</span></div></div>
+                <div class="review-section"><h4>Grandparents</h4><div class="review-item"><span>Paternal Grandfather</span><span>${state.paternalGrandfather.alive ? 'Yes' : 'No'}</span></div><div class="review-item"><span>Paternal Grandmother</span><span>${state.paternalGrandmother.alive ? 'Yes' : 'No'}</span></div><div class="review-item"><span>Maternal Grandfather</span><span>${state.maternalGrandfather.alive ? 'Yes' : 'No'}</span></div><div class="review-item"><span>Maternal Grandmother</span><span>${state.maternalGrandmother.alive ? 'Yes' : 'No'}</span></div></div>
+            `;
+        }
+
+        function calculateAndShowResults() {
+            const results = calculateInheritance();
+            document.querySelector('.card').classList.add('hidden');
+            const resultsSection = document.getElementById('resultsSection');
+            resultsSection.classList.remove('hidden');
+
+            let sharesHtml = results.shares.map(share => `
+                <div class="share-item">
+                    <div class="share-header">
+                        <span class="share-name">${share.name} <span class="class-badge class-${share.class === 'spouse' ? 'spouse' : share.class}">${share.class === 'spouse' ? 'Spouse' : 'Class ' + share.class}</span></span>
+                        <span class="share-fraction">${share.fraction}</span>
+                    </div>
+                    <div class="share-bar"><div class="share-bar-fill" style="width: ${share.percentage}%"></div></div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;"><span style="color: #64748b; font-size: 0.9rem; font-weight: 600;">${share.percentage.toFixed(2)}%</span></div>
+                    <div class="share-reason">${share.reason}</div>
+                </div>
+            `).join('');
+
+            let excludedHtml = results.excluded.length > 0 ? results.excluded.map(exc => `
+                <div class="excluded-item"><span class="excluded-name">${exc.name}</span><p style="margin-top: 5px; color: #64748b; font-size: 0.9rem;">${exc.reason}</p></div>
+            `).join('') : '<p style="color: #64748b;">No heirs were excluded.</p>';
+
+            resultsSection.innerHTML = `
+                <div class="summary-box">
+                    <h3>Inheritance Summary</h3>
+                    <div class="summary-stat"><span>Total Heirs</span><span>${results.shares.length}</span></div>
+                    <div class="summary-stat"><span>Total Allocated</span><span>${results.totalAllocated.toFixed(2)}%</span></div>
+                    ${results.totalAllocated < 100 ? `<div class="summary-stat"><span>Residue (Radd)</span><span>${(100 - results.totalAllocated).toFixed(2)}%</span></div>` : ''}
+                </div>
+                <div class="card">
+                    <div class="result-section"><h3>Share Distribution</h3>${sharesHtml}</div>
+                    <div class="result-section"><h3>Excluded Heirs</h3>${excludedHtml}</div>
+                    <div class="result-section">
+                        <h3>Calculation Explanation</h3>
+                        <div style="background: #f8fafc; padding: 20px; border-radius: 8px; border: 1px solid #e2e8f0; color: #334155;">
+                            ${results.explanation.map(exp => `<p style="margin-bottom: 10px;">${exp}</p>`).join('')}
+                        </div>
+                    </div>
+                    <div class="disclaimer"><strong>Disclaimer:</strong> This calculator provides general guidance based on Shia Islamic inheritance principles. For actual estate distribution, please consult with a qualified Islamic scholar or legal professional.</div>
+                    <div class="btn-group">
+                        <button class="btn btn-secondary" onclick="startOver()">Start Over</button>
+                        <button class="btn btn-primary" onclick="window.print()">Print Results</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function startOver() {
+            currentStep = 0;
+            state = { deceasedGender: '', spouse: { alive: false, name: '' }, father: { alive: false, name: '' }, mother: { alive: false, name: '' }, children: [], siblings: [], paternalGrandfather: { alive: false, name: '' }, paternalGrandmother: { alive: false, name: '' }, maternalGrandfather: { alive: false, name: '' }, maternalGrandmother: { alive: false, name: '' }, unclesAunts: [] };
+            document.querySelector('.card').classList.remove('hidden');
+            document.getElementById('resultsSection').classList.add('hidden');
+            renderStep();
+        }
+
+        function calculateInheritance() {
+            const shares = []; const excluded = []; const explanation = [];
+            const hasClassI = state.father.alive || state.mother.alive || state.children.some(c => c.alive) || state.children.some(c => !c.alive && c.descendants.length > 0);
+            const hasClassII = state.siblings.some(s => s.alive || s.descendants.length > 0) || state.paternalGrandfather.alive || state.paternalGrandmother.alive || state.maternalGrandfather.alive || state.maternalGrandmother.alive;
+            const hasClassIII = state.unclesAunts.length > 0;
+            const aliveChildren = state.children.filter(c => c.alive);
+            const sons = aliveChildren.filter(c => c.gender === 'male').length;
+            const daughters = aliveChildren.filter(c => c.gender === 'female').length;
+            const hasLinealDescendants = state.children.some(c => c.alive) || state.children.some(c => !c.alive && c.descendants.length > 0);
+
+            if (state.spouse.alive) {
+                const spouseLabel = state.deceasedGender === 'male' ? 'Wife' : 'Husband';
+                let spouseShare, spouseReason;
+                if (state.deceasedGender === 'male') {
+                    if (hasLinealDescendants) { spouseShare = 1 / 8; spouseReason = 'Wife receives 1/8 when there are lineal descendants.'; }
+                    else { spouseShare = 1 / 4; spouseReason = 'Wife receives 1/4 when there are no lineal descendants.'; }
+                } else {
+                    if (hasLinealDescendants) { spouseShare = 1 / 4; spouseReason = 'Husband receives 1/4 when there are lineal descendants.'; }
+                    else { spouseShare = 1 / 2; spouseReason = 'Husband receives 1/2 when there are no lineal descendants.'; }
+                }
+                shares.push({ name: state.spouse.name || spouseLabel, fraction: fractionToString(spouseShare), percentage: spouseShare * 100, reason: spouseReason, class: 'spouse' });
+                explanation.push(`${spouseLabel} is entitled to inherit regardless of other heirs present.`);
+            }
+
+            let remainingShare = state.spouse.alive ? (state.deceasedGender === 'male' ? (hasLinealDescendants ? 7 / 8 : 3 / 4) : (hasLinealDescendants ? 3 / 4 : 1 / 2)) : 1;
+
+            if (hasClassI) {
+                explanation.push('Class I heirs are present. Class II and III heirs are excluded.');
+                if (hasClassII) {
+                    if (state.siblings.some(s => s.alive)) { excluded.push({ name: 'Siblings', reason: 'Excluded by presence of Class I heirs.' }); }
+                    if (state.paternalGrandfather.alive || state.paternalGrandmother.alive || state.maternalGrandfather.alive || state.maternalGrandmother.alive) { excluded.push({ name: 'Grandparents', reason: 'Excluded by presence of Class I heirs.' }); }
+                }
+                if (hasClassIII) { excluded.push({ name: 'Uncles and Aunts', reason: 'Excluded by presence of Class I heirs.' }); }
+
+                if (hasLinealDescendants) {
+                    let parentsShare = 0;
+                    if (state.father.alive) { const fatherShare = remainingShare / 6; shares.push({ name: state.father.name || 'Father', fraction: '1/6', percentage: fatherShare * 100, reason: 'Father receives 1/6 as a sharer when there are lineal descendants.', class: 1 }); parentsShare += fatherShare; }
+                    if (state.mother.alive) { const motherShare = remainingShare / 6; shares.push({ name: state.mother.name || 'Mother', fraction: '1/6', percentage: motherShare * 100, reason: 'Mother receives 1/6 when there are lineal descendants.', class: 1 }); parentsShare += motherShare; }
+                    const childrenShare = remainingShare - parentsShare;
+                    const totalUnits = sons * 2 + daughters;
+                    if (totalUnits > 0) {
+                        const unitValue = childrenShare / totalUnits;
+                        aliveChildren.forEach(child => {
+                            const childShare = child.gender === 'male' ? unitValue * 2 : unitValue;
+                            shares.push({ name: child.name || (child.gender === 'male' ? 'Son' : 'Daughter'), fraction: fractionToString(childShare), percentage: childShare * 100, reason: child.gender === 'male' ? 'Son receives as residuary. Male heirs receive double the share of female heirs.' : 'Daughter receives as residuary. Male heirs receive double the share of female heirs.', class: 1 });
+                        });
+                    }
+                    state.children.filter(c => !c.alive && c.descendants.length > 0).forEach(child => {
+                        const childName = child.name || (child.gender === 'male' ? 'Predeceased Son' : 'Predeceased Daughter');
+                        const wouldHaveUnits = child.gender === 'male' ? 2 : 1;
+                        const parentShare = (childrenShare / (totalUnits + wouldHaveUnits)) * wouldHaveUnits;
+                        const gcSons = child.descendants.filter(d => d.gender === 'male').length;
+                        const gcDaughters = child.descendants.filter(d => d.gender === 'female').length;
+                        const gcUnits = gcSons * 2 + gcDaughters;
+                        if (gcUnits > 0) {
+                            const gcUnitValue = parentShare / gcUnits;
+                            child.descendants.forEach(desc => {
+                                const descShare = desc.gender === 'male' ? gcUnitValue * 2 : gcUnitValue;
+                                shares.push({ name: desc.name || `Grandchild through ${childName}`, fraction: fractionToString(descShare), percentage: descShare * 100, reason: `Grandchild inherits through ${childName} by stirpital succession.`, class: 1 });
+                            });
+                        }
+                    });
+                } else {
+                    if (state.father.alive && state.mother.alive) {
+                        const fatherShare = remainingShare * (2 / 3); const motherShare = remainingShare * (1 / 3);
+                        shares.push({ name: state.father.name || 'Father', fraction: fractionToString(fatherShare), percentage: fatherShare * 100, reason: 'Father receives 2/3 of the residue when both parents survive and there are no lineal descendants.', class: 1 });
+                        shares.push({ name: state.mother.name || 'Mother', fraction: fractionToString(motherShare), percentage: motherShare * 100, reason: 'Mother receives 1/3 of the residue when both parents survive and there are no lineal descendants.', class: 1 });
+                    } else if (state.father.alive) { shares.push({ name: state.father.name || 'Father', fraction: fractionToString(remainingShare), percentage: remainingShare * 100, reason: 'Father takes the entire residue as the sole Class I heir.', class: 1 }); }
+                    else if (state.mother.alive) { shares.push({ name: state.mother.name || 'Mother', fraction: fractionToString(remainingShare), percentage: remainingShare * 100, reason: 'Mother takes the entire residue as the sole Class I heir.', class: 1 }); }
+                }
+            } else if (hasClassII) {
+                explanation.push('No Class I heirs. Class II heirs inherit.');
+                if (hasClassIII) { excluded.push({ name: 'Uncles and Aunts', reason: 'Excluded by presence of Class II heirs.' }); }
+                const paternalGP = (state.paternalGrandfather.alive ? 1 : 0) + (state.paternalGrandmother.alive ? 1 : 0);
+                const maternalGP = (state.maternalGrandfather.alive ? 1 : 0) + (state.maternalGrandmother.alive ? 1 : 0);
+                const aliveSiblings = state.siblings.filter(s => s.alive);
+                const fullSiblings = aliveSiblings.filter(s => s.type === 'full');
+                const consanguineSiblings = aliveSiblings.filter(s => s.type === 'consanguine');
+                const uterineSiblings = aliveSiblings.filter(s => s.type === 'uterine');
+
+                if (fullSiblings.length > 0 && consanguineSiblings.length > 0) {
+                    consanguineSiblings.forEach(s => { excluded.push({ name: s.name || (s.gender === 'male' ? 'Consanguine Brother' : 'Consanguine Sister'), reason: 'Consanguine siblings are excluded by full siblings.' }); });
+                }
+                const effectiveSiblings = fullSiblings.length > 0 ? fullSiblings : consanguineSiblings;
+
+                if (paternalGP > 0 || maternalGP > 0) {
+                    const paternalShare = remainingShare * (2 / 3); const maternalShare = remainingShare * (1 / 3);
+                    if (paternalGP > 0) {
+                        const perPaternal = paternalShare / paternalGP;
+                        if (state.paternalGrandfather.alive) shares.push({ name: state.paternalGrandfather.name || 'Paternal Grandfather', fraction: fractionToString(perPaternal), percentage: perPaternal * 100, reason: 'Paternal grandfather receives from the paternal 2/3 share.', class: 2 });
+                        if (state.paternalGrandmother.alive) shares.push({ name: state.paternalGrandmother.name || 'Paternal Grandmother', fraction: fractionToString(perPaternal), percentage: perPaternal * 100, reason: 'Paternal grandmother receives from the paternal 2/3 share.', class: 2 });
+                    }
+                    if (maternalGP > 0) {
+                        const perMaternal = maternalShare / maternalGP;
+                        if (state.maternalGrandfather.alive) shares.push({ name: state.maternalGrandfather.name || 'Maternal Grandfather', fraction: fractionToString(perMaternal), percentage: perMaternal * 100, reason: 'Maternal grandfather receives from the maternal 1/3 share.', class: 2 });
+                        if (state.maternalGrandmother.alive) shares.push({ name: state.maternalGrandmother.name || 'Maternal Grandmother', fraction: fractionToString(perMaternal), percentage: perMaternal * 100, reason: 'Maternal grandmother receives from the maternal 1/3 share.', class: 2 });
+                    }
+                } else if (effectiveSiblings.length > 0 || uterineSiblings.length > 0) {
+                    const allSibs = [...effectiveSiblings, ...uterineSiblings];
+                    const sibMales = allSibs.filter(s => s.gender === 'male').length;
+                    const sibFemales = allSibs.filter(s => s.gender === 'female').length;
+                    const sibUnits = sibMales * 2 + sibFemales;
+                    if (sibUnits > 0) {
+                        const unitValue = remainingShare / sibUnits;
+                        allSibs.forEach(sib => {
+                            const sibShare = sib.gender === 'male' ? unitValue * 2 : unitValue;
+                            const sibType = sib.type === 'full' ? 'Full' : (sib.type === 'consanguine' ? 'Consanguine' : 'Uterine');
+                            shares.push({ name: sib.name || `${sibType} ${sib.gender === 'male' ? 'Brother' : 'Sister'}`, fraction: fractionToString(sibShare), percentage: sibShare * 100, reason: `${sibType} sibling receives as residuary. Male heirs receive double female heirs.`, class: 2 });
+                        });
+                    }
+                }
+            } else if (hasClassIII) {
+                explanation.push('No Class I or II heirs. Class III heirs (uncles and aunts) inherit.');
+                const uaMales = state.unclesAunts.filter(ua => ua.gender === 'male').length;
+                const uaFemales = state.unclesAunts.filter(ua => ua.gender === 'female').length;
+                const uaUnits = uaMales * 2 + uaFemales;
+                if (uaUnits > 0) {
+                    const unitValue = remainingShare / uaUnits;
+                    state.unclesAunts.forEach(ua => {
+                        const uaShare = ua.gender === 'male' ? unitValue * 2 : unitValue;
+                        shares.push({ name: ua.name || `${ua.side === 'paternal' ? 'Paternal' : 'Maternal'} ${ua.gender === 'male' ? 'Uncle' : 'Aunt'}`, fraction: fractionToString(uaShare), percentage: uaShare * 100, reason: `${ua.type} ${ua.gender === 'male' ? 'uncle' : 'aunt'} from ${ua.side} side receives as residuary.`, class: 3 });
+                    });
+                }
+            } else { explanation.push('No heirs found. The estate would escheat to the state.'); }
+
+            const totalAllocated = shares.reduce((sum, s) => sum + s.percentage, 0);
+            if (totalAllocated < 100 && shares.length > 0) { explanation.push(`The allocated shares total ${totalAllocated.toFixed(2)}%. The remaining ${(100 - totalAllocated).toFixed(2)}% returns to the blood heirs by the doctrine of Radd.`); }
+            return { shares, excluded, explanation, totalAllocated };
+        }
+
+        function fractionToString(decimal) {
+            const fractions = [{ val: 1, str: '1' }, { val: 1 / 2, str: '1/2' }, { val: 1 / 3, str: '1/3' }, { val: 2 / 3, str: '2/3' }, { val: 1 / 4, str: '1/4' }, { val: 3 / 4, str: '3/4' }, { val: 1 / 6, str: '1/6' }, { val: 5 / 6, str: '5/6' }, { val: 1 / 8, str: '1/8' }, { val: 7 / 8, str: '7/8' }];
+            for (let f of fractions) { if (Math.abs(decimal - f.val) < 0.001) return f.str; }
+            return (decimal * 100).toFixed(1) + '%';
+        }
+    </script>
+</body>
+
+</html>

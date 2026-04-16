@@ -1,0 +1,1663 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beyond Wills | Estate Planning in India</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --cream: #FAF6EF;
+            --ink: #1C1A16;
+            --gold: #B8880A;
+            --gold-light: #E8C44A;
+            --crimson: #8B1A1A;
+            --navy: #1A2744;
+            --sage: #5C7A5A;
+            --muted: #8A8070;
+            --border: #DDD5C4;
+            --card-bg: #FFFFF8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--cream);
+            color: var(--ink);
+            overflow-x: hidden;
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: var(--navy);
+            padding: 0 4rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 60px;
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--gold-light);
+            letter-spacing: 0.04em;
+        }
+
+        .nav-logo span {
+            color: #fff;
+            font-style: italic;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #C8BFAA;
+            font-size: 0.78rem;
+            font-weight: 500;
+            text-decoration: none;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold-light);
+        }
+
+        /* ── HERO ── */
+        .hero {
+            min-height: 100vh;
+            background: var(--navy);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 8rem 4rem 5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-grid-bg {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(184, 136, 10, 0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(184, 136, 10, 0.06) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        .hero-rule {
+            width: 60px;
+            height: 3px;
+            background: var(--gold);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-eyebrow {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3.2rem, 6vw, 6rem);
+            font-weight: 800;
+            line-height: 1.05;
+            color: #fff;
+            max-width: 800px;
+            margin-bottom: 1rem;
+        }
+
+        .hero h1 em {
+            font-style: italic;
+            color: var(--gold-light);
+        }
+
+        .hero-sub {
+            font-size: 1.1rem;
+            color: #B0A898;
+            max-width: 560px;
+            line-height: 1.7;
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+        }
+
+        .hero-authors {
+            font-size: 0.75rem;
+            letter-spacing: 0.12em;
+            color: #7A7060;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: var(--gold);
+            color: var(--ink);
+            padding: 0.85rem 2rem;
+            border-radius: 2px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-decoration: none;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            transition: background 0.2s;
+        }
+
+        .hero-cta:hover {
+            background: var(--gold-light);
+        }
+
+        .hero-cta svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .hero-float-tag {
+            position: absolute;
+            right: 5rem;
+            bottom: 8rem;
+            border: 1px solid rgba(184, 136, 10, 0.35);
+            padding: 1.2rem 1.6rem;
+            max-width: 240px;
+            animation: float 5s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .hero-float-tag p {
+            font-size: 0.72rem;
+            color: #8A8070;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        .hero-float-tag strong {
+            display: block;
+            color: var(--gold);
+            font-size: 0.68rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 0.4rem;
+        }
+
+        .hero-scroll {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.4rem;
+            color: #5A5040;
+            font-size: 0.65rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        .hero-scroll div {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, #B8880A, transparent);
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateX(-50%) translateY(0)
+            }
+
+            50% {
+                transform: translateX(-50%) translateY(6px)
+            }
+        }
+
+        /* ── SECTIONS COMMON ── */
+        section {
+            padding: 7rem 4rem;
+        }
+
+        .section-eyebrow {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--gold);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .section-eyebrow::before {
+            content: '';
+            width: 24px;
+            height: 2px;
+            background: var(--gold);
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 3.5vw, 3rem);
+            font-weight: 700;
+            line-height: 1.15;
+            margin-bottom: 1rem;
+        }
+
+        .section-desc {
+            font-size: 1rem;
+            color: var(--muted);
+            max-width: 640px;
+            line-height: 1.75;
+            margin-bottom: 3rem;
+            font-weight: 300;
+        }
+
+        /* ── INTRO ── */
+        .intro {
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .intro-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .intro-stat-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+        }
+
+        .intro-stat {
+            background: var(--cream);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .intro-stat-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--crimson);
+            line-height: 1;
+        }
+
+        .intro-stat-label {
+            font-size: 0.78rem;
+            color: var(--muted);
+            font-weight: 500;
+        }
+
+        .intro-highlight {
+            background: var(--navy);
+            color: #fff;
+            padding: 2rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-style: italic;
+            line-height: 1.65;
+            grid-column: span 2;
+        }
+
+        .intro-highlight cite {
+            display: block;
+            font-size: 0.72rem;
+            font-style: normal;
+            color: var(--gold);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-top: 1rem;
+        }
+
+        /* ── CONCEPTS ── */
+        .concepts {
+            background: var(--cream);
+        }
+
+        .concepts-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        .concept-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 2rem 1.5rem;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .concept-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gold);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s;
+        }
+
+        .concept-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+            border-color: var(--gold);
+        }
+
+        .concept-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .concept-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .concept-num {
+            font-size: 0.65rem;
+            color: var(--gold);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .concept-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .concept-tagline {
+            font-size: 0.78rem;
+            color: var(--muted);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .concept-expand {
+            display: none;
+        }
+
+        .concept-card.open .concept-expand {
+            display: block;
+        }
+
+        .concept-expand p {
+            font-size: 0.82rem;
+            line-height: 1.75;
+            color: #444;
+            border-top: 1px solid var(--border);
+            padding-top: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .concept-tag {
+            display: inline-block;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 0.2rem 0.6rem;
+            background: rgba(184, 136, 10, 0.1);
+            color: var(--gold);
+            border-radius: 2px;
+            margin-top: 0.75rem;
+        }
+
+        .concept-card .read-more {
+            font-size: 0.72rem;
+            color: var(--gold);
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            cursor: pointer;
+            display: block;
+            margin-top: 1rem;
+        }
+
+        /* ── COMPARISON TABLE ── */
+        .comparison {
+            background: var(--navy);
+            color: #fff;
+        }
+
+        .comparison .section-title {
+            color: #fff;
+        }
+
+        .comparison .section-desc {
+            color: #8A8070;
+        }
+
+        .comparison .section-eyebrow {
+            color: var(--gold);
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.82rem;
+        }
+
+        thead th {
+            padding: 1rem 1.2rem;
+            text-align: left;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gold);
+            border-bottom: 2px solid rgba(184, 136, 10, 0.4);
+        }
+
+        thead th:first-child {
+            color: #8A8070;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            transition: background 0.15s;
+        }
+
+        tbody tr:hover {
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        tbody td {
+            padding: 1rem 1.2rem;
+            color: #C8BFAA;
+            vertical-align: top;
+            line-height: 1.55;
+        }
+
+        tbody td:first-child {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .tag-yes {
+            color: #6DBF7E;
+            font-weight: 500;
+        }
+
+        .tag-no {
+            color: #E07070;
+            font-weight: 500;
+        }
+
+        .tag-partial {
+            color: var(--gold);
+            font-weight: 500;
+        }
+
+        /* ── MIND MAZE ── */
+        .maze {
+            background: #F2EDE4;
+        }
+
+        .maze-container {
+            max-width: 720px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 3rem;
+            position: relative;
+        }
+
+        .maze-badge {
+            display: inline-block;
+            background: var(--crimson);
+            color: #fff;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            padding: 0.3rem 0.8rem;
+            margin-bottom: 2rem;
+        }
+
+        .maze-progress {
+            display: flex;
+            gap: 0.4rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .maze-step {
+            height: 3px;
+            flex: 1;
+            background: var(--border);
+            transition: background 0.4s;
+        }
+
+        .maze-step.done {
+            background: var(--gold);
+        }
+
+        .maze-step.active {
+            background: var(--crimson);
+        }
+
+        .maze-scenario {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 0.6rem;
+        }
+
+        .maze-question {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            line-height: 1.4;
+            margin-bottom: 0.6rem;
+        }
+
+        .maze-context {
+            font-size: 0.82rem;
+            color: var(--muted);
+            line-height: 1.65;
+            margin-bottom: 2rem;
+            padding-left: 1rem;
+            border-left: 2px solid var(--gold);
+        }
+
+        .maze-choices {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .maze-choice {
+            padding: 1rem 1.2rem;
+            border: 1px solid var(--border);
+            background: var(--cream);
+            cursor: pointer;
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            transition: border-color 0.2s, background 0.2s, transform 0.15s;
+            text-align: left;
+        }
+
+        .maze-choice:hover {
+            border-color: var(--gold);
+            background: #FFF9EE;
+            transform: translateX(4px);
+        }
+
+        .maze-choice-letter {
+            width: 26px;
+            height: 26px;
+            min-width: 26px;
+            border: 1.5px solid var(--gold);
+            color: var(--gold);
+            font-size: 0.72rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .maze-choice-text strong {
+            display: block;
+            font-size: 0.88rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .maze-choice-text span {
+            font-size: 0.75rem;
+            color: var(--muted);
+        }
+
+        .maze-outcome {
+            display: none;
+            padding: 2rem;
+            border: 1px solid;
+            margin-top: 0;
+        }
+
+        .maze-outcome.good {
+            border-color: #6DBF7E;
+            background: rgba(109, 191, 126, 0.06);
+        }
+
+        .maze-outcome.caution {
+            border-color: #E8C44A;
+            background: rgba(232, 196, 74, 0.06);
+        }
+
+        .maze-outcome.bad {
+            border-color: #E07070;
+            background: rgba(224, 112, 112, 0.06);
+        }
+
+        .maze-outcome-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.6rem;
+        }
+
+        .maze-outcome p {
+            font-size: 0.83rem;
+            line-height: 1.7;
+            color: #444;
+        }
+
+        .maze-nav {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .maze-btn {
+            padding: 0.7rem 1.5rem;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            cursor: pointer;
+            border: none;
+            transition: 0.2s;
+        }
+
+        .maze-btn-primary {
+            background: var(--navy);
+            color: #fff;
+        }
+
+        .maze-btn-primary:hover {
+            background: var(--gold);
+            color: var(--ink);
+        }
+
+        .maze-btn-secondary {
+            background: transparent;
+            color: var(--muted);
+            border: 1px solid var(--border);
+        }
+
+        .maze-btn-secondary:hover {
+            color: var(--ink);
+            border-color: var(--ink);
+        }
+
+        /* ── CALCULATOR ── */
+        .calculator {
+            background: var(--card-bg);
+            border-top: 1px solid var(--border);
+        }
+
+        .calc-innovation {
+            display: inline-block;
+            background: var(--crimson);
+            color: #fff;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            padding: 0.3rem 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        /* ── MAGAZINE ── */
+        .magazine {
+            background: var(--cream);
+        }
+
+        .mag-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .mag-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            cursor: pointer;
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+
+        .mag-card:hover {
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            transform: translateY(-3px);
+        }
+
+        .mag-card-img {
+            height: 200px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mag-card-img.c1 {
+            background: linear-gradient(135deg, #1A2744, #2E4080);
+        }
+
+        .mag-card-img.c2 {
+            background: linear-gradient(135deg, #4A1515, #8B1A1A);
+            height: 140px;
+        }
+
+        .mag-card-img.c3 {
+            background: linear-gradient(135deg, #1A3A1A, #3A6A3A);
+            height: 140px;
+        }
+
+        .mag-card-img.c4 {
+            background: linear-gradient(135deg, #3A2800, #8B6000);
+            height: 140px;
+        }
+
+        .mag-card-body {
+            padding: 1.5rem;
+        }
+
+        .mag-tag {
+            display: inline-block;
+            font-size: 0.62rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--crimson);
+            margin-bottom: 0.6rem;
+        }
+
+        .mag-card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 0.6rem;
+        }
+
+        .mag-card:first-child .mag-card-title {
+            font-size: 1.5rem;
+        }
+
+        .mag-card-excerpt {
+            font-size: 0.78rem;
+            color: var(--muted);
+            line-height: 1.65;
+            margin-bottom: 1rem;
+        }
+
+        .mag-card-meta {
+            font-size: 0.68rem;
+            color: #AAA090;
+            display: flex;
+            gap: 0.6rem;
+            align-items: center;
+        }
+
+        .mag-card-meta span::before {
+            content: '·';
+            margin-right: 0.6rem;
+        }
+
+        .mag-card-meta span:first-child::before {
+            display: none;
+        }
+
+        /* ── SURVEY STRIP ── */
+        .survey-strip {
+            background: var(--crimson);
+            color: #fff;
+            padding: 3rem 4rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+
+        .survey-strip h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+        }
+
+        .survey-strip p {
+            font-size: 0.82rem;
+            opacity: 0.75;
+        }
+
+        .survey-btn {
+            background: #fff;
+            color: var(--crimson);
+            padding: 0.85rem 2rem;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            border: none;
+            white-space: nowrap;
+            transition: 0.2s;
+            flex-shrink: 0;
+        }
+
+        .survey-btn:hover {
+            background: var(--gold-light);
+            color: var(--ink);
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            background: var(--ink);
+            color: #6A6050;
+            padding: 3rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-top: 2px solid var(--gold);
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: var(--gold-light);
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+        }
+
+        footer p {
+            font-size: 0.72rem;
+            line-height: 1.65;
+            max-width: 340px;
+        }
+
+        .footer-group-list {
+            text-align: right;
+        }
+
+        .footer-group-list p {
+            font-size: 0.72rem;
+            margin-bottom: 0.2rem;
+        }
+
+        /* ── ANIMATIONS ── */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.7s, transform 0.7s;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 900px) {
+            nav {
+                padding: 0 1.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            section {
+                padding: 5rem 1.5rem;
+            }
+
+            .hero {
+                padding: 7rem 1.5rem 4rem;
+            }
+
+            .hero-float-tag {
+                display: none;
+            }
+
+            .concepts-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .mag-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .intro-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .calculator-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .survey-strip {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .footer-group-list {
+                text-align: left;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .concepts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .intro-stat-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .calculator-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAV -->
+    <nav>
+        <div class="nav-logo"><span>Beyond</span> Wills</div>
+        <ul class="nav-links">
+            <li><a href="#concepts">Concepts</a></li>
+            <li><a href="#compare">Compare</a></li>
+            <li><a href="#maze">Mind Maze</a></li>
+            <li><a href="#calculator">Calculator</a></li>
+            <li><a href="#magazine">Magazine</a></li>
+        </ul>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero" id="top">
+        <div class="hero-grid-bg"></div>
+        <div class="hero-rule"></div>
+        <div class="hero-eyebrow">Family Law II — Academic Project</div>
+        <h1>Beyond <em>Wills</em> - <br>Estate Planning<br>in India</h1>
+        <p class="hero-sub">A comprehensive guide to alternative legal mechanisms for wealth and estate management —
+            from gifts and trusts to waqfs and family arrangements.</p>
+        <div class="hero-authors">Ansh · Sarthak · Mudra · Agrima &nbsp;|&nbsp; B.A. LL.B. (Hons)</div>
+        <a href="#concepts" class="hero-cta">
+            Start Exploring
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 8h10M9 4l4 4-4 4" />
+            </svg>
+        </a>
+        <div class="hero-float-tag">
+            <strong>Did you know?</strong>
+            <p>Most Indians associate estate planning only with Wills. But the law offers far richer tools - trusts,
+                gifts, waqf, and family settlements - each with distinct advantages.</p>
+        </div>
+        <div class="hero-scroll">
+            <span>Scroll</span>
+            <div></div>
+        </div>
+    </section>
+
+    <!-- INTRO -->
+    <section class="intro" id="intro">
+        <div class="intro-grid fade-in">
+            <div>
+                <div class="section-eyebrow">The Problem</div>
+                <h2 class="section-title">Why Estate Planning Is Misunderstood</h2>
+                <p class="section-desc">In India, estate planning conversations begin and end with Wills. Yet the legal
+                    framework provides multiple powerful mechanisms that can offer greater flexibility, privacy, and
+                    control. This guide untangles all of them.</p>
+                <div class="intro-stat-grid">
+                    <div class="intro-stat">
+                        <span class="intro-stat-num">4</span>
+                        <span class="intro-stat-label">Key Mechanisms Beyond Wills</span>
+                    </div>
+                    <div class="intro-stat">
+                        <span class="intro-stat-num">~70%</span>
+                        <span class="intro-stat-label">Indians die intestate (without a will)</span>
+                    </div>
+                    <div class="intro-stat">
+                        <span class="intro-stat-num">3</span>
+                        <span class="intro-stat-label">Personal Law Frameworks in India</span>
+                    </div>
+                    <div class="intro-stat">
+                        <span class="intro-stat-num">1925</span>
+                        <span class="intro-stat-label">Indian Succession Act — still in force</span>
+                    </div>
+                    <div class="intro-highlight">
+                        "Estate planning is not about death. It is about ensuring that what you built during your
+                        lifetime reflects your intentions — even after you are gone."
+                        <cite>— Conceptual premise of this guide</cite>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="section-eyebrow">How to Use This Guide</div>
+                <h2 class="section-title" style="font-size:1.6rem;">Five Ways to Explore</h2>
+                <p class="section-desc" style="margin-bottom:1.5rem;">This website is designed for general users — not
+                    legal scholars. Navigate any way you prefer.</p>
+                <div style="display:flex;flex-direction:column;gap:1rem;">
+                    <div
+                        style="display:flex;gap:1rem;align-items:flex-start;padding:1rem;border:1px solid var(--border);">
+                        <span style="font-size:1.4rem;">📖</span>
+                        <div><strong style="font-size:0.85rem;display:block;margin-bottom:0.3rem;">Read the
+                                Concepts</strong><span style="font-size:0.78rem;color:var(--muted);">Plain-language
+                                explainers on Gifts, Trusts, Waqf and Family Arrangements.</span></div>
+                    </div>
+                    <div
+                        style="display:flex;gap:1rem;align-items:flex-start;padding:1rem;border:1px solid var(--border);">
+                        <span style="font-size:1.4rem;">⚖️</span>
+                        <div><strong style="font-size:0.85rem;display:block;margin-bottom:0.3rem;">Compare the
+                                Mechanisms</strong><span style="font-size:0.78rem;color:var(--muted);">Side-by-side
+                                table across legal formality, control, timing, and tax implications.</span></div>
+                    </div>
+                    <div
+                        style="display:flex;gap:1rem;align-items:flex-start;padding:1rem;border:1px solid var(--border);">
+                        <span style="font-size:1.4rem;">🌀</span>
+                        <div><strong style="font-size:0.85rem;display:block;margin-bottom:0.3rem;">Try the Mind
+                                Maze</strong><span style="font-size:0.78rem;color:var(--muted);">Interactive scenario
+                                simulation — see what happens if you pick different options.</span></div>
+                    </div>
+                    <div
+                        style="display:flex;gap:1rem;align-items:flex-start;padding:1rem;border:1px solid var(--border);">
+                        <span style="font-size:1.4rem;">🧮</span>
+                        <div><strong style="font-size:0.85rem;display:block;margin-bottom:0.3rem;">Use the Succession
+                                Calculator</strong><span style="font-size:0.78rem;color:var(--muted);">Understand
+                                intestate distribution under your personal law — quickly and clearly.</span></div>
+                    </div>
+                    <div
+                        style="display:flex;gap:1rem;align-items:flex-start;padding:1rem;border:1px solid var(--border);">
+                        <span style="font-size:1.4rem;">📰</span>
+                        <div><strong style="font-size:0.85rem;display:block;margin-bottom:0.3rem;">Browse the
+                                Magazine</strong><span style="font-size:0.78rem;color:var(--muted);">Short articles on
+                                estate planning trends, family law, and common misconceptions.</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONCEPTS -->
+    <section class="concepts" id="concepts">
+        <div class="section-eyebrow">Core Mechanisms</div>
+        <h2 class="section-title">The Four Alternatives to a Will</h2>
+        <p class="section-desc">Each mechanism offers a distinct approach to transferring and managing wealth. Click any
+            card to read more.</p>
+        <div class="concepts-grid fade-in">
+
+            <div class="concept-card" onclick="toggleConcept(this)">
+                <div class="concept-icon">🎁</div>
+                <div class="concept-num">01 / Gift</div>
+                <div class="concept-title">Gifts</div>
+                <div class="concept-tagline">Transferring property to a loved one during your lifetime — no conditions,
+                    no consideration.</div>
+                <span class="read-more">Read more ↓</span>
+                <div class="concept-expand">
+                    <p>A gift under the Transfer of Property Act, 1882 (Section 122) is a voluntary, gratuitous transfer
+                        of movable or immovable property by a living transferor (donor) to a transferee (donee). Unlike
+                        a will, a gift takes effect immediately during the donor's lifetime.<br><br>
+                        <strong>Key requirements:</strong> The gift must be accepted by the donee during the donor's
+                        lifetime. For immovable property, the gift deed must be registered under the Registration Act,
+                        1908. Gifts made "in contemplation of death" (causa mortis) are treated differently.<br><br>
+                        <strong>Practical note:</strong> Gifts to relatives are generally exempt from income tax under
+                        Section 56(2) of the Income Tax Act. However, stamp duty on gift deeds can be significant.
+                    </p>
+                    <span class="concept-tag">Transfer of Property Act, 1882</span>
+                </div>
+            </div>
+
+            <div class="concept-card" onclick="toggleConcept(this)">
+                <div class="concept-icon">🏛️</div>
+                <div class="concept-num">02 / Trust</div>
+                <div class="concept-title">Trusts</div>
+                <div class="concept-tagline">Placing property in the hands of a trustee to manage — for long-term
+                    benefit of your chosen beneficiaries.</div>
+                <span class="read-more">Read more ↓</span>
+                <div class="concept-expand">
+                    <p>A trust, governed by the Indian Trusts Act, 1882, involves the transfer of property by a settlor
+                        (author of trust) to a trustee, who is obligated to manage it for the benefit of designated
+                        beneficiaries. Trusts are highly flexible and can be tailored to specific needs.<br><br>
+                        <strong>Types:</strong> Private trusts (for family benefit), public trusts
+                        (charitable/religious), living trusts (created during lifetime), and testamentary trusts
+                        (created through a will).<br><br>
+                        <strong>Key advantage:</strong> A well-structured trust can bypass the lengthy probate process,
+                        maintain privacy, and offer clear instructions for intergenerational wealth management —
+                        particularly useful for business families.
+                    </p>
+                    <span class="concept-tag">Indian Trusts Act, 1882</span>
+                </div>
+            </div>
+
+            <div class="concept-card" onclick="toggleConcept(this)">
+                <div class="concept-icon">🕌</div>
+                <div class="concept-num">03 / Waqf</div>
+                <div class="concept-title">Waqf</div>
+                <div class="concept-tagline">A permanent, irrevocable dedication of property for religious or charitable
+                    purposes under Islamic law.</div>
+                <span class="read-more">Read more ↓</span>
+                <div class="concept-expand">
+                    <p>A Waqf is the permanent dedication of property — movable or immovable — by a Muslim person for
+                        religious, pious, or charitable purposes as recognised by Islamic law. It is governed
+                        principally by the Waqf Act, 1995 and managed through the Waqf Board.<br><br>
+                        <strong>Types:</strong> Public Waqf (for the benefit of the public at large), Private Waqf
+                        (waqf-alal-aulad, for the benefit of one's family/descendants), and Government Waqf.<br><br>
+                        <strong>Key feature:</strong> Once dedicated as Waqf, the property cannot be transferred, sold,
+                        or mortgaged. The Mutawalli (manager) administers the property. Recent legislative changes (Waqf
+                        Amendment Act, 2025) have significantly altered the governance framework.
+                    </p>
+                    <span class="concept-tag">Waqf Act, 1995</span>
+                </div>
+            </div>
+
+            <div class="concept-card" onclick="toggleConcept(this)">
+                <div class="concept-icon">🤝</div>
+                <div class="concept-num">04 / Arrangement</div>
+                <div class="concept-title">Family Arrangements</div>
+                <div class="concept-tagline">Informal or formal agreements between family members to resolve disputes
+                    and distribute property amicably.</div>
+                <span class="read-more">Read more ↓</span>
+                <div class="concept-expand">
+                    <p>A family arrangement is an agreement among members of the same family, intended to preserve
+                        family property, avoid litigation, and settle disputes — whether existing or anticipated. Courts
+                        in India have consistently upheld and encouraged family arrangements.<br><br>
+                        <strong>Key features:</strong> Not strictly governed by one statute — they draw on general
+                        contract law, property law, and equity. They can be oral or written. While not always mandatory,
+                        registration is advisable when immovable property is involved.<br><br>
+                        <strong>Landmark case:</strong> In <em>Kale v. Deputy Director of Consolidation</em> (1976), the
+                        Supreme Court laid down that a family arrangement is binding even if not registered, provided it
+                        is genuine, bona fide, and for the benefit of the family.
+                    </p>
+                    <span class="concept-tag">General Contract + Equity Law</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMPARISON TABLE -->
+    <section class="comparison" id="compare">
+        <div class="section-eyebrow">Side-by-Side Analysis</div>
+        <h2 class="section-title">Evaluating the Mechanisms</h2>
+        <p class="section-desc">How do the four mechanisms stack up against each other? Compare across the dimensions
+            that matter most.</p>
+        <div class="table-wrap fade-in">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mechanism</th>
+                        <th>When Transfer Occurs</th>
+                        <th>Owner Retains Control?</th>
+                        <th>Registration Required?</th>
+                        <th>Tax Implications</th>
+                        <th>Revocable?</th>
+                        <th>Best Used When</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Will</td>
+                        <td>After death (testamentary)</td>
+                        <td class="tag-yes">Yes — until death</td>
+                        <td class="tag-partial">Optional (but advisable)</td>
+                        <td>Estate duty abolished; inheritance tax proposed in debates</td>
+                        <td class="tag-yes">Yes</td>
+                        <td>Simple estate, clear beneficiaries</td>
+                    </tr>
+                    <tr>
+                        <td>Gift</td>
+                        <td>Immediately (lifetime)</td>
+                        <td class="tag-no">No — after gift is made</td>
+                        <td class="tag-yes">Yes (immovable property)</td>
+                        <td>Exempt if to relatives; stamp duty applicable</td>
+                        <td class="tag-no">Generally No</td>
+                        <td>Immediate transfer, tax planning, family support</td>
+                    </tr>
+                    <tr>
+                        <td>Trust</td>
+                        <td>On trust creation</td>
+                        <td class="tag-partial">Partial — via trustee role</td>
+                        <td class="tag-partial">Yes (for immovable property)</td>
+                        <td>Taxed as per trust type; private discretionary trusts taxed at max rate</td>
+                        <td class="tag-partial">Depends on trust deed</td>
+                        <td>Long-term management, minors, business families</td>
+                    </tr>
+                    <tr>
+                        <td>Waqf</td>
+                        <td>On dedication</td>
+                        <td class="tag-no">No — managed by Mutawalli</td>
+                        <td class="tag-yes">Yes</td>
+                        <td>Largely exempt if public/charitable</td>
+                        <td class="tag-no">No — irrevocable</td>
+                        <td>Religious/charitable dedication, Muslim families</td>
+                    </tr>
+                    <tr>
+                        <td>Family Arrangement</td>
+                        <td>As per agreement</td>
+                        <td class="tag-partial">Depends on terms</td>
+                        <td class="tag-partial">Advisable if immovable property</td>
+                        <td>Neutral — internal family transfer</td>
+                        <td class="tag-partial">By mutual consent</td>
+                        <td>Dispute resolution, existing joint property</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- MIND MAZE -->
+    <section class="maze" id="maze">
+        <div class="section-eyebrow">Interactive Simulation</div>
+        <h2 class="section-title">Mind Maze</h2>
+        <p class="section-desc">You're the decision-maker. Navigate a real-life scenario and discover which legal
+            mechanism fits your situation — and what the consequences are.</p>
+        <div class="maze-container fade-in" id="mazeContainer">
+            <div class="maze-badge">🌀 Interactive Scenario</div>
+            <div class="maze-progress" id="mazeProgress">
+                <div class="maze-step active" id="step0"></div>
+                <div class="maze-step" id="step1"></div>
+                <div class="maze-step" id="step2"></div>
+                <div class="maze-step" id="step3"></div>
+            </div>
+            <div id="mazeContent"></div>
+            <div class="maze-nav" id="mazeNav"></div>
+        </div>
+    </section>
+
+    <!-- CALCULATOR -->
+    <section class="calculator" id="calculator">
+        <span class="calc-innovation">★ Group's Key Innovation</span>
+        <div class="section-eyebrow">Intestate Succession Calculator</div>
+        <h2 class="section-title">What Happens If There's No Will?</h2>
+        <p class="section-desc">Under Indian law, different succession rules apply based on religion. Enter your family
+            details below to see a simplified overview of how property would be distributed.</p>
+        <!-- Calculator Grid (Needs to be updated) -->
+        <div class="calculator-grid fade-in">
+
+            <div class="concept-card" onclick="openCalculator('shia')">
+                <div class="concept-icon">🕋</div>
+                <div class="concept-num">01 / Shia Succession Calculator</div>
+                <div class="concept-title">Shia Law</div>
+                <div class="concept-tagline"></div>
+                <span class="concept-tag">Ithna Ashari Jurisprudence</span>
+            </div>
+
+            <div class="concept-card" onclick="openCalculator('sunni')">
+                <div class="concept-icon">🕌</div>
+                <div class="concept-num">02 / Sunni Succession Calculator</div>
+                <div class="concept-title">Sunni Law</div>
+                <div class="concept-tagline"></div>
+                <span class="concept-tag">Hanafi Jurisprudence</span>
+            </div>
+
+            <div class="concept-card" onclick="openCalculator('christian')">
+                <div class="concept-icon">⛪</div>
+                <div class="concept-num">03 / Christian Succession Calculator</div>
+                <div class="concept-title">Christian Law</div>
+                <div class="concept-tagline"></div>
+                <span class="concept-tag">Indian Succession Act, 1925 [§29 - §49]</span>
+            </div>
+
+            <div class="concept-card" onclick="openCalculator('parsi')">
+                <div class="concept-icon">🪽</div>
+                <div class="concept-num">04 / Parsi Succession Calculator</div>
+                <div class="concept-title">Parsi Law</div>
+                <div class="concept-tagline"></div>
+                <span class="concept-tag">Indian Succession Act, 1925 [§50 - §56]</span>
+            </div>
+        </div>
+        <p style="font-size:0.72rem;color:var(--muted);margin-top:1.5rem;line-height:1.65;">
+            ⚠️ <strong>Disclaimer:</strong> This calculator provides a simplified educational overview only. Actual
+            succession depends on the number of heirs, specific provisions of applicable personal laws, and court
+            interpretations. This does not constitute legal advice.
+        </p>
+    </section>
+
+    <!-- MAGAZINE -->
+    <section class="magazine" id="magazine">
+        <div class="section-eyebrow">Magazine</div>
+        <h2 class="section-title">Broader Conversations on Estate Planning</h2>
+        <p class="section-desc">Short articles exploring the social, cultural, and legal dimensions of estate planning
+            in India.</p>
+        <div class="mag-grid fade-in">
+            <div class="mag-card">
+                <div class="mag-card-img c1">🏢</div>
+                <div class="mag-card-body">
+                    <span class="mag-tag">Cover Story</span>
+                    <div class="mag-card-title">The Rise of the Family Trust in India's Business Dynasties</div>
+                    <div class="mag-card-excerpt">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maxime enim
+                        explicabo voluptas. Molestiae ipsa explicabo facilis corporis sint voluptatem? Perferendis dicta
+                        mollitia nobis modi ullam non enim officiis vel neque suscipit, optio, assumenda autem quos
+                        deleniti, eum corrupti! Dolores, impedit.</div>
+                    <div class="mag-card-meta"><span>Sarthak Misra</span><span>Trusts</span><span>8 min read</span>
+                    </div>
+                </div>
+            </div>
+            <div class="mag-card">
+                <div class="mag-card-img c2">📜</div>
+                <div class="mag-card-body">
+                    <span class="mag-tag">Business Families</span>
+                    <div class="mag-card-title">Why Indian Families Avoid Estate Planning - And What It Costs Them</div>
+                    <div class="mag-card-excerpt">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non ex est
+                        adipisci ad consectetur debitis. Inventore minima ipsum iure praesentium.</div>
+                    <div class="mag-card-meta"><span>Agrima Sahu</span><span>Estate Planning</span><span>5 min
+                            read</span></div>
+                </div>
+            </div>
+            <div class="mag-card">
+                <div class="mag-card-img c3">🌿</div>
+                <div class="mag-card-body">
+                    <span class="mag-tag">Analysis</span>
+                    <div class="mag-card-title">Waqf in Modern India: Law, Land, and Controversy</div>
+                    <div class="mag-card-excerpt">The 2025 Waqf Amendment Act has upended decades of waqf governance.
+                        What does it mean for Muslim estate planning today?</div>
+                    <div class="mag-card-meta"><span>Mudra Mehta</span><span>Waqf</span><span>6 min read</span></div>
+                </div>
+            </div>
+            <div class="mag-card" style="grid-column: 1 / -1; display:flex; gap:0;">
+                <div class="mag-card-img c4" style="width:220px;min-width:220px;height:auto;">🎁</div>
+                <div class="mag-card-body" style="flex:1;">
+                    <span class="mag-tag">Explainer</span>
+                    <div class="mag-card-title">Gift Deed vs. Will: Which Is Better for Your Situation?</div>
+                    <div class="mag-card-excerpt">Many families wrestle with this exact question. A gift deed transfers
+                        property during your lifetime; a will does it after death. Both have significant tax, legal, and
+                        relational consequences. This article lays out a clear framework for choosing between them.
+                    </div>
+                    <div class="mag-card-meta"><span>Ansh Tanwar</span><span>Gifts</span><span>4 min read</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SURVEY STRIP -->
+    <div class="survey-strip">
+        <div>
+            <h3>Take Our Public Awareness Survey</h3>
+            <p>Help us understand how much Indians know about estate planning. Your responses will be analysed and
+                published in this guide.</p>
+        </div>
+        <button class="survey-btn">Participate in Survey →</button>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div>
+            <div class="footer-logo">Beyond Wills</div>
+            <p>A digital guide on alternative legal mechanisms for estate and wealth management in India. Created as
+                part of Family Law II, B.A. LL.B. (Hons.) Academic Component.</p>
+            <p style="margin-top:0.75rem;">This guide is for educational purposes only and does not constitute legal
+                advice.</p>
+        </div>
+        <div class="footer-group-list">
+            <p
+                style="color:#8A8070;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.5rem;">
+                Research Group</p>
+            <p>Ansh Tanwar</p>
+            <p>Sarthak Misra</p>
+            <p>Mudra Mehta</p>
+            <p>Agrima Sahu</p>
+        </div>
+    </footer>
+
+    <script>
+        // ── SCROLL ANIMATIONS ──
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // ── CONCEPT CARDS ──
+        function toggleConcept(card) {
+            const isOpen = card.classList.contains('open');
+            document.querySelectorAll('.concept-card').forEach(c => c.classList.remove('open'));
+            if (!isOpen) card.classList.add('open');
+            const rm = card.querySelector('.read-more');
+            document.querySelectorAll('.concept-card .read-more').forEach(r => r.textContent = 'Read more ↓');
+            if (!isOpen && rm) rm.textContent = 'Show less ↑';
+        }
+
+        // ── MIND MAZE ──
+        const mazeData = [
+            {
+                scenario: "Scenario A — The Family Home",
+                question: "Your ageing parents own a house worth ₹80 lakh. They want you — their eldest child — to inherit it. They still want to live there. What do you advise?",
+                context: "Your parents are in their late 60s. They have two children. There is no will in place yet. Your sibling has expressed no strong views either way.",
+                choices: [
+                    { letter: 'A', text: 'Execute a Gift Deed now', detail: 'Transfer ownership to you immediately via a registered gift deed.' },
+                    { letter: 'B', text: 'Draft a Will', detail: 'Your parents draft a will specifying the property goes to you after their death.' },
+                    { letter: 'C', text: 'Create a Family Trust', detail: 'Place the property in a trust, with your parents as beneficiaries during their lifetime, you after.' },
+                ],
+                outcomes: [
+                    { type: 'caution', title: '⚠️ Gift Deed — Possible but Risky', text: 'A gift deed is irrevocable. Once gifted, your parents lose ownership entirely — they could be asked to vacate by a court order if the relationship sours. Stamp duty will also be payable. This option works only if the relationship is absolutely secure and there is complete trust.' },
+                    { type: 'good', title: '✅ Will — Often the Simplest Choice', text: 'A will is revocable, costs very little to create, and lets your parents retain full control until they die. The main downside: it can be contested, and probate may be required in some states. But for most families in this situation, a registered will is the cleanest solution.' },
+                    { type: 'good', title: '✅ Trust — Powerful for Complex Situations', text: 'A family trust offers the most control: your parents can be beneficiaries during their lifetime, with you taking over after. It avoids probate and is harder to contest. However, setting up a trust involves professional costs and ongoing compliance. Best suited if the estate is large or the family situation complex.' },
+                ]
+            },
+            {
+                scenario: "Scenario B — The Family Business",
+                question: "A family-owned textile business is worth ₹2 crore. The founder (63) wants to ensure the business passes to the youngest son, who manages it, and not be split among all three children.",
+                context: "Three children: eldest daughter (not involved in business), middle son (in another city), youngest son (runs day-to-day operations). All three are legal heirs under Hindu Succession Act.",
+                choices: [
+                    { letter: 'A', text: 'Use a Family Arrangement', detail: 'All three siblings sign an agreement acknowledging the youngest son\'s inheritance of the business.' },
+                    { letter: 'B', text: 'Set up a Private Trust', detail: 'Transfer the business into a private trust with the youngest son as primary beneficiary.' },
+                    { letter: 'C', text: 'Gift it to the youngest son now', detail: 'Execute a gift deed transferring business assets to the youngest son immediately.' },
+                ],
+                outcomes: [
+                    { type: 'good', title: '✅ Family Arrangement — Practical and Legally Recognised', text: 'If all three children agree, a family arrangement is a cost-effective, flexible solution. Courts have consistently upheld genuine family arrangements. The agreement should be in writing and registered if it involves immovable property.' },
+                    { type: 'good', title: '✅ Private Trust — Best for Long-Term Management', text: 'A private business trust gives the founder maximum control over succession. The business is managed by a trustee, and the youngest son is the principal beneficiary. This avoids disputes and is structured, but involves legal setup costs and professional trustees.' },
+                    { type: 'caution', title: '⚠️ Gift — Immediate but Potentially Contentious', text: 'Gifting the business now is legally possible, but could trigger disputes from the other two children if they feel excluded. There may also be tax implications on the business transfer. Works best only if the other children have explicitly consented.' },
+                ]
+            },
+            {
+                scenario: "Scenario C — Charitable Intention",
+                question: "A devout Muslim landowner (70) wants to permanently dedicate a plot of land for a community mosque and educational centre. What legal mechanism should he use?",
+                context: "The landowner has four adult children. He owns the plot freehold. He wants the dedication to be permanent and inalienable — no one should be able to sell it in the future.",
+                choices: [
+                    { letter: 'A', text: 'Create a Waqf', detail: 'Formally dedicate the land as Waqf for religious and charitable purposes.' },
+                    { letter: 'B', text: 'Create a Public Charitable Trust', detail: 'Set up a trust under the Indian Trusts Act for religious/charitable purposes.' },
+                    { letter: 'C', text: 'Bequeath it via Will', detail: 'Leave the land to the mosque committee via a will.' },
+                ],
+                outcomes: [
+                    { type: 'good', title: '✅ Waqf — The Natural Choice', text: 'For a Muslim landowner wishing a permanent, irrevocable dedication for religious purposes, a Waqf is the most appropriate mechanism. Once created, the property becomes inalienable — it cannot be sold or transferred. It will be managed by a Mutawalli under supervision of the Waqf Board.' },
+                    { type: 'good', title: '✅ Charitable Trust — Also Viable', text: 'A public charitable trust can achieve a similar result and is not religion-specific. It offers flexibility in governance. However, it does not carry the religious-legal significance of a Waqf and would be subject to the Indian Trusts Act rather than Islamic law principles.' },
+                    { type: 'bad', title: '❌ Will — Not Ideal for This Purpose', text: 'A will can bequeath property to the mosque committee, but it takes effect only after death and can be contested by legal heirs. It also does not create the permanent, inalienable status that a Waqf automatically carries. Not recommended for this scenario.' },
+                ]
+            },
+            {
+                scenario: "Final Insight",
+                question: "You've completed the Mind Maze. What did you learn?",
+                context: "",
+                choices: [],
+                isFinal: true,
+                summary: "The right mechanism depends entirely on your goals, family situation, and the nature of the property. There is no universal answer — but knowing the options puts you in control."
+            }
+        ];
+
+        let mazeStep = 0;
+        let mazeSelected = null;
+
+        function renderMaze() {
+            const data = mazeData[mazeStep];
+            const content = document.getElementById('mazeContent');
+            const nav = document.getElementById('mazeNav');
+
+            // Progress bar
+            document.querySelectorAll('.maze-step').forEach((s, i) => {
+                s.className = 'maze-step ' + (i < mazeStep ? 'done' : i === mazeStep ? 'active' : '');
+            });
+
+            if (data.isFinal) {
+                content.innerHTML = `
+      <div class="maze-scenario">🎉 Maze Complete</div>
+      <div class="maze-question" style="font-size:1.6rem;">${data.question}</div>
+      <div style="padding:2rem;background:var(--navy);color:#fff;margin-top:1.5rem;">
+        <p style="font-family:'Playfair Display',serif;font-style:italic;font-size:1.1rem;line-height:1.7;color:#E8D89A;">"${data.summary}"</p>
+      </div>
+      <div style="margin-top:1.5rem;display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;">
+        <div style="text-align:center;padding:1.2rem;border:1px solid var(--border);">
+          <div style="font-size:1.6rem;margin-bottom:0.5rem;">🎁</div>
+          <div style="font-size:0.75rem;font-weight:600;color:var(--gold);">Gifts</div>
+          <div style="font-size:0.7rem;color:var(--muted);margin-top:0.3rem;">Best for immediate, direct transfers</div>
+        </div>
+        <div style="text-align:center;padding:1.2rem;border:1px solid var(--border);">
+          <div style="font-size:1.6rem;margin-bottom:0.5rem;">🏛️</div>
+          <div style="font-size:0.75rem;font-weight:600;color:var(--gold);">Trusts</div>
+          <div style="font-size:0.7rem;color:var(--muted);margin-top:0.3rem;">Best for long-term managed succession</div>
+        </div>
+        <div style="text-align:center;padding:1.2rem;border:1px solid var(--border);">
+          <div style="font-size:1.6rem;margin-bottom:0.5rem;">🤝</div>
+          <div style="font-size:0.75rem;font-weight:600;color:var(--gold);">Arrangement</div>
+          <div style="font-size:0.7rem;color:var(--muted);margin-top:0.3rem;">Best for consensual family solutions</div>
+        </div>
+      </div>`;
+                nav.innerHTML = `<button class="maze-btn maze-btn-secondary" onclick="restartMaze()">↺ Restart Maze</button>`;
+                return;
+            }
+
+            let choicesHTML = data.choices.map((c, i) => `
+    <button class="maze-choice" id="choice${i}" onclick="selectChoice(${i})">
+      <div class="maze-choice-letter">${c.letter}</div>
+      <div class="maze-choice-text"><strong>${c.text}</strong><span>${c.detail}</span></div>
+    </button>`).join('');
+
+            let outcomesHTML = data.outcomes.map((o, i) => `
+    <div class="maze-outcome ${o.type}" id="outcome${i}" style="display:none;">
+      <div class="maze-outcome-title">${o.title}</div>
+      <p>${o.text}</p>
+    </div>`).join('');
+
+            content.innerHTML = `
+    <div class="maze-scenario">${data.scenario}</div>
+    <div class="maze-question">${data.question}</div>
+    ${data.context ? `<div class="maze-context">${data.context}</div>` : ''}
+    <div class="maze-choices">${choicesHTML}</div>
+    ${outcomesHTML}`;
+
+            nav.innerHTML = `
+    <button class="maze-btn maze-btn-primary" id="mazeNextBtn" onclick="mazeNext()" style="display:none;">Next Scenario →</button>
+    <button class="maze-btn maze-btn-secondary" onclick="restartMaze()">↺ Restart</button>`;
+        }
+
+        function selectChoice(i) {
+            mazeSelected = i;
+            document.querySelectorAll('.maze-choice').forEach((c, idx) => {
+                c.style.borderColor = idx === i ? 'var(--gold)' : 'var(--border)';
+                c.style.background = idx === i ? '#FFF9EE' : '';
+            });
+            document.querySelectorAll('[id^="outcome"]').forEach(o => o.style.display = 'none');
+            const outcome = document.getElementById('outcome' + i);
+            if (outcome) { outcome.style.display = 'block'; outcome.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
+            const nextBtn = document.getElementById('mazeNextBtn');
+            if (nextBtn) nextBtn.style.display = 'inline-block';
+        }
+
+        function mazeNext() {
+            if (mazeSelected === null && !mazeData[mazeStep].isFinal) return;
+            mazeStep++;
+            mazeSelected = null;
+            renderMaze();
+        }
+
+        function restartMaze() {
+            mazeStep = 0; mazeSelected = null; renderMaze();
+        }
+
+        renderMaze();
+
+        // ── SUCCESSION CALCULATOR ──
+        function openCalculator(school) {
+            // Implementation for opening the succession calculator based on the school
+            const pages = {
+                shia: 'pages/shia_updated.html',
+                sunni: 'pages/sunni_updated.html',
+                christian: 'pages/christian_updated.html',
+                // parsi: 'pages/parsi_updated.html'
+            };
+
+            // Check if the selected school has a corresponding page
+            if (pages[school]) {
+                // Navigate to the respective subpage in the same tab
+                window.location.href = pages[school];
+            } else {
+                // Fallback message if the page is not yet available
+                alert('Succession calculator for ' + school + ' is under development. Stay tuned!');
+            }
+        }
+    </script>
+</body>
+
+</html>
