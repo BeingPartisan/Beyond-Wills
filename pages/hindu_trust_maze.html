@@ -1,0 +1,1359 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Sharma Family Estate - Trust Path</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&family=Courier+Prime:ital@0;1&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --saffron-maze: #E8651A;
+      --deep-maze: #1A120B;
+      --cream-maze: #F5EFE0;
+      --gold-maze: #C9933C;
+      --rust-maze: #9B2D00;
+      --muted-maze: #6B5B4E;
+      --card-maze: #FDF8F0;
+      --border-maze: #D4B896;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: var(--deep-maze);
+      color: var(--cream-maze);
+      min-height: 100vh;
+      background-image:
+        radial-gradient(ellipse at 20% 50%, rgba(232, 101, 26, 0.07) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(201, 147, 60, 0.06) 0%, transparent 50%);
+    }
+
+    .container {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    .slide {
+      display: none;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .slide.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ── Header strip ── */
+    .top-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 36px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(212, 184, 150, 0.25);
+    }
+
+    .top-bar .tag {
+      font-family: 'Courier Prime', monospace;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold-maze);
+      background: rgba(201, 147, 60, 0.12);
+      border: 1px solid rgba(201, 147, 60, 0.3);
+      padding: 4px 10px;
+      border-radius: 2px;
+    }
+
+    .top-bar .breadcrumb {
+      font-size: 12px;
+      color: var(--muted-maze);
+      font-style: italic;
+    }
+
+    /* ── Scene card ── */
+    .scene-card {
+      background: var(--card-maze);
+      color: var(--deep-maze);
+      border-radius: 4px;
+      border-left: 4px solid var(--saffron-maze);
+      padding: 32px 36px;
+      margin-bottom: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .scene-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 120px;
+      height: 120px;
+      background: radial-gradient(circle at top right, rgba(232, 101, 26, 0.08), transparent 70%);
+      pointer-events: none;
+    }
+
+    .slide-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--rust-maze);
+      margin-bottom: 6px;
+      line-height: 1.2;
+    }
+
+    .slide-subtitle {
+      font-family: 'Courier Prime', monospace;
+      font-size: 12px;
+      color: var(--muted-maze);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+    }
+
+    .prose {
+      font-size: 15.5px;
+      line-height: 1.75;
+      color: #2D1F15;
+    }
+
+    .prose p {
+      margin-bottom: 14px;
+    }
+
+    .prose p:last-child {
+      margin-bottom: 0;
+    }
+
+    .prose .funny {
+      font-family: 'Courier Prime', monospace;
+      font-style: italic;
+      color: #7A4A2A;
+      font-size: 14px;
+    }
+
+    /* ── Legal infobox ── */
+    .legal-box {
+      background: rgba(201, 147, 60, 0.1);
+      border: 1px solid rgba(201, 147, 60, 0.35);
+      border-radius: 4px;
+      padding: 16px 20px;
+      margin: 20px 0;
+      font-size: 13.5px;
+      line-height: 1.65;
+      color: #3D2A1A;
+    }
+
+    .legal-box .lb-title {
+      font-family: 'Courier Prime', monospace;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold-maze);
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .legal-box ul {
+      padding-left: 18px;
+    }
+
+    .legal-box li {
+      margin-bottom: 5px;
+    }
+
+    /* ── Question line ── */
+    .question {
+      font-family: 'Playfair Display', serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--deep-maze);
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px dashed var(--border-maze);
+    }
+
+    /* ── Choice buttons ── */
+    .choices {
+      margin-top: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .choice-btn {
+      background: var(--deep-maze);
+      color: var(--cream-maze);
+      border: 1px solid rgba(212, 184, 150, 0.3);
+      border-radius: 4px;
+      padding: 18px 22px;
+      cursor: pointer;
+      text-align: left;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14.5px;
+      line-height: 1.5;
+      transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .choice-btn::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: var(--saffron-maze);
+      transform: scaleY(0);
+      transition: transform 0.2s ease;
+    }
+
+    .choice-btn:hover {
+      border-color: var(--saffron-maze);
+      background: rgba(232, 101, 26, 0.07);
+      transform: translateX(4px);
+    }
+
+    .choice-btn:hover::before {
+      transform: scaleY(1);
+    }
+
+    .choice-btn .opt-label {
+      font-family: 'Courier Prime', monospace;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold-maze);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .choice-btn.danger {
+      border-color: rgba(155, 45, 0, 0.3);
+      color: #D4B896;
+      font-style: italic;
+    }
+
+    .choice-btn.danger:hover {
+      border-color: var(--rust-maze);
+      background: rgba(155, 45, 0, 0.08);
+    }
+
+    .choice-btn.danger::before {
+      background: var(--rust-maze);
+    }
+
+    .choice-btn.end-btn {
+      border-color: rgba(201, 147, 60, 0.4);
+      background: rgba(201, 147, 60, 0.08);
+    }
+
+    /* ── Ending card ── */
+    .ending-banner {
+      text-align: center;
+      padding: 28px 0 10px;
+    }
+
+    .ending-banner .end-label {
+      font-family: 'Courier Prime', monospace;
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold-maze);
+    }
+
+    .ending-banner .end-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--cream-maze);
+      margin-top: 8px;
+    }
+
+    .reflection {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(212, 184, 150, 0.2);
+      border-radius: 4px;
+      padding: 22px 26px;
+      margin-top: 28px;
+    }
+
+    .reflection h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--gold-maze);
+      margin-bottom: 12px;
+      letter-spacing: 0.5px;
+    }
+
+    .reflection ul {
+      padding-left: 18px;
+      font-size: 14px;
+      color: #C4B09A;
+      line-height: 1.7;
+    }
+
+    .reflection li {
+      margin-bottom: 8px;
+      font-style: italic;
+    }
+
+    .play-again {
+      display: inline-block;
+      margin-top: 30px;
+      background: var(--saffron-maze);
+      color: white;
+      border: none;
+      padding: 13px 30px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      border-radius: 3px;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+      transition: background 0.2s;
+    }
+
+    .play-again:hover {
+      background: var(--rust-maze);
+    }
+
+    /* ── Progress dots ── */
+    .progress-bar {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      margin-bottom: 28px;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(212, 184, 150, 0.25);
+      transition: background 0.3s;
+    }
+
+    .dot.done {
+      background: var(--saffron-maze);
+    }
+
+    .scene-icon {
+      font-size: 28px;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    hr.deco {
+      border: none;
+      border-top: 1px solid rgba(212, 184, 150, 0.2);
+      margin: 20px 0;
+    }
+
+/* -------------------------------------------- */
+    .back-home-btn {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        background: var(--card-maze);
+        color: var(--deep-maze);
+        padding: 10px 16px;
+        border-radius: 999px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.9rem;
+        border: 1px solid var(--border-maze);
+        box-shadow: 0 4px 10px rgba(212, 184, 150, 0.15);
+        backdrop-filter: blur(8px);
+        transition: all 0.25s ease;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        z-index: 1000;
+    }
+
+    .back-home-btn .arrow {
+        font-size: 1.1rem;
+        transition: transform 0.2s ease;
+    }
+
+    .back-home-btn:hover {
+        transform: translateY(-3px);
+        border-color: var(--border-maze);
+        box-shadow: 0 8px 18px rgba(212, 184, 150, 0.25);
+    }
+
+    .back-home-btn:hover .arrow {
+        transform: translateX(-3px);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <!-- Back to Home Button -->
+    <a href="../index.html#maze" class="back-home-btn">
+        <span class="arrow">←</span> Back to Home
+    </a>
+    <!-- ══════════════════════════════════════════════
+       SLIDE 0 – INTRO / FAMILY CRISIS
+  ══════════════════════════════════════════════ -->
+    <div class="slide active" id="slide-0">
+      <div class="top-bar">
+        <span class="tag">Hindu Law Path</span>
+        <span class="breadcrumb">The Sharma Family Estate</span>
+      </div>
+      <div class="progress-bar">
+        <div class="dot done"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+
+      <div class="scene-card">
+        <span class="scene-icon">🏛️</span>
+        <div class="slide-title">The Sharma Family Estate Crisis</div>
+        <div class="slide-subtitle">You are Arjun Sharma</div>
+        <div class="prose">
+          <p>The Sharma household has four things in abundance: property, opinions, chai, and unresolved disagreements
+            about who should get the property.</p>
+          <p>Your father owns <strong>the ancestral house in Delhi</strong>, a <strong>growing tech startup in
+              Bengaluru</strong>, <strong>farmland in Uttarakhand</strong>, and a <strong>suspiciously large locker of
+              gold coins</strong> that your grandmother insists are "perfectly normal family savings." (They are not
+            normal. No one has ever counted them twice and arrived at the same number.)</p>
+          <p>One evening during dinner, your father clears his throat: <em>"We should start planning our property
+              properly."</em></p>
+          <p>Your sister immediately asks: <em>"Does this mean I get the Delhi house?"</em> Your uncle simultaneously
+            opens a PowerPoint titled <strong>"Strategic Wealth Allocation 2040."</strong> It has forty-seven slides. It
+            has a theme song.</p>
+          <p>You quickly realise that without a plan, the next generation of Sharmas will spend more time in courtrooms
+            than in family weddings.</p>
+          <p>Your father has one firm rule: <em>"I do not want to rely only on a Will. I want to explore smarter ways to
+              manage our wealth <strong>while we are alive</strong>."</em></p>
+          <p>He looks at you: <em>"Arjun, you studied law in college for one semester before switching to architecture.
+              You decide."</em></p>
+          <p class="funny">No pressure. Only the entire family's financial future. Totally fine.</p>
+        </div>
+        <div class="legal-box">
+          <span class="lb-title">⚖️ Why beyond a Will?</span>
+          Under Hindu law (Hindu Succession Act, 1956), a Will only takes effect after death and goes through probate.
+          Tools like <strong>Trusts, Gifts, and Family Arrangements</strong> can transfer or protect assets <em>during
+            one's lifetime</em>, offer tax planning advantages, and avoid family disputes before they begin.
+        </div>
+        <p class="question">Your father turns to you. Which path does the Sharma family take?</p>
+      </div>
+
+      <div class="choices">
+        <button class="choice-btn" onclick="go('slide-trust-intro')">
+          <span class="opt-label">Option A — Trusts</span>
+          Place assets under the care of trustees for the benefit of family members — structured, long-term, legally
+          robust.
+        </button>
+        <button class="choice-btn" onclick="go('slide-gift-stub')">
+          <span class="opt-label">Option B — Gifts</span>
+          Transfer property voluntarily during one's lifetime — simple, immediate, and once done, (usually) done.
+        </button>
+        <button class="choice-btn" onclick="go('slide-fa-stub')">
+          <span class="opt-label">Option C — Family Arrangements</span>
+          Sit everyone around a table and hammer out an agreement — old-fashioned, occasionally chaotic, legally
+          recognised.
+        </button>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+       SLIDE – TRUST INTRO
+  ══════════════════════════════════════════════ -->
+    <div class="slide" id="slide-trust-intro">
+      <div class="top-bar">
+        <span class="tag">Trust Path</span>
+        <span class="breadcrumb">Sharma Estate → Trusts</span>
+      </div>
+      <div class="progress-bar">
+        <div class="dot done"></div>
+        <div class="dot done"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+
+      <div class="scene-card">
+        <span class="scene-icon">📜</span>
+        <div class="slide-title">The Trust Option</div>
+        <div class="slide-subtitle">Arjun consults the family lawyer</div>
+        <div class="prose">
+          <p>The next morning you find yourself in the office of <strong>Advocate Priya Menon</strong>, a woman whose
+            bookshelves are so well-organised they are intimidating.</p>
+          <p><em>"A Trust,"</em> she explains, <em>"is a legal arrangement where your father — the Settlor — transfers
+              assets to a Trustee, who holds and manages them for the benefit of your family members — the
+              Beneficiaries."</em></p>
+          <p>She slides a document across the desk. <em>"Think of it as your father writing very detailed instructions
+              about the family money, putting someone trustworthy in charge of those instructions, and then —
+              importantly — not being dead for it to take effect."</em></p>
+          <p class="funny">Your uncle, who had brought his PowerPoint on a tablet, quietly closes the cover.</p>
+        </div>
+        <div class="legal-box">
+          <span class="lb-title">⚖️ Legal Framework</span>
+          <ul>
+            <li>Private family trusts in India are governed by the <strong>Indian Trusts Act, 1882</strong>.</li>
+            <li>The three essential parties: <strong>Settlor</strong> (your father), <strong>Trustee</strong> (the
+              manager), and <strong>Beneficiaries</strong> (family members).</li>
+            <li>For immovable property (like the Delhi house or Uttarakhand farmland), the Trust Deed must be
+              <strong>registered</strong> under the Indian Registration Act, 1908, and stamp duty must be paid.</li>
+            <li>Movable assets (gold coins, shares) can be placed in trust without mandatory registration.</li>
+            <li>The Trust must have a <strong>lawful purpose</strong> — it cannot be used to defraud creditors or defeat
+              legal rights.</li>
+          </ul>
+        </div>
+        <p class="question">Advocate Menon asks the first structural question. What kind of trust does your family want?
+        </p>
+      </div>
+
+      <div class="choices">
+        <button class="choice-btn" onclick="go('slide-revocable')">
+          <span class="opt-label">Option A — Revocable Trust</span>
+          Your father retains the right to change or cancel the trust. Maximum flexibility — but the income is still
+          taxed in his hands.
+        </button>
+        <button class="choice-btn" onclick="go('slide-irrevocable')">
+          <span class="opt-label">Option B — Irrevocable Trust</span>
+          Once set up, your father cannot take it back. Assets leave his estate entirely — stronger protection, better
+          for long-term planning.
+        </button>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+       SLIDE – REVOCABLE TRUST
+  ══════════════════════════════════════════════ -->
+    <div class="slide" id="slide-revocable">
+      <div class="top-bar">
+        <span class="tag">Trust Path → Revocable</span>
+        <span class="breadcrumb">Sharma Estate → Trusts → Revocable</span>
+      </div>
+      <div class="progress-bar">
+        <div class="dot done"></div>
+        <div class="dot done"></div>
+        <div class="dot done"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+
+      <div class="scene-card">
+        <span class="scene-icon">🔄</span>
+        <div class="slide-title">A Revocable Trust — "I Reserve the Right to Change My Mind"</div>
+        <div class="slide-subtitle">Your father is cautious. Very cautious.</div>
+        <div class="prose">
+          <p>Your father nods slowly at the Revocable Trust option. <em>"So I can change it? If Arjun and his sister
+              start fighting about the farmland, I can update the terms?"</em></p>
+          <p>Advocate Menon confirms: <em>"Correct. You remain in control. The trust can be altered or revoked any time
+              during your lifetime."</em></p>
+          <p>Your father visibly relaxes. Your sister, who had been mentally redecorating the Delhi house, visibly does
+            not.</p>
+          <p class="funny">Your uncle immediately begins drafting amendments to his PowerPoint.</p>
+        </div>
+        <div class="legal-box">
+          <span class="lb-title">⚖️ What the Law Says</span>
+          <ul>
+            <li>Under <strong>Sections 61–63 of the Income Tax Act, 1961</strong>, income from a revocable trust is
+              taxed in the <strong>hands of the Settlor</strong> (your father) — not in the trust itself.</li>
+            <li>This means the tax flexibility that comes with an irrevocable structure is <em>not</em> available here.
+            </li>
+            <li>However, revocable trusts still provide <strong>asset management continuity</strong> — if your father
+              becomes incapacitated, the trustee can seamlessly continue managing assets.</li>
+            <li>The trust deed still needs registration for immovable property.</li>
+          </ul>
+        </div>
+
+        <p>Now, within the revocable trust, there is another choice. The trust will hold all four assets. But how will
+          income from those assets be distributed?</p>
+        <p class="question">How should the trust distribute income and assets?</p>
+      </div>
+
+      <div class="choices">
+        <button class="choice-btn" onclick="go('slide-rev-discretionary')">
+          <span class="opt-label">Option A — Discretionary</span>
+          The Trustee decides how to distribute income among beneficiaries — flexible, but taxed at maximum marginal
+          rate if not distributed.
+        </button>
+        <button class="choice-btn" onclick="go('slide-rev-specific')">
+          <span class="opt-label">Option B — Specific (Determinate)</span>
+          Each beneficiary's share is clearly defined in the Trust Deed — taxed at individual slab rates, more
+          predictable.
+        </button>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+       SLIDE – IRREVOCABLE TRUST
+  ══════════════════════════════════════════════ -->
+    <div class="slide" id="slide-irrevocable">
+      <div class="top-bar">
+        <span class="tag">Trust Path → Irrevocable</span>
+        <span class="breadcrumb">Sharma Estate → Trusts → Irrevocable</span>
+      </div>
+      <div class="progress-bar">
+        <div class="dot done"></div>
+        <div class="dot done"></div>
+        <div class="dot done"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+
+      <div class="scene-card">
+        <span class="scene-icon">🔒</span>
+        <div class="slide-title">An Irrevocable Trust — "No Take-Backs, Dad"</div>
+        <div class="slide-subtitle">A bold move. A permanent one.</div>
+        <div class="prose">
+          <p>Advocate Menon leans forward. <em>"An irrevocable trust means once your father signs this and transfers the
+              assets, he cannot revoke it. The assets are no longer legally his — they belong to the trust."</em></p>
+          <p>Your father's eyebrows disappear into his hairline. <em>"So... permanently?"</em></p>
+          <p><em>"Permanently,"</em> she confirms.</p>
+          <p>There is a long silence. Your grandmother takes a loud sip of tea. Your uncle's PowerPoint quietly
+            auto-saves.</p>
+          <p class="funny">Your father stares at the ceiling for forty-five seconds. You count.</p>
+          <p>Advocate Menon continues: <em>"But this is precisely why it offers strong protection. The assets are
+              shielded from your future creditors, business liabilities, and — frankly — family disputes. They exist for
+              the benefit of your beneficiaries alone."</em></p>
+        </div>
+        <div class="legal-box">
+          <span class="lb-title">⚖️ Key Legal Advantages</span>
+          <ul>
+            <li>Assets transferred into an irrevocable trust are <strong>no longer part of the Settlor's estate</strong>
+              — this matters for creditor claims and future tax planning.</li>
+            <li>Income tax: if accumulated in the trust → taxed at <strong>trust level</strong>; if distributed to
+              beneficiaries → taxed in <strong>their hands</strong> (potentially at lower slab rates).</li>
+            <li>Strong tool for <strong>succession planning</strong> — no probate needed for trust assets after death.
+            </li>
+            <li>Particularly useful for protecting the <strong>Delhi ancestral house</strong> and
+              <strong>farmland</strong> from being fragmented across generations.</li>
+          </ul>
+        </div>
+
+        <p class="question">Your father has committed. Now, who should be the Trustee — the person who actually manages
+          the assets?</p>
+      </div>
+
+      <div class="choices">
+        <button class="choice-btn" onclick="go('slide-trustee-family')">
+          <span class="opt-label">Option A — A Family Member as Trustee</span>
+          Your uncle volunteers immediately. He has updated his PowerPoint to include a slide titled "My Trustee
+          Vision."
+        </button>
+        <button class="choice-btn" onclick="go('slide-trustee-professional')">
+          <span class="opt-label">Option B — A Professional/Independent Trustee</span>
+          A neutral third party — a chartered accountant or trust company — who cannot be bribed with family guilt or
+          biryani.
+        </button>
+        <button class="choice-btn" onclick="go('slide-trustee-arjun')">
+          <span class="opt-label">Option C — Arjun (You) as Trustee</span>
+          Your father looks at you meaningfully. "You're the sensible one." Your sister stares daggers across the room.
+        </button>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+       SLIDE – REVOCABLE + DISCRETIONARY
+  ══════════════════════════════════════════════ -->
+    <div class="slide" id="slide-rev-discretionary">
+      <div class="top-bar">
+        <span class="tag">Revocable → Discretionary</span>
+      </div>
+      <div class="progress-bar">
+        <div class="dot done"></div>
+        <div class="dot done"></div>
+        <div class="dot done"></div>
+        <div class="dot done"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+
+      <div class="scene-card">
+        <span class="scene-icon">⚖️</span>
+        <div class="slide-title">Discretionary Trust — The Trustee Decides</div>
+        <div class="slide-subtitle">Power. Responsibility. Family politics.</div>
+        <div class="prose">
+          <p>In a Discretionary Trust, the Trustee has the power to decide <em>who</em> among the beneficiaries gets
+            income, and <em>how much</em>, each year. Your father likes this — it means the family can adapt to changing
+            circumstances without amending the deed.</p>
+          <p>Your sister likes this less. <em>"So someone else decides whether I get money from my own family's
+              assets?"</em></p>
+          <p>Advocate Menon diplomatically moves forward. <em>"The trustee is legally bound to act in the interests of
+              all beneficiaries — they cannot simply favour one child over another without good reason."</em></p>
+          <p class="funny">Your uncle, who has been angling for the trustee role, nods a little too vigorously.</p>
+        </div>
+        <div class="legal-box">
+          <span class="lb-title">⚖️ Tax Treatment of Discretionary Trusts</span>
+          <ul>
+            <li>Where income is <strong>not distributed</strong> to beneficiaries in the year it is earned, it is taxed
+              at the <strong>Maximum Marginal Rate (MMR)</strong> — currently 30% plus surcharge and cess — in the hands
+              of the trustee.</li>
+            <li>Exception: if <em>none</em> of the beneficiaries have income exceeding the basic exemption limit, and
+              none are beneficiaries under another trust, individual slab rates may apply.</li>
+            <li>For the Sharma family's tech startup income, this could be a significant tax consideration.</li>
+          </ul>
+        </div>
+        <p class="question">The trust deed is drafted. Now — a critical detail about the gold coins. Your grandmother
+          insists they are "family heirlooms" and should not be part of the trust. What do you advise?</p>
+      </div>
+
+      <div class="choices">
+        <button class="choice-btn" onclick="go('slide-end-gold-in')">
+          <span class="opt-label">Option A — Include the gold in the trust</span>
+          Movable property can be placed in trust without mandatory registration. Better to have everything managed
+          centrally.
+        </button>
+        <button class="choice-btn" onclick="go('slide-end-gold-out')">
+          <span class="opt-label">Option B — Keep the gold with grandmother</span>
+          Respect her wishes. The gold remains outside the trust — and its origins remain, diplomatically, unexamined.
+        </button>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+       SLIDE – REVOCABLE + SPECIFIC
+  ══════════════════════════════════════════════ -->
+    <div class="slide" id="slide-rev-specific">
+      <div class="top-bar">
+        <span class="tag">Revocable → Specific Trust</span>
+      </div>
+      <div class="progress-bar">
+        <div class="dot done"></div>
+        <div class="dot done"></div>
+        <div class="dot done"></div>
+        <div class="dot done"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+
+      <div class="scene-card">
+        <span class="scene-icon">📋</span>
+        <div class="slide-title">Specific (Determinate) Trust — Everyone Knows Their Share</div>
+        <div class="slide-subtitle">Clarity. Predictability. Slightly fewer arguments.</div>
+        <div class="prose">
+          <p>In a Specific Trust, the Trust Deed lays out clearly who gets what. Arjun: 40% of income. Sister: 40%.
+            Parents: 20%. The farmland income goes specifically to the family's education fund. No ambiguity, no
+            discretion.</p>
+          <p>Your sister nods approvingly. Your uncle, denied discretionary power, closes his PowerPoint.</p>
+          <p><em>"The advantage,"</em> says Advocate Menon, <em>"is that income is taxed at individual slab rates — much
+              more efficient than the maximum marginal rate that applies to undistributed discretionary trust
+              income."</em></p>
+          <p class="funny">Your father, who is in the 30% tax bracket, asks if he can be listed as a beneficiary with a
+            very small share. Advocate Menon gently explains this would defeat the purpose.</p>
+        </div>
+        <div class="legal-box">
+          <span class="lb-title">⚖️ Tax Efficiency of Specific Trusts</span>
+          <ul>
+            <li>Income is taxed in the hands of each beneficiary as <strong>per their individual tax slab</strong>.</li>
+            <li>If younger family members (like Arjun and his sister) are in lower income brackets, distributing trust
+              income to them can result in significant tax savings.</li>
+            <li>The trust must file its own income tax return as well, disclosing the distribution.</li>
+            <li>Note: if the trust is created exclusively for dependent relatives and is the only trust created by the
+              Settlor, individual slab rates apply at the trust level — a useful exception.</li>
+          </ul>
+        </div>
+        <p class="question">Everything is drafted. One final issue: your father wants to add the Bengaluru startup
+          shares to the trust. The company is growing fast — its value may triple in five years. What is the advice?</p>
+      </div>
+
+      <div class="choices">
+        <button class="choice-btn" onclick="go('slide-end-startup-now')">
+          <span class="opt-label">Option A — Transfer startup shares to the trust now</span>
+          Lock in the current (lower) valuation for trust purposes. Future appreciation accrues within the trust.
+        </button>
+        <button class="choice-btn" onclick="go('slide-end-startup-wait')">
+          <span class="opt-label">Option B — Wait and transfer later</span>
+          Your father isn't ready to let go of control of the company just yet. Maybe next year. Or the year after.
+          Definitely soon.
+        </button>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+       SLIDES – TRUSTEE CHOICES (Irrevocable path)
+  ══════════════════════════════════════════════ -->
+
+    <!-- Uncle -->
+    <div class="slide" id="slide-trustee-family">
+      <div class="top-bar">
+        <span class="tag">Irrevocable → Uncle Trustee</span>
+      </div>
+      <div class="progress-bar">
+        <div class="dot done"></div>
+        <div class="dot done"></div>
+        <div class="dot done"></div>
+        <div class="dot done"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <div class="scene-card">
+        <span class="scene-icon">📊</span>
+        <div class="slide-title">Uncle as Trustee — The PowerPoint Becomes a Reality</div>
+        <div class="slide-subtitle">A family member steps in.</div>
+        <div class="prose">
+          <p>Your uncle is named Trustee. He immediately schedules a <em>"Trust Governance Strategy Meeting"</em> for
+            the following Saturday, attendance mandatory.</p>
+          <p>Advocate Menon explains that under the Indian Trusts Act, 1882, a Trustee has strict <strong>fiduciary
+              duties</strong>: to act in the interest of beneficiaries, maintain proper accounts, invest prudently, and
+            not benefit personally from the trust assets.</p>
+          <p>Your uncle nods solemnly. He then asks if his consulting fees for managing the trust can be drawn from
+            trust assets. Advocate Menon explains that trustee remuneration must be specified in the deed.</p>
+          <p class="funny">He immediately requests a revision to the trust deed. His name is in the deed seventeen times
+            by end of day.</p>
+        </div>
+        <div class="legal-box">
+          <span class="lb-title">⚖️ Trustee Duties Under Indian Trusts Act, 1882</span>
+          <ul>
+            <li>A trustee must <strong>not profit from the trust</strong> beyond authorised remuneration.</li>
+            <li>Duty to maintain accounts and allow beneficiaries to inspect them.</li>
+            <li>Must act with the care of a <strong>"man of ordinary prudence"</strong> in managing trust property.</li>
+            <li>Family member trustees can create conflict-of-interest issues — which is why the deed should clearly
+              define boundaries.</li>
+          </ul>
+        </div>
+        <p class="question">Years later, a dispute arises. Your uncle (Trustee) decides to reinvest all trust income
+          back into the Bengaluru startup, arguing it will benefit the family long-term. Your sister wants current
+          income distributions. What happens?</p>
+      </div>
+      <div class="choices">
+        <button class="choice-btn" onclick="go('slide-end-dispute-resolve')">
+          <span class="opt-label">Option A — The trust deed is clear on distributions</span>
+          Good drafting saves everyone. The deed specifies distribution timelines and the trustee must comply.
+        </button>
+        <button class="choice-btn" onclick="go('slide-end-dispute-court')">
+          <span class="opt-label">Option B — The deed was vague</span>
+          The family returns to Advocate Menon's office. Then possibly a court. Your uncle's PowerPoint is now Exhibit
+          A.
+        </button>
+      </div>
+    </div>
+
+    <!-- Professional Trustee -->
+    <div class="slide" id="slide-trustee-professional">
+      <div class="top-bar">
+        <span class="tag">Irrevocable → Professional Trustee</span>
+      </div>
+      <div class="progress-bar">
+        <div class="dot done"></div>
+        <div class="dot done"></div>
+        <div class="dot done"></div>
+        <div class="dot done"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <div class="scene-card">
+        <span class="scene-icon">🏢</span>
+        <div class="slide-title">Professional Trustee — Neutral, Competent, Slightly Expensive</div>
+        <div class="slide-subtitle">A third party steps in.</div>
+        <div class="prose">
+          <p>A reputed Chartered Accountant firm is appointed as the independent trustee. They send quarterly trust
+            statements. They do not attend family dinners. They cannot be guilt-tripped into giving your sister a larger
+            distribution because she is "going through a lot right now."</p>
+          <p>Your uncle is deeply offended. He sends a formal letter questioning their <em>"emotional intelligence
+              deficit."</em></p>
+          <p>The trustee sends back a technically correct, legally sound, utterly unmoved reply.</p>
+          <p class="funny">Your sister actually finds this refreshing.</p>
+        </div>
+        <div class="legal-box">
+          <span class="lb-title">⚖️ Why Professional Trustees Work Well</span>
+          <ul>
+            <li>No conflict of interest — especially important for the <strong>tech startup shares</strong> where
+              valuations may be contested.</li>
+            <li>Professional trustees understand compliance requirements: filing trust tax returns, maintaining
+              accounts, adhering to the trust deed.</li>
+            <li>Their fees are typically charged as a percentage of trust assets — this should be specified in the Trust
+              Deed.</li>
+            <li>Adds credibility to the trust structure, especially if the family ever faces legal scrutiny.</li>
+          </ul>
+        </div>
+        <p class="question">Five years pass. The startup has tripled in value. Your father now wants to exit the startup
+          and use the proceeds to buy more farmland. Can the trust do this?</p>
+      </div>
+      <div class="choices">
+        <button class="choice-btn" onclick="go('slide-end-pro-yes')">
+          <span class="opt-label">Option A — The deed allows reinvestment</span>
+          If the trust deed grants powers of reinvestment, the trustee can act. Good planning wins again.
+        </button>
+        <button class="choice-btn" onclick="go('slide-end-pro-no')">
+          <span class="opt-label">Option B — The deed is silent on this</span>
+          The trustee must seek legal advice. A deed amendment — called a "Supplemental Trust Deed" — may be needed.
+          More lawyer fees. More chai.
+        </button>
+      </div>
+    </div>
+
+    <!-- Arjun as Trustee -->
+    <div class="slide" id="slide-trustee-arjun">
+      <div class="top-bar">
+        <span class="tag">Irrevocable → Arjun as Trustee</span>
+      </div>
+      <div class="progress-bar">
+        <div class="dot done"></div>
+        <div class="dot done"></div>
+        <div class="dot done"></div>
+        <div class="dot done"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <div class="scene-card">
+        <span class="scene-icon">😰</span>
+        <div class="slide-title">You Are the Trustee Now</div>
+        <div class="slide-subtitle">No pressure. Only everything.</div>
+        <div class="prose">
+          <p>Your father's faith in you is genuinely touching. Your sister's expression is less touching — it suggests
+            she will be watching your every decision with the enthusiasm of a tax auditor at a cash business.</p>
+          <p>Advocate Menon explains your duties calmly and methodically. You are to manage the Delhi house, the startup
+            shares, the farmland, and the gold (which has now been catalogued and turns out to be a very normal amount —
+            847 coins — no questions, please).</p>
+          <p><em>"As trustee, you are not the owner,"</em> she clarifies. <em>"You are the custodian. You act for the
+              beneficiaries. Not for yourself."</em></p>
+          <p class="funny">Your uncle, rejected for the trustee role, announces he will be forming a "Beneficiary
+            Advisory Committee." It will also have a PowerPoint.</p>
+        </div>
+        <div class="legal-box">
+          <span class="lb-title">⚖️ Arjun's Legal Responsibilities as Trustee</span>
+          <ul>
+            <li>You <strong>cannot purchase trust property</strong> for yourself, even at market price — this is a
+              conflict of interest.</li>
+            <li>You must keep proper accounts and allow beneficiaries to inspect them on request.</li>
+            <li>You are personally liable if you breach your duties — including imprudent investment decisions.</li>
+            <li>As a beneficiary who is also a trustee, you must be especially careful not to favour yourself — the deed
+              should explicitly address this.</li>
+          </ul>
+        </div>
+        <p class="question">The farmland in Uttarakhand has received a lucrative offer from a real estate developer.
+          They want to buy it at 3x market value. As Trustee, what do you do?</p>
+      </div>
+      <div class="choices">
+        <button class="choice-btn" onclick="go('slide-end-sell-farm')">
+          <span class="opt-label">Option A — Sell the farmland</span>
+          The duty is to act in the best financial interest of beneficiaries. The offer is strong. You consult all
+          beneficiaries and proceed.
+        </button>
+        <button class="choice-btn" onclick="go('slide-end-keep-farm')">
+          <span class="opt-label">Option B — Decline the sale</span>
+          The farmland has sentimental value and was placed in trust for long-term preservation. You decline,
+          documenting your reasoning carefully.
+        </button>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+       ENDINGS
+  ══════════════════════════════════════════════ -->
+
+    <!-- ENDING: Gold IN trust -->
+    <div class="slide" id="slide-end-gold-in">
+      <div class="top-bar"><span class="tag">Ending</span><span class="breadcrumb">Revocable → Discretionary → Gold
+          Included</span></div>
+      <div class="ending-banner">
+        <div class="end-label">The End</div>
+        <div class="end-title">The Sharma Trust — Complete Edition</div>
+      </div>
+      <div class="scene-card">
+        <div class="prose">
+          <p>The Revocable Discretionary Trust is set up with all four assets — including the 847 gold coins, which are
+            now formally listed as <em>"Movable Assets – Gold Bullion (Quantity: See Annexure III)"</em> in the Trust
+            Deed. Grandmother reads Annexure III and simply says: <em>"I always told you they were normal."</em></p>
+          <p>The trustee manages distributions each year based on family circumstances. When your sister starts a
+            business, she receives a larger share. When Arjun buys a home, his distribution increases temporarily. The
+            flexibility your father wanted is fully realised.</p>
+          <p>Your uncle's PowerPoint is retired. It is preserved in a family archive titled "Documents We Must Never
+            Speak Of."</p>
+          <p>The Sharma estate passes efficiently to the next generation — without probate, without courtrooms, and with
+            only the usual quantity of family arguments at Diwali.</p>
+        </div>
+      </div>
+      <div class="reflection">
+        <h4>Reflection Prompts</h4>
+        <ul>
+          <li>A Revocable Discretionary Trust offers flexibility — but at what tax cost? When does the Maximum Marginal
+            Rate make discretionary trusts less efficient than specific ones?</li>
+          <li>Should "family heirlooms" like gold be included in formal legal structures, or does this undermine their
+            cultural and emotional significance?</li>
+          <li>Who should really be a trustee — a family member who understands the family, or a professional who is free
+            from its pressures?</li>
+        </ul>
+      </div>
+      <button class="play-again" onclick="restart()">↩ Play Again</button>
+    </div>
+
+    <!-- ENDING: Gold OUT -->
+    <div class="slide" id="slide-end-gold-out">
+      <div class="top-bar"><span class="tag">Ending</span><span class="breadcrumb">Revocable → Discretionary → Gold
+          Excluded</span></div>
+      <div class="ending-banner">
+        <div class="end-label">The End</div>
+        <div class="end-title">Almost Perfect</div>
+      </div>
+      <div class="scene-card">
+        <div class="prose">
+          <p>The trust is set up beautifully. Three assets, clear terms, professional management. Grandmother keeps her
+            gold coins in a locker whose combination, she insists, she will reveal <em>"at the right time."</em></p>
+          <p>Fifteen years later, the right time has apparently not yet arrived. No one knows the combination.
+            Grandmother simply smiles when asked.</p>
+          <p>The three trust assets pass smoothly to the next generation. The gold coins pass through a lengthy
+            succession process that involves a court order, three lawyers, and a locksmith.</p>
+          <p class="funny">The moral: even the best estate plan has gaps. Grandmother was the gap.</p>
+        </div>
+      </div>
+      <div class="reflection">
+        <h4>Reflection Prompts</h4>
+        <ul>
+          <li>What happens to assets left outside a trust or will? Under the Hindu Succession Act, 1956, they follow
+            intestate succession rules.</li>
+          <li>Why is it important to account for <em>all</em> assets — even uncomfortable or informal ones — in estate
+            planning?</li>
+          <li>How do cultural practices around family wealth (like holding gold informally) interact with formal legal
+            structures?</li>
+        </ul>
+      </div>
+      <button class="play-again" onclick="restart()">↩ Play Again</button>
+    </div>
+
+    <!-- ENDING: Startup NOW -->
+    <div class="slide" id="slide-end-startup-now">
+      <div class="top-bar"><span class="tag">Ending</span><span class="breadcrumb">Revocable → Specific → Startup
+          Early</span></div>
+      <div class="ending-banner">
+        <div class="end-label">The End</div>
+        <div class="end-title">The Foresight Dividend</div>
+      </div>
+      <div class="scene-card">
+        <div class="prose">
+          <p>The startup shares are transferred to the trust at a valuation of ₹2 crore. Five years later, the company
+            is acquired — shares value at ₹8 crore. The entire appreciation has occurred within the trust, and
+            distributions to beneficiaries are taxed at their individual slab rates — far more efficiently than if the
+            shares had remained in your father's personal name.</p>
+          <p>Your father, watching the family's wealth pass to the next generation in an orderly and tax-efficient
+            manner, feels something rare: financial satisfaction.</p>
+          <p class="funny">Your uncle, not having been named trustee, releases a 72-slide retrospective analysis of
+            "decisions that were made without adequate stakeholder consultation." It is forwarded to no one.</p>
+        </div>
+      </div>
+      <div class="reflection">
+        <h4>Reflection Prompts</h4>
+        <ul>
+          <li>Transferring growing assets to a trust early can shift future appreciation outside the settlor's taxable
+            estate. What are the risks of this approach?</li>
+          <li>How does a Specific Trust's tax efficiency compare to a Discretionary Trust when dealing with high-growth
+            assets?</li>
+          <li>What due diligence should a family do before placing private company shares in a trust?</li>
+        </ul>
+      </div>
+      <button class="play-again" onclick="restart()">↩ Play Again</button>
+    </div>
+
+    <!-- ENDING: Startup LATER -->
+    <div class="slide" id="slide-end-startup-wait">
+      <div class="top-bar"><span class="tag">Ending</span><span class="breadcrumb">Revocable → Specific → Startup
+          Delayed</span></div>
+      <div class="ending-banner">
+        <div class="end-label">The End</div>
+        <div class="end-title">The Procrastination Tax</div>
+      </div>
+      <div class="scene-card">
+        <div class="prose">
+          <p>Your father keeps saying <em>"next year"</em> about the startup shares. The startup triples in value. Then
+            it gets acquired. The appreciation has occurred in your father's personal name — it is now subject to
+            capital gains tax at the personal level before any trust transfer can occur.</p>
+          <p>The trust, otherwise beautifully structured, has lost the key advantage of early asset transfer.</p>
+          <p>Advocate Menon, reviewing the situation, says nothing. She has the expression of someone who warned them
+            about this but is too professional to say so.</p>
+          <p class="funny">The lesson, as always: estate planning works best when done before you need it.</p>
+        </div>
+      </div>
+      <div class="reflection">
+        <h4>Reflection Prompts</h4>
+        <ul>
+          <li>Why does timing matter in estate planning? What is the tax consequence of transferring appreciated assets
+            into a trust vs. at inception?</li>
+          <li>What barriers — psychological, practical, or legal — prevent families from acting on estate plans
+            promptly?</li>
+          <li>How can a lawyer or financial planner help overcome "planning paralysis"?</li>
+        </ul>
+      </div>
+      <button class="play-again" onclick="restart()">↩ Play Again</button>
+    </div>
+
+    <!-- ENDING: Uncle dispute – deed clear -->
+    <div class="slide" id="slide-end-dispute-resolve">
+      <div class="top-bar"><span class="tag">Ending</span><span class="breadcrumb">Irrevocable → Uncle → Good
+          Deed</span></div>
+      <div class="ending-banner">
+        <div class="end-label">The End</div>
+        <div class="end-title">Good Drafting: The Unsung Hero</div>
+      </div>
+      <div class="scene-card">
+        <div class="prose">
+          <p>The Trust Deed, drafted carefully at the outset, specifies that a minimum of 60% of annual trust income
+            must be distributed to beneficiaries within six months of the financial year end. Your uncle — Trustee — has
+            no discretion to override this.</p>
+          <p>Your sister receives her distribution. Your uncle keeps his pride, just slightly bruised. The dispute lasts
+            three days rather than three years.</p>
+          <p>The Sharma family trust endures. The PowerPoint is finally filed away, officially retired, its final slide
+            reading: <em>"Outcome: Governance Framework Implemented."</em></p>
+        </div>
+      </div>
+      <div class="reflection">
+        <h4>Reflection Prompts</h4>
+        <ul>
+          <li>What clauses in a trust deed are most important to prevent future disputes? Think about distribution
+            timelines, trustee powers, and beneficiary rights.</li>
+          <li>Can a trustee who is also a family member ever truly be neutral? What safeguards can a deed build in?</li>
+          <li>What role does a trustee play versus a lawyer versus a financial advisor in ongoing trust management?</li>
+        </ul>
+      </div>
+      <button class="play-again" onclick="restart()">↩ Play Again</button>
+    </div>
+
+    <!-- ENDING: Uncle dispute – vague deed -->
+    <div class="slide" id="slide-end-dispute-court">
+      <div class="top-bar"><span class="tag">Ending</span><span class="breadcrumb">Irrevocable → Uncle → Vague
+          Deed</span></div>
+      <div class="ending-banner">
+        <div class="end-label">The End</div>
+        <div class="end-title">Exhibit A: The PowerPoint</div>
+      </div>
+      <div class="scene-card">
+        <div class="prose">
+          <p>The Trust Deed's distribution clause reads: <em>"The trustee shall distribute income as he deems
+              appropriate in the interests of the family."</em> No timelines. No minimums. No safeguards.</p>
+          <p>The dispute goes to court. Your uncle's PowerPoint — all 47 slides, including the theme song — is submitted
+            as evidence of his "strategic intent." The court is not impressed by the theme song.</p>
+          <p>The matter is resolved after fourteen months and significant legal fees. The trust survives. The family's
+            appetite for Sunday dinners does not.</p>
+          <p class="funny">The moral: a Trust is only as good as its Trust Deed. An architect would never build a house
+            without detailed plans. Neither should a family plan its estate without detailed legal drafting.</p>
+        </div>
+      </div>
+      <div class="reflection">
+        <h4>Reflection Prompts</h4>
+        <ul>
+          <li>What makes a trust deed vague, and how can such vagueness be exploited — intentionally or not?</li>
+          <li>Should beneficiaries have a right to legal representation at the time the trust is created?</li>
+          <li>How does Indian trust law balance the trustee's discretion against beneficiary rights?</li>
+        </ul>
+      </div>
+      <button class="play-again" onclick="restart()">↩ Play Again</button>
+    </div>
+
+    <!-- ENDING: Professional – deed allows -->
+    <div class="slide" id="slide-end-pro-yes">
+      <div class="top-bar"><span class="tag">Ending</span><span class="breadcrumb">Irrevocable → Professional →
+          Reinvestment OK</span></div>
+      <div class="ending-banner">
+        <div class="end-label">The End</div>
+        <div class="end-title">The Sharma Legacy Fund</div>
+      </div>
+      <div class="scene-card">
+        <div class="prose">
+          <p>The startup is sold. Proceeds flow into the trust. The trustee, citing the deed's explicit power of
+            reinvestment, acquires additional agricultural land in Uttarakhand and Himachal Pradesh. The Sharma family
+            has quietly become significant landowners.</p>
+          <p>The trust, now in its second generation, funds two of your children's education, supports your parents, and
+            has never once needed a courtroom.</p>
+          <p>Your father, now retired, occasionally visits the farmland. He walks the fields slowly, with the quiet
+            satisfaction of someone who planned well and lived to see it.</p>
+          <p class="funny">Your uncle, who had predicted the trust would <em>"certainly collapse within a decade,"</em>
+            declines to comment.</p>
+        </div>
+      </div>
+      <div class="reflection">
+        <h4>Reflection Prompts</h4>
+        <ul>
+          <li>How should a trust deed handle unexpected opportunities — like a lucrative buyout offer — that were not
+            anticipated at the time of drafting?</li>
+          <li>What is the difference between a trustee's "power" and a trustee's "duty"? Can a trustee have the power to
+            reinvest but no duty to do so?</li>
+          <li>How do family trusts interact with agricultural land laws in India, which often restrict ownership by
+            non-farmers?</li>
+        </ul>
+      </div>
+      <button class="play-again" onclick="restart()">↩ Play Again</button>
+    </div>
+
+    <!-- ENDING: Professional – deed silent -->
+    <div class="slide" id="slide-end-pro-no">
+      <div class="top-bar"><span class="tag">Ending</span><span class="breadcrumb">Irrevocable → Professional → Deed
+          Silent</span></div>
+      <div class="ending-banner">
+        <div class="end-label">The End</div>
+        <div class="end-title">The Supplemental Deed</div>
+      </div>
+      <div class="scene-card">
+        <div class="prose">
+          <p>The professional trustee, finding the deed silent on reinvestment, does the correct thing: consults a
+            lawyer, obtains formal legal advice, and seeks consent from all adult beneficiaries before proceeding. A
+            Supplemental Trust Deed is executed.</p>
+          <p>It takes three months and additional legal fees. But it is done properly.</p>
+          <p>The farmland is purchased. The trust continues. The Sharma estate grows — slowly, methodically, legally.
+          </p>
+          <p class="funny">Your father, reviewing the legal bill, observes: <em>"The price of precision is not
+              cheap."</em> Advocate Menon, over the phone, agrees.</p>
+        </div>
+      </div>
+      <div class="reflection">
+        <h4>Reflection Prompts</h4>
+        <ul>
+          <li>Is it possible to draft a trust deed that anticipates every future scenario? What are the practical limits
+            of legal drafting?</li>
+          <li>What is a Supplemental Trust Deed and when is one required?</li>
+          <li>Should all beneficiaries — including minor ones — have representation when a trust is modified?</li>
+        </ul>
+      </div>
+      <button class="play-again" onclick="restart()">↩ Play Again</button>
+    </div>
+
+    <!-- ENDING: Sell farm -->
+    <div class="slide" id="slide-end-sell-farm">
+      <div class="top-bar"><span class="tag">Ending</span><span class="breadcrumb">Irrevocable → Arjun Trustee → Sell
+          Farm</span></div>
+      <div class="ending-banner">
+        <div class="end-label">The End</div>
+        <div class="end-title">The Prudent Decision</div>
+      </div>
+      <div class="scene-card">
+        <div class="prose">
+          <p>After consulting all adult beneficiaries and taking legal advice, you — as Trustee — accept the sale of the
+            Uttarakhand farmland at 3x market value. The proceeds are reinvested in a diversified portfolio held within
+            the trust.</p>
+          <p>Your grandmother, who loved the farmland, is sad. But she acknowledges the decision was made transparently,
+            for the benefit of the whole family.</p>
+          <p>You document everything carefully. Every consultation. Every decision. Every piece of advice. Because you
+            are an architect, and architects know the importance of having a record.</p>
+          <p class="funny">Your uncle reviews your documentation and admits, quietly, that it is better than his
+            PowerPoint. You do not tell anyone he said this.</p>
+        </div>
+      </div>
+      <div class="reflection">
+        <h4>Reflection Prompts</h4>
+        <ul>
+          <li>What is the "prudent person" standard for trustees under Indian trust law? How does it apply to investment
+            decisions?</li>
+          <li>How should a trustee balance financial maximisation against the non-financial wishes of the settlor or
+            beneficiaries?</li>
+          <li>Should a trustee who is also a beneficiary recuse themselves from decisions that affect their own share?
+          </li>
+        </ul>
+      </div>
+      <button class="play-again" onclick="restart()">↩ Play Again</button>
+    </div>
+
+    <!-- ENDING: Keep farm -->
+    <div class="slide" id="slide-end-keep-farm">
+      <div class="top-bar"><span class="tag">Ending</span><span class="breadcrumb">Irrevocable → Arjun Trustee → Keep
+          Farm</span></div>
+      <div class="ending-banner">
+        <div class="end-label">The End</div>
+        <div class="end-title">The Land That Stayed</div>
+      </div>
+      <div class="scene-card">
+        <div class="prose">
+          <p>You decline the offer, citing the trust's preservation mandate and the settlor's expressed intent to keep
+            farmland in the family. You document your reasoning and share it with all beneficiaries.</p>
+          <p>Your sister disagrees. She notes the financial opportunity cost. But you explain that your duty as Trustee
+            is not only to maximise current value — it is to honour the purpose of the trust.</p>
+          <p>Years later, the land has more than doubled in value even without the sale. Grandmother visits every
+            summer. The family has a place that feels, unmistakably, like home.</p>
+          <p class="funny">The developer who made the offer has since built a mall there instead. Your grandmother says
+            this with an expression that suggests she had always known this would happen.</p>
+        </div>
+      </div>
+      <div class="reflection">
+        <h4>Reflection Prompts</h4>
+        <ul>
+          <li>Can a trustee decline a financially superior option in favour of the settlor's original intent? What legal
+            basis supports this?</li>
+          <li>How does trust law balance the wishes of the dead (or the settlor's past intent) against the living needs
+            of beneficiaries?</li>
+          <li>What role does land — particularly ancestral or agricultural land — play in Indian family identity beyond
+            mere financial value?</li>
+        </ul>
+      </div>
+      <button class="play-again" onclick="restart()">↩ Play Again</button>
+    </div>
+
+    <!-- STUB: Gift path -->
+    <div class="slide" id="slide-gift-stub">
+      <div class="top-bar"><span class="tag">Gift Path</span></div>
+      <div class="scene-card">
+        <span class="scene-icon">🎁</span>
+        <div class="slide-title">Gifts Under Hindu Law</div>
+        <div class="slide-subtitle">Coming soon in this series.</div>
+        <div class="prose">
+          <p>You chose the Gift path — transferring property voluntarily during one's lifetime. Under the Transfer of
+            Property Act, 1882, and applicable Hindu law, gifts (known as <em>Dana</em>) are a recognised and
+            widely-used estate planning tool.</p>
+          <p class="funny">This branch of the maze is under construction. Your uncle has already submitted a 12-slide
+            proposal for how it should be structured.</p>
+        </div>
+      </div>
+      <div class="choices">
+        <button class="choice-btn" onclick="go('slide-0')">← Return to start</button>
+      </div>
+    </div>
+
+    <!-- STUB: Family Arrangement path -->
+    <div class="slide" id="slide-fa-stub">
+      <div class="top-bar"><span class="tag">Family Arrangement Path</span></div>
+      <div class="scene-card">
+        <span class="scene-icon">🤝</span>
+        <div class="slide-title">Family Arrangements</div>
+        <div class="slide-subtitle">Coming soon in this series.</div>
+        <div class="prose">
+          <p>You chose the Family Arrangement path — agreements among relatives to settle property matters peacefully
+            (or at least, less litigiously). Indian courts have long recognised the legal validity of family
+            settlements.</p>
+          <p class="funny">This branch is under construction. An arrangement is being made about the arrangement. Meta,
+            but very on-brand for this family.</p>
+        </div>
+      </div>
+      <div class="choices">
+        <button class="choice-btn" onclick="go('slide-0')">← Return to start</button>
+      </div>
+    </div>
+
+  </div><!-- /container -->
+
+  <script>
+    function go(id) {
+      document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    function restart() {
+      go('slide-0');
+    }
+  </script>
+</body>
+
+</html>

@@ -21,6 +21,11 @@
             --muted: #8A8070;
             --border: #DDD5C4;
             --card-bg: #FFFFF8;
+
+            --card-bg-widget: #FFFFFF;
+            --accent-gold: #D4AF37;
+            --primary-burgundy: #6a1b29;
+            --bg-color: #FDFBF7;
         }
 
         * {
@@ -748,6 +753,54 @@
             border-color: var(--ink);
         }
 
+        /* Nav To Button */
+        .navToButton-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 1rem;
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+            position: relative;
+            overflow: hidden;
+            box-shadow: none;
+        }
+
+        .navToButton-title {
+            font-size: 0.85rem;
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        .navToButton-desc {
+            font-size: 0.78rem;
+            color: var(--muted);
+        }
+
+        .navToButton-icon {
+            font-size: 1.4rem;
+            box-shadow: none;
+        }
+
+        .navToButton-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .navToButton-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+            border-color: var(--gold);
+        }
+
+        .navToButton-card:hover::before {
+            transform: scaleX(1);
+        }
+
+
         /* ── CALCULATOR ── */
         .calculator {
             background: var(--card-bg);
@@ -1031,6 +1084,44 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* Interactive Widgets (Mockups) */
+        .widget-container {
+            background-color: var(--card-bg-widget);
+            border: 1px solid var(--accent-gold);
+            padding: 3rem;
+            border-radius: 4px;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .widget-container h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-burgundy);
+        }
+
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: var(--primary-burgundy);
+            color: var(--bg-color);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 1.5rem;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-gold);
+            color: var(--primary-burgundy);
+        }
+
     </style>
 </head>
 
@@ -1112,41 +1203,41 @@
                 <h2 class="section-title" style="font-size:1.6rem;">Five Ways to Explore</h2>
                 <p class="section-desc" style="margin-bottom:1.5rem;">This website is designed for general users — not
                     legal scholars. Navigate any way you prefer.</p>
-                <div style="display:flex;flex-direction:column;gap:1rem;">
-                    <div
-                        style="display:flex;gap:1rem;align-items:flex-start;padding:1rem;border:1px solid var(--border);">
-                        <span style="font-size:1.4rem;">📖</span>
-                        <div><strong style="font-size:0.85rem;display:block;margin-bottom:0.3rem;">Read the
-                                Concepts</strong><span style="font-size:0.78rem;color:var(--muted);">Plain-language
-                                explainers on Gifts, Trusts, Waqf and Family Arrangements.</span></div>
+                <div class="navToButton-grid">
+                    <div class="navToButton-card" onclick="navToSection('concepts')">
+                        <span class="navToButton-icon">📖</span>
+                        <div>
+                            <strong class="navToButton-title">Read the Concepts</strong>
+                            <span class="navToButton-desc">Plain-language explainers on Gifts, Trusts, Waqf and Family Arrangements.</span>
+                        </div>
                     </div>
-                    <div
-                        style="display:flex;gap:1rem;align-items:flex-start;padding:1rem;border:1px solid var(--border);">
-                        <span style="font-size:1.4rem;">⚖️</span>
-                        <div><strong style="font-size:0.85rem;display:block;margin-bottom:0.3rem;">Compare the
-                                Mechanisms</strong><span style="font-size:0.78rem;color:var(--muted);">Side-by-side
-                                table across legal formality, control, timing, and tax implications.</span></div>
+                    <div class="navToButton-card" onclick="navToSection('compare')">
+                        <span class="navToButton-icon">⚖️</span>
+                        <div>
+                            <strong class="navToButton-title">Compare the Mechanisms</strong>
+                            <span class="navToButton-desc">Side-by-side table across legal formality, control, timing, and tax implications.</span>
+                        </div>
                     </div>
-                    <div
-                        style="display:flex;gap:1rem;align-items:flex-start;padding:1rem;border:1px solid var(--border);">
-                        <span style="font-size:1.4rem;">🌀</span>
-                        <div><strong style="font-size:0.85rem;display:block;margin-bottom:0.3rem;">Try the Mind
-                                Maze</strong><span style="font-size:0.78rem;color:var(--muted);">Interactive scenario
-                                simulation — see what happens if you pick different options.</span></div>
+                    <div class="navToButton-card" onclick="navToSection('maze')">
+                        <span class="navToButton-icon">🌀</span>
+                        <div>
+                            <strong class="navToButton-title">Try the Mind Maze</strong>
+                            <span class="navToButton-desc">Interactive scenario simulation — see what happens if you pick different options.</span>
+                        </div>
                     </div>
-                    <div
-                        style="display:flex;gap:1rem;align-items:flex-start;padding:1rem;border:1px solid var(--border);">
-                        <span style="font-size:1.4rem;">🧮</span>
-                        <div><strong style="font-size:0.85rem;display:block;margin-bottom:0.3rem;">Use the Succession
-                                Calculator</strong><span style="font-size:0.78rem;color:var(--muted);">Understand
-                                intestate distribution under your personal law — quickly and clearly.</span></div>
+                    <div class="navToButton-card" onclick="navToSection('calculator')">
+                        <span class="navToButton-icon">🧮</span>
+                        <div>
+                            <strong class="navToButton-title">Use the Succession Calculator</strong>
+                            <span class="navToButton-desc">Understand intestate distribution under your personal law — quickly and clearly.</span>
+                        </div>
                     </div>
-                    <div
-                        style="display:flex;gap:1rem;align-items:flex-start;padding:1rem;border:1px solid var(--border);">
-                        <span style="font-size:1.4rem;">📰</span>
-                        <div><strong style="font-size:0.85rem;display:block;margin-bottom:0.3rem;">Browse the
-                                Magazine</strong><span style="font-size:0.78rem;color:var(--muted);">Short articles on
-                                estate planning trends, family law, and common misconceptions.</span></div>
+                    <div class="navToButton-card" onclick="navToSection('magazine')">
+                        <span class="navToButton-icon">📰</span>
+                        <div>
+                            <strong class="navToButton-title">Browse the Magazine</strong>
+                            <span class="navToButton-desc">Short articles on estate planning trends, family law, and common misconceptions.</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1324,15 +1415,16 @@
         <div class="section-eyebrow">Interactive Simulation</div>
         <h2 class="section-title">Mind Maze</h2>
         <p class="section-desc">You're the decision-maker. Navigate a real-life scenario and discover which legal
-            mechanism fits your situation — and what the consequences are.</p>
+            mechanism fits your situation - and what the consequences are.</p>
         <div class="maze-container fade-in" id="mazeContainer">
             <div class="maze-badge">🌀 Interactive Scenario</div>
-            <div class="maze-progress" id="mazeProgress">
-                <div class="maze-step active" id="step0"></div>
-                <div class="maze-step" id="step1"></div>
-                <div class="maze-step" id="step2"></div>
-                <div class="maze-step" id="step3"></div>
+
+            <div class="widget-container" style="margin-bottom: 3rem;">
+                <h3>Mind Maze: Decision Simulation</h3>
+                <p>A scenario-based decision simulation. Users will be presented with hypothetical scenarios involving property ownership and family relationships to illustrate the legal consequences of different choices.</p>
+                <button class="btn" onclick="enterMindMaze()">Enter the Mind Maze</button>
             </div>
+            
             <div id="mazeContent"></div>
             <div class="maze-nav" id="mazeNav"></div>
         </div>
@@ -1490,153 +1582,19 @@
             if (!isOpen && rm) rm.textContent = 'Show less ↑';
         }
 
+        // ── NAV TO SECTIONS ──
+        function navToSection(id) {
+            const section = document.getElementById(id);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
         // ── MIND MAZE ──
-        const mazeData = [
-            {
-                scenario: "Scenario A — The Family Home",
-                question: "Your ageing parents own a house worth ₹80 lakh. They want you — their eldest child — to inherit it. They still want to live there. What do you advise?",
-                context: "Your parents are in their late 60s. They have two children. There is no will in place yet. Your sibling has expressed no strong views either way.",
-                choices: [
-                    { letter: 'A', text: 'Execute a Gift Deed now', detail: 'Transfer ownership to you immediately via a registered gift deed.' },
-                    { letter: 'B', text: 'Draft a Will', detail: 'Your parents draft a will specifying the property goes to you after their death.' },
-                    { letter: 'C', text: 'Create a Family Trust', detail: 'Place the property in a trust, with your parents as beneficiaries during their lifetime, you after.' },
-                ],
-                outcomes: [
-                    { type: 'caution', title: '⚠️ Gift Deed — Possible but Risky', text: 'A gift deed is irrevocable. Once gifted, your parents lose ownership entirely — they could be asked to vacate by a court order if the relationship sours. Stamp duty will also be payable. This option works only if the relationship is absolutely secure and there is complete trust.' },
-                    { type: 'good', title: '✅ Will — Often the Simplest Choice', text: 'A will is revocable, costs very little to create, and lets your parents retain full control until they die. The main downside: it can be contested, and probate may be required in some states. But for most families in this situation, a registered will is the cleanest solution.' },
-                    { type: 'good', title: '✅ Trust — Powerful for Complex Situations', text: 'A family trust offers the most control: your parents can be beneficiaries during their lifetime, with you taking over after. It avoids probate and is harder to contest. However, setting up a trust involves professional costs and ongoing compliance. Best suited if the estate is large or the family situation complex.' },
-                ]
-            },
-            {
-                scenario: "Scenario B — The Family Business",
-                question: "A family-owned textile business is worth ₹2 crore. The founder (63) wants to ensure the business passes to the youngest son, who manages it, and not be split among all three children.",
-                context: "Three children: eldest daughter (not involved in business), middle son (in another city), youngest son (runs day-to-day operations). All three are legal heirs under Hindu Succession Act.",
-                choices: [
-                    { letter: 'A', text: 'Use a Family Arrangement', detail: 'All three siblings sign an agreement acknowledging the youngest son\'s inheritance of the business.' },
-                    { letter: 'B', text: 'Set up a Private Trust', detail: 'Transfer the business into a private trust with the youngest son as primary beneficiary.' },
-                    { letter: 'C', text: 'Gift it to the youngest son now', detail: 'Execute a gift deed transferring business assets to the youngest son immediately.' },
-                ],
-                outcomes: [
-                    { type: 'good', title: '✅ Family Arrangement — Practical and Legally Recognised', text: 'If all three children agree, a family arrangement is a cost-effective, flexible solution. Courts have consistently upheld genuine family arrangements. The agreement should be in writing and registered if it involves immovable property.' },
-                    { type: 'good', title: '✅ Private Trust — Best for Long-Term Management', text: 'A private business trust gives the founder maximum control over succession. The business is managed by a trustee, and the youngest son is the principal beneficiary. This avoids disputes and is structured, but involves legal setup costs and professional trustees.' },
-                    { type: 'caution', title: '⚠️ Gift — Immediate but Potentially Contentious', text: 'Gifting the business now is legally possible, but could trigger disputes from the other two children if they feel excluded. There may also be tax implications on the business transfer. Works best only if the other children have explicitly consented.' },
-                ]
-            },
-            {
-                scenario: "Scenario C — Charitable Intention",
-                question: "A devout Muslim landowner (70) wants to permanently dedicate a plot of land for a community mosque and educational centre. What legal mechanism should he use?",
-                context: "The landowner has four adult children. He owns the plot freehold. He wants the dedication to be permanent and inalienable — no one should be able to sell it in the future.",
-                choices: [
-                    { letter: 'A', text: 'Create a Waqf', detail: 'Formally dedicate the land as Waqf for religious and charitable purposes.' },
-                    { letter: 'B', text: 'Create a Public Charitable Trust', detail: 'Set up a trust under the Indian Trusts Act for religious/charitable purposes.' },
-                    { letter: 'C', text: 'Bequeath it via Will', detail: 'Leave the land to the mosque committee via a will.' },
-                ],
-                outcomes: [
-                    { type: 'good', title: '✅ Waqf — The Natural Choice', text: 'For a Muslim landowner wishing a permanent, irrevocable dedication for religious purposes, a Waqf is the most appropriate mechanism. Once created, the property becomes inalienable — it cannot be sold or transferred. It will be managed by a Mutawalli under supervision of the Waqf Board.' },
-                    { type: 'good', title: '✅ Charitable Trust — Also Viable', text: 'A public charitable trust can achieve a similar result and is not religion-specific. It offers flexibility in governance. However, it does not carry the religious-legal significance of a Waqf and would be subject to the Indian Trusts Act rather than Islamic law principles.' },
-                    { type: 'bad', title: '❌ Will — Not Ideal for This Purpose', text: 'A will can bequeath property to the mosque committee, but it takes effect only after death and can be contested by legal heirs. It also does not create the permanent, inalienable status that a Waqf automatically carries. Not recommended for this scenario.' },
-                ]
-            },
-            {
-                scenario: "Final Insight",
-                question: "You've completed the Mind Maze. What did you learn?",
-                context: "",
-                choices: [],
-                isFinal: true,
-                summary: "The right mechanism depends entirely on your goals, family situation, and the nature of the property. There is no universal answer — but knowing the options puts you in control."
-            }
-        ];
-
-        let mazeStep = 0;
-        let mazeSelected = null;
-
-        function renderMaze() {
-            const data = mazeData[mazeStep];
-            const content = document.getElementById('mazeContent');
-            const nav = document.getElementById('mazeNav');
-
-            // Progress bar
-            document.querySelectorAll('.maze-step').forEach((s, i) => {
-                s.className = 'maze-step ' + (i < mazeStep ? 'done' : i === mazeStep ? 'active' : '');
-            });
-
-            if (data.isFinal) {
-                content.innerHTML = `
-      <div class="maze-scenario">🎉 Maze Complete</div>
-      <div class="maze-question" style="font-size:1.6rem;">${data.question}</div>
-      <div style="padding:2rem;background:var(--navy);color:#fff;margin-top:1.5rem;">
-        <p style="font-family:'Playfair Display',serif;font-style:italic;font-size:1.1rem;line-height:1.7;color:#E8D89A;">"${data.summary}"</p>
-      </div>
-      <div style="margin-top:1.5rem;display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;">
-        <div style="text-align:center;padding:1.2rem;border:1px solid var(--border);">
-          <div style="font-size:1.6rem;margin-bottom:0.5rem;">🎁</div>
-          <div style="font-size:0.75rem;font-weight:600;color:var(--gold);">Gifts</div>
-          <div style="font-size:0.7rem;color:var(--muted);margin-top:0.3rem;">Best for immediate, direct transfers</div>
-        </div>
-        <div style="text-align:center;padding:1.2rem;border:1px solid var(--border);">
-          <div style="font-size:1.6rem;margin-bottom:0.5rem;">🏛️</div>
-          <div style="font-size:0.75rem;font-weight:600;color:var(--gold);">Trusts</div>
-          <div style="font-size:0.7rem;color:var(--muted);margin-top:0.3rem;">Best for long-term managed succession</div>
-        </div>
-        <div style="text-align:center;padding:1.2rem;border:1px solid var(--border);">
-          <div style="font-size:1.6rem;margin-bottom:0.5rem;">🤝</div>
-          <div style="font-size:0.75rem;font-weight:600;color:var(--gold);">Arrangement</div>
-          <div style="font-size:0.7rem;color:var(--muted);margin-top:0.3rem;">Best for consensual family solutions</div>
-        </div>
-      </div>`;
-                nav.innerHTML = `<button class="maze-btn maze-btn-secondary" onclick="restartMaze()">↺ Restart Maze</button>`;
-                return;
-            }
-
-            let choicesHTML = data.choices.map((c, i) => `
-    <button class="maze-choice" id="choice${i}" onclick="selectChoice(${i})">
-      <div class="maze-choice-letter">${c.letter}</div>
-      <div class="maze-choice-text"><strong>${c.text}</strong><span>${c.detail}</span></div>
-    </button>`).join('');
-
-            let outcomesHTML = data.outcomes.map((o, i) => `
-    <div class="maze-outcome ${o.type}" id="outcome${i}" style="display:none;">
-      <div class="maze-outcome-title">${o.title}</div>
-      <p>${o.text}</p>
-    </div>`).join('');
-
-            content.innerHTML = `
-    <div class="maze-scenario">${data.scenario}</div>
-    <div class="maze-question">${data.question}</div>
-    ${data.context ? `<div class="maze-context">${data.context}</div>` : ''}
-    <div class="maze-choices">${choicesHTML}</div>
-    ${outcomesHTML}`;
-
-            nav.innerHTML = `
-    <button class="maze-btn maze-btn-primary" id="mazeNextBtn" onclick="mazeNext()" style="display:none;">Next Scenario →</button>
-    <button class="maze-btn maze-btn-secondary" onclick="restartMaze()">↺ Restart</button>`;
+        function enterMindMaze() {
+            // Placeholder for entering the Mind Maze simulation
+            window.location.href = 'pages/hindu_trust_maze.html'; 
         }
-
-        function selectChoice(i) {
-            mazeSelected = i;
-            document.querySelectorAll('.maze-choice').forEach((c, idx) => {
-                c.style.borderColor = idx === i ? 'var(--gold)' : 'var(--border)';
-                c.style.background = idx === i ? '#FFF9EE' : '';
-            });
-            document.querySelectorAll('[id^="outcome"]').forEach(o => o.style.display = 'none');
-            const outcome = document.getElementById('outcome' + i);
-            if (outcome) { outcome.style.display = 'block'; outcome.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
-            const nextBtn = document.getElementById('mazeNextBtn');
-            if (nextBtn) nextBtn.style.display = 'inline-block';
-        }
-
-        function mazeNext() {
-            if (mazeSelected === null && !mazeData[mazeStep].isFinal) return;
-            mazeStep++;
-            mazeSelected = null;
-            renderMaze();
-        }
-
-        function restartMaze() {
-            mazeStep = 0; mazeSelected = null; renderMaze();
-        }
-
-        renderMaze();
 
         // ── SUCCESSION CALCULATOR ──
         function openCalculator(school) {
