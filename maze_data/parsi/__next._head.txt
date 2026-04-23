@@ -1,0 +1,5 @@
+1:"$Sreact.fragment"
+2:I[46608,["/maze_data/_next/static/chunks/170rohsyix.4w.js","/maze_data/_next/static/chunks/03ug_ih8u~oib.js"],"ViewportBoundary"]
+3:I[46608,["/maze_data/_next/static/chunks/170rohsyix.4w.js","/maze_data/_next/static/chunks/03ug_ih8u~oib.js"],"MetadataBoundary"]
+4:"$Sreact.suspense"
+0:{"rsc":["$","$1","h",{"children":[null,["$","$L2",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","div",null,{"hidden":true,"children":["$","$L3",null,{"children":["$","$4",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"The Inheritance Path — An Interactive Legal Journey"}],["$","meta","1",{"name":"description","content":"Navigate the complex world of Indian inheritance law through an interactive story. Explore trusts, gifts, wills, and family arrangements across Hindu, Muslim, Parsi, and Christian personal laws."}]]}]}]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"0EuVFh1C3fen_7mDRhbAq"}
