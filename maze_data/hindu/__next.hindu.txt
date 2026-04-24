@@ -2,4 +2,4 @@
 2:I[90861,["/Beyond-Wills/maze_data/_next/static/chunks/170rohsyix.4w.js","/Beyond-Wills/maze_data/_next/static/chunks/03ug_ih8u~oib.js"],"default"]
 3:I[57834,["/Beyond-Wills/maze_data/_next/static/chunks/170rohsyix.4w.js","/Beyond-Wills/maze_data/_next/static/chunks/03ug_ih8u~oib.js"],"default"]
 4:[]
-0:{"rsc":["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]]}],"isPartial":false,"staleTime":300,"varyParams":"$W4","buildId":"328dd_OX0cx-5fuoMosL8"}
+0:{"rsc":["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]]}],"isPartial":false,"staleTime":300,"varyParams":"$W4","buildId":"2Giz_1dRfYzrsb-KNOXSo"}
