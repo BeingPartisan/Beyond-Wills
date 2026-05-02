@@ -885,6 +885,132 @@
             margin-bottom: 0.2rem;
         }
 
+        /* ── TESTIMONIALS ── */
+        .testimonials {
+            background: var(--navy);
+            color: #fff;
+        }
+
+        .testimonials .section-eyebrow {
+            color: var(--gold);
+        }
+
+        .testimonials .section-title {
+            color: #fff;
+        }
+
+        .testimonials .section-desc {
+            color: #8A8070;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(184, 136, 10, 0.3);
+            padding: 2.5rem 2rem;
+            border-radius: 4px;
+            position: relative;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold);
+        }
+
+        .quote-mark {
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            color: var(--gold);
+            line-height: 0;
+            position: absolute;
+            top: 3rem;
+            left: 1.5rem;
+            opacity: 0.2;
+        }
+
+        .testimonial-text {
+            font-size: 0.85rem;
+            line-height: 1.7;
+            color: #C8BFAA;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            border-top: 1px solid rgba(255,255,255,0.06);
+            padding-top: 1.2rem;
+        }
+
+        .testimonial-author strong {
+            display: block;
+            color: var(--gold-light);
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+            letter-spacing: 0.02em;
+        }
+
+        .testimonial-author span {
+            display: block;
+            font-size: 0.75rem;
+            color: #8A8070;
+            line-height: 1.4;
+        }
+
+        /* ── TESTIMONIAL LINKS & BUTTONS ── */
+        .testimonial-linkedin {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            color: #8A8070;
+            text-decoration: none;
+            font-size: 0.75rem;
+            margin-top: 0.5rem;
+            transition: color 0.2s;
+        }
+
+        .testimonial-linkedin:hover {
+            color: var(--gold-light);
+        }
+
+        .testimonial-linkedin svg {
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
+        }
+
+        .testimonial-pdf-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: rgba(184, 136, 10, 0.1);
+            color: var(--gold-light);
+            border: 1px solid rgba(184, 136, 10, 0.4);
+            padding: 0.5rem 1rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-radius: 4px;
+            text-decoration: none;
+            margin-top: 1rem;
+            transition: all 0.2s;
+            width: fit-content;
+        }
+
+        .testimonial-pdf-btn:hover {
+            background: var(--gold);
+            color: var(--navy);
+        }
+
+
         /* ── ANIMATIONS ── */
         .fade-in {
             opacity: 0;
@@ -1006,6 +1132,7 @@
 
         /* ── RESPONSIVE ── */
         @media (max-width: 900px) {
+            .testimonial-grid { grid-template-columns: 1fr; }
             nav { padding: 0 1.5rem; }
             .nav-links { display: none; }
             .lang-toggle-btn { margin-left: 0; }
@@ -1677,6 +1804,85 @@
                         <span class="lang-hi">कई परिवार इस सटीक सवाल से जूझते हैं। एक उपहार विलेख आपके जीवनकाल के दौरान संपत्ति को स्थानांतरित करता है; वसीयत मृत्यु के बाद ऐसा करती है। दोनों के महत्वपूर्ण कर, कानूनी और संबंधपरक परिणाम हैं। यह लेख उनके बीच चयन करने के लिए एक स्पष्ट रूपरेखा तैयार करता है।</span>
                     </div>
                     <div class="mag-card-meta"><span>Ansh Tanwar</span><span>Gifts</span><span>4 min read</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="testimonials" id="testimonials">
+        <div class="section-eyebrow">
+            <span class="lang-en">Endorsements</span>
+            <span class="lang-hi">समर्थन</span>
+        </div>
+        <h2 class="section-title">
+            <span class="lang-en">What Experts Are Saying</span>
+            <span class="lang-hi">विशेषज्ञ क्या कह रहे हैं</span>
+        </h2>
+        <p class="section-desc">
+            <span class="lang-en">Beyond Wills is recognized by community leaders, legal professionals, and dispute resolution experts.</span>
+            <span class="lang-hi">बियॉन्ड विल्स को सामुदायिक नेताओं, कानूनी पेशेवरों और विवाद समाधान विशेषज्ञों द्वारा मान्यता प्राप्त है।</span>
+        </p>
+
+        <div class="testimonial-grid fade-in">
+            <!-- Testimonial 1: NGO -->
+            <div class="testimonial-card" style="display: flex; flex-direction: column;">
+                <div class="quote-mark">"</div>
+                <p class="testimonial-text" style="flex: 1;">
+                    <span class="lang-en">"Beyond Wills is exactly the kind of resource our communities have needed for years but never had access to. The multilingual videos break down concepts like trusts and family arrangements in plain, accessible terms. For grassroots organisations like ours, having a reliable, free, and genuinely useful resource to point community members toward is invaluable."</span>
+                    <span class="lang-hi">"बियॉन्ड विल्स बिल्कुल वैसा ही संसाधन है जिसकी हमारे समुदायों को वर्षों से आवश्यकता थी। बहुभाषी वीडियो ट्रस्ट और पारिवारिक व्यवस्था जैसी अवधारणाओं को सरल शर्तों में समझाते हैं। हमारे जैसे जमीनी संगठनों के लिए, समुदाय के सदस्यों को निर्देशित करने के लिए एक विश्वसनीय, मुफ्त और वास्तव में उपयोगी संसाधन होना अमूल्य है।"</span>
+                </p>
+                <div class="testimonial-author">
+                    <strong>Divyanshi Tyagi</strong>
+                    <span><span class="lang-en">Founder, Project Suchit</span><span class="lang-hi">संस्थापक, प्रोजेक्ट सुचित</span></span>
+                    <span><span class="lang-en">India's Top 50 Changemakers, UN Geneva</span><span class="lang-hi">भारत के टॉप 50 चेंजमेकर्स, यूएन जिनेवा</span></span>
+                    
+                    <a href="https://www.linkedin.com/in/divyanshi-tyagi-7376422a9/" target="_blank" class="testimonial-linkedin">
+                        <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                        <span class="lang-en">View Profile</span><span class="lang-hi">प्रोफ़ाइल देखें</span>
+                    </a>
+                </div>
+                <!-- NGO PDF Button -->
+                <a href="pages/Suchit NGO Testimonial.pdf" target="_blank" class="testimonial-pdf-btn">
+                    📄 <span class="lang-en">View Official Letter</span><span class="lang-hi">आधिकारिक पत्र देखें</span>
+                </a>
+            </div>
+
+            <!-- Testimonial 2: Mediator -->
+            <div class="testimonial-card" style="display: flex; flex-direction: column;">
+                <div class="quote-mark">"</div>
+                <p class="testimonial-text" style="flex: 1;">
+                    <span class="lang-en">"I went through the website, and it has come out exceptionally well. Navigating the different aspects of inheritance can be daunting, but this platform presents the information in a remarkably simple and comprehensive manner. Translating complex family law into a resource that is genuinely accessible for everyone is a great achievement. Congratulations on an excellent initiative!"</span>
+                    <span class="lang-hi">"मैंने वेबसाइट देखी, और यह असाधारण रूप से अच्छी बनी है। विरासत के विभिन्न पहलुओं को समझना मुश्किल हो सकता है, लेकिन यह मंच जानकारी को उल्लेखनीय रूप से सरल और व्यापक तरीके से प्रस्तुत करता है। जटिल पारिवारिक कानून को एक ऐसे संसाधन में बदलना जो वास्तव में सभी के लिए सुलभ हो, एक बड़ी उपलब्धि है। एक उत्कृष्ट पहल पर बधाई!"</span>
+                </p>
+                <div class="testimonial-author">
+                    <strong>Advocate Rukmani Menon</strong>
+                    <span><span class="lang-en">Mediator</span><span class="lang-hi">मध्यस्थ (Mediator)</span></span>
+                    <span><span class="lang-en">Karnataka High Court</span><span class="lang-hi">कर्नाटक उच्च न्यायालय</span></span>
+                    
+                    <a href="https://www.linkedin.com/in/rukmani-menon-22aa9119/" target="_blank" class="testimonial-linkedin">
+                        <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                        <span class="lang-en">View Profile</span><span class="lang-hi">प्रोफ़ाइल देखें</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Testimonial 3: Advocate -->
+            <div class="testimonial-card" style="display: flex; flex-direction: column;">
+                <div class="quote-mark">"</div>
+                <p class="testimonial-text" style="flex: 1;">
+                    <span class="lang-en"></span>
+                    <span class="lang-hi"></span>
+                </p>
+                <div class="testimonial-author">
+                    <strong>Advocate Abhirup Bangara</strong>
+                    <span><span class="lang-en">Practicing Advocate</span><span class="lang-hi">अभ्यासरत अधिवक्ता</span></span>
+                    <span><span class="lang-en">Karnataka High Court</span><span class="lang-hi">कर्नाटक उच्च न्यायालय</span></span>
+                    
+                    <a href="https://www.linkedin.com/in/abhirup-bangara-52bb0a16/" target="_blank" class="testimonial-linkedin">
+                        <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                        <span class="lang-en">View Profile</span><span class="lang-hi">प्रोफ़ाइल देखें</span>
+                    </a>
                 </div>
             </div>
         </div>
