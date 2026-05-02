@@ -143,6 +143,7 @@
                 linear-gradient(rgba(184, 136, 10, 0.06) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(184, 136, 10, 0.06) 1px, transparent 1px);
             background-size: 60px 60px;
+            pointer-events: none;
         }
 
         .hero-rule {
@@ -207,6 +208,7 @@
             letter-spacing: 0.06em;
             text-transform: uppercase;
             transition: background 0.2s;
+            cursor: pointer; /* <--- Add this line here */
         }
 
         .hero-cta:hover {
@@ -699,6 +701,8 @@
             overflow: hidden;
             cursor: pointer;
             transition: box-shadow 0.2s, transform 0.2s;
+            display: flex;
+            flex-direction: column;
         }
 
         .mag-card:hover {
@@ -706,24 +710,42 @@
             transform: translateY(-3px);
         }
 
+        /* ── FIXED IMAGE SCALING ── */
         .mag-card-img {
-            height: 200px;
             width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
+            aspect-ratio: 16 / 9; 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             position: relative;
-            overflow: hidden;
         }
 
-        .mag-card-img.c1 { background: linear-gradient(135deg, #1A2744, #2E4080); }
-        .mag-card-img.c2 { background: linear-gradient(135deg, #4A1515, #8B1A1A); height: 140px; }
-        .mag-card-img.c3 { background: linear-gradient(135deg, #1A3A1A, #3A6A3A); height: 140px; }
-        .mag-card-img.c4 { background: linear-gradient(135deg, #3A2800, #8B6000); height: 140px; }
+        .mag-card-img.c1 { background-image: url('files/trust_cover.png'); }
+        .mag-card-img.c2 { background-image: url('files/estate_cover.png'); }
+        .mag-card-img.c3 { background-image: url('files/waqf_cover.jpeg'); }
+        .mag-card-img.c4 { background-image: url('files/gift_cover.png'); }
+
+        /* Clean CSS for horizontal cards */
+/* Clean CSS for horizontal cards */
+        .mag-card.horizontal {
+            grid-column: 1 / -1;
+            flex-direction: row;
+            align-items: center; /* Centers the square image vertically */
+        }
+        
+        .mag-card.horizontal .mag-card-img {
+            width: 280px;
+            min-width: 280px;
+            height: auto;
+            aspect-ratio: 1 / 1; /* Forces a perfect square */
+            background-size: cover;
+        }
 
         .mag-card-body {
             padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         .mag-tag {
@@ -753,6 +775,7 @@
             color: var(--muted);
             line-height: 1.65;
             margin-bottom: 1rem;
+            flex: 1;
         }
 
         .mag-card-meta {
@@ -771,6 +794,89 @@
         .mag-card-meta span:first-child::before {
             display: none;
         }
+
+        .mag-read-link {
+            margin-top: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--gold);
+            display: inline-block;
+        }
+
+        /* ── SURVEY REPORT BANNER ── */
+        .survey-report-banner {
+            margin-top: 4rem;
+            background: var(--navy);
+            color: #fff;
+            border-radius: 8px;
+            display: flex;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid var(--gold);
+        }
+
+        .survey-report-banner:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .survey-banner-img {
+            width: 320px;
+            background-image: url('files/survey_cover.png');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .survey-banner-content {
+            padding: 3rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .survey-banner-tag {
+            color: var(--gold-light);
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .survey-banner-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            color: #fff;
+        }
+
+        .survey-banner-desc {
+            color: #C8BFAA;
+            font-size: 0.9rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            max-width: 600px;
+        }
+
+        .survey-banner-meta {
+            font-size: 0.75rem;
+            color: #8A8070;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .survey-banner-link {
+            margin-top: 1.5rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--gold-light);
+        }
+
 
         /* ── SURVEY STRIP ── */
         .survey-strip {
@@ -1146,6 +1252,26 @@
             .survey-strip { flex-direction: column; text-align: center; }
             footer { flex-direction: column; gap: 1.5rem; }
             .footer-group-list { text-align: left; }
+
+            .mag-card.horizontal {
+                flex-direction: column;
+            }
+            .mag-card.horizontal .mag-card-img {
+                width: 100%;
+                min-width: 100%;
+                aspect-ratio: 16 / 9; /* Returns to landscape on mobile */
+            }
+
+            .survey-report-banner {
+                flex-direction: column;
+            }
+            .survey-banner-img {
+                width: 100%;
+                height: 200px;
+            }
+            .survey-banner-content {
+                padding: 2rem;
+            }
         }
 
         @media (max-width: 600px) {
@@ -1190,7 +1316,7 @@
             <span class="lang-hi">धन और संपत्ति प्रबंधन के लिए वैकल्पिक कानूनी तंत्रों के लिए एक व्यापक मार्गदर्शिका - उपहार और ट्रस्ट से लेकर वक्फ और पारिवारिक व्यवस्था तक।</span>
         </p>
         <div class="hero-authors">Ansh · Sarthak · Mudra · Agrima &nbsp;|&nbsp; B.A. LL.B. (Hons)</div>
-        <a href="#concepts" class="hero-cta">
+        <a class="hero-cta" href="#intro">
             <span class="lang-en">Start Exploring</span>
             <span class="lang-hi">अन्वेषण शुरू करें</span>
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
@@ -1745,8 +1871,8 @@
             <span class="lang-hi">भारत में संपत्ति योजना के सामाजिक, सांस्कृतिक और कानूनी आयामों की खोज करने वाले लघु लेख।</span>
         </p>
         <div class="mag-grid fade-in">
-            <div class="mag-card">
-                <div class="mag-card-img c1">🏢</div>
+            <div class="mag-card" onclick="openArticle('sarthak')">
+                <div class="mag-card-img c1"></div>
                 <div class="mag-card-body">
                     <span class="mag-tag">Cover Story</span>
                     <div class="mag-card-title">
@@ -1754,15 +1880,16 @@
                         <span class="lang-hi">भारत के व्यापारिक राजवंशों में फैमिली ट्रस्ट का उदय</span>
                     </div>
                     <div class="mag-card-excerpt">
-                        <span class="lang-en">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maxime enim explicabo voluptas. Molestiae ipsa explicabo facilis corporis sint voluptatem? Perferendis dicta mollitia nobis modi ullam non enim officiis vel neque suscipit, optio, assumenda autem quos deleniti, eum corrupti! Dolores, impedit.</span>
-                        <span class="lang-hi">लोरम इप्सम डोलर सिट अमेट कंसेक्टेटुर एडिपिसिसिंग एलीट। मैक्सिम एनिमे एक्सप्लेकाबो वोलुप्टस। मोलेस्टिया इप्सा एक्सप्लेकाबो फैसिलिस कॉर्पोरिस सिंट वोलुप्टेटेम? परफेरेंडिस डिक्टा...</span>
+                        <span class="lang-en">What happens to wealth when succession plans fail? As India’s business families confront this question, the private family trust is emerging as a quiet but powerful solution.</span>
+                        <span class="lang-hi">जब उत्तराधिकार योजनाएं विफल हो जाती हैं तो संपत्ति क्या होती है? जैसे ही भारत के व्यापारिक परिवार इस सवाल से सामना करते हैं, निजी परिवार ट्रस्ट का उदय एक शांत परंतु शक्तिशाली समाधान के रूप में प्रकट होता है।</span>
                     </div>
-                    <div class="mag-card-meta"><span>Sarthak Misra</span><span>Trusts</span><span>8 min read</span>
-                    </div>
+                    <div class="mag-card-meta"><span>Sarthak Misra</span><span>Trusts</span><span><span class="lang-en">8 min read</span><span class="lang-hi">8 मिनट पढ़ें</span></span></div>
+                    <div class="mag-read-link"><span class="lang-en">Read Full Paper ↗</span><span class="lang-hi">पूरा पेपर पढ़ें ↗</span></div>
                 </div>
             </div>
-            <div class="mag-card">
-                <div class="mag-card-img c2">📜</div>
+            <div class="mag-card" onclick="openArticle('agrima')">
+                <!-- IMPORTANT: Update 'files/estate_cover.jpg' in the CSS block (.c2) -->
+                <div class="mag-card-img c2"></div>
                 <div class="mag-card-body">
                     <span class="mag-tag">Business Families</span>
                     <div class="mag-card-title">
@@ -1773,11 +1900,13 @@
                         <span class="lang-en">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non ex est adipisci ad consectetur debitis. Inventore minima ipsum iure praesentium.</span>
                         <span class="lang-hi">लोरम इप्सम डोलर, सिट अमेट कंसेक्टेटुर एडिपिसिसिंग एलीट। नॉन एक्स एस्ट एडिपिसि एड कंसेक्टेटुर डेबिटिस।</span>
                     </div>
-                    <div class="mag-card-meta"><span>Agrima Sahu</span><span>Estate Planning</span><span>5 min read</span></div>
+                    <div class="mag-card-meta"><span>Agrima Sahu</span><span>Estate Planning</span><span><span class="lang-en">5 min read</span><span class="lang-hi">5 मिनट पढ़ें</span></span></div>
+                    <div class="mag-read-link"><span class="lang-en">Read Full Paper ↗</span><span class="lang-hi">पूरा पेपर पढ़ें ↗</span></div>
                 </div>
             </div>
-            <div class="mag-card">
-                <div class="mag-card-img c3">🌿</div>
+            <div class="mag-card" onclick="openArticle('mudra')">
+                <!-- IMPORTANT: Update 'files/waqf_cover.jpg' in the CSS block (.c3) -->
+                <div class="mag-card-img c3"></div>
                 <div class="mag-card-body">
                     <span class="mag-tag">Analysis</span>
                     <div class="mag-card-title">
@@ -1788,12 +1917,13 @@
                         <span class="lang-en">The 2025 Waqf Amendment Act has upended decades of waqf governance. What does it mean for Muslim estate planning today?</span>
                         <span class="lang-hi">2025 के वक्फ संशोधन अधिनियम ने वक्फ शासन के दशकों को खत्म कर दिया है। आज मुस्लिम संपत्ति योजना के लिए इसका क्या अर्थ है?</span>
                     </div>
-                    <div class="mag-card-meta"><span>Mudra Mehta</span><span>Waqf</span><span>6 min read</span></div>
+                    <div class="mag-card-meta"><span>Mudra Mehta</span><span>Waqf</span><span><span class="lang-en">6 min read</span><span class="lang-hi">6 मिनट पढ़ें</span></span></div>
+                    <div class="mag-read-link"><span class="lang-en">Read Full Paper ↗</span><span class="lang-hi">पूरा पेपर पढ़ें ↗</span></div>
                 </div>
             </div>
-            <div class="mag-card" style="grid-column: 1 / -1; display:flex; gap:0;">
-                <div class="mag-card-img c4" style="width:220px;min-width:220px;height:auto;">🎁</div>
-                <div class="mag-card-body" style="flex:1;">
+            <div class="mag-card horizontal" onclick="openArticle('ansh')">
+                <div class="mag-card-img c4"></div>
+                <div class="mag-card-body">
                     <span class="mag-tag">Explainer</span>
                     <div class="mag-card-title">
                         <span class="lang-en">Gift Deed vs. Will: Which Is Better for Your Situation?</span>
@@ -1803,7 +1933,36 @@
                         <span class="lang-en">Many families wrestle with this exact question. A gift deed transfers property during your lifetime; a will does it after death. Both have significant tax, legal, and relational consequences. This article lays out a clear framework for choosing between them.</span>
                         <span class="lang-hi">कई परिवार इस सटीक सवाल से जूझते हैं। एक उपहार विलेख आपके जीवनकाल के दौरान संपत्ति को स्थानांतरित करता है; वसीयत मृत्यु के बाद ऐसा करती है। दोनों के महत्वपूर्ण कर, कानूनी और संबंधपरक परिणाम हैं। यह लेख उनके बीच चयन करने के लिए एक स्पष्ट रूपरेखा तैयार करता है।</span>
                     </div>
-                    <div class="mag-card-meta"><span>Ansh Tanwar</span><span>Gifts</span><span>4 min read</span></div>
+                    <div class="mag-card-meta"><span>Ansh Tanwar</span><span>Gifts</span><span><span class="lang-en">4 min read</span><span class="lang-hi">4 मिनट पढ़ें</span></span></div>
+                    <div class="mag-read-link"><span class="lang-en">Read Full Paper ↗</span><span class="lang-hi">पूरा पेपर पढ़ें ↗</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- NEW: SEPARATED SURVEY REPORT BANNER -->
+        <div class="survey-report-banner fade-in" onclick="openArticle('survey')">
+            <div class="survey-banner-img"></div>
+            <div class="survey-banner-content">
+                <div class="survey-banner-tag">
+                    <span class="lang-en">Special Report</span>
+                    <span class="lang-hi">विशेष रिपोर्ट</span>
+                </div>
+                <div class="survey-banner-title">
+                    <span class="lang-en">Beyond Awareness: The Gap Between Knowledge and Action in India</span>
+                    <span class="lang-hi">जागरूकता के परे: भारत में संपत्ति योजना में ज्ञान और कार्रवाई के बीच का अंतर</span>
+                </div>
+                <div class="survey-banner-desc">
+                    <span class="lang-en">The anonymous survey findings reveal that while many individuals in India are aware of estate planning, their understanding remains superficial, leading to low engagement due to the complexity of succession laws.</span>
+                    <span class="lang-hi">अनाम सर्वेक्षण के परिणाम दिखाते हैं कि भारत में कई व्यक्ति संपत्ति योजना के बारे में जागरूक हैं, लेकिन उनकी समझ सतही रहती है, जिससे उत्तराधिकार कानूनों की जटिलता के कारण जुड़ाव कम होता है।</span>
+                </div>
+                <div class="survey-banner-meta">
+                    <span>Beyond Wills</span>
+                    <span><span class="lang-en">Empirical Survey</span><span class="lang-hi">अनुभवजन्य सर्वेक्षण</span></span>
+                    <span><span class="lang-en">4 min read</span><span class="lang-hi">4 मिनट पढ़ें</span></span>
+                </div>
+                <div class="survey-banner-link">
+                    <span class="lang-en">Read Full Report ↗</span>
+                    <span class="lang-hi">पूरी रिपोर्ट पढ़ें ↗</span>
                 </div>
             </div>
         </div>
@@ -1843,7 +2002,7 @@
                     </a>
                 </div>
                 <!-- NGO PDF Button -->
-                <a href="pages/Suchit NGO Testimonial.pdf" target="_blank" class="testimonial-pdf-btn">
+                <a href="files/Suchit NGO Testimonial.pdf" target="_blank" class="testimonial-pdf-btn">
                     📄 <span class="lang-en">View Official Letter</span><span class="lang-hi">आधिकारिक पत्र देखें</span>
                 </a>
             </div>
@@ -1871,8 +2030,8 @@
             <div class="testimonial-card" style="display: flex; flex-direction: column;">
                 <div class="quote-mark">"</div>
                 <p class="testimonial-text" style="flex: 1;">
-                    <span class="lang-en"></span>
-                    <span class="lang-hi"></span>
+                    <span class="lang-en">"??"</span>
+                    <span class="lang-hi">"??"</span>
                 </p>
                 <div class="testimonial-author">
                     <strong>Advocate Abhirup Bangara</strong>
@@ -1968,6 +2127,23 @@
         }, { threshold: 0.1 });
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
+        // ── OPEN ARTICLE ──
+        function openArticle(name) {
+            if (name === 'sarthak') {
+                window.open('files/Sarthak_Trust.pdf', '_blank');
+            } else if (name === 'agrima') {
+                window.open('files/Agrima_FamilyArrangements.pdf', '_blank');
+            } else if (name === 'mudra') {
+                window.open('files/Mudra_Waqf.pdf', '_blank');
+            } else if (name === 'ansh') {
+                window.open('files/Ansh_Gift.pdf', '_blank');
+            } else if (name === 'survey') {
+                window.open('files/Survey_Report.pdf', '_blank');
+            } else {
+                alert('Article not found!');
+            }
+        }
+
         // ── CONCEPT CARDS ──
         function toggleConcept(card) {
             const isOpen = card.classList.contains('open');
@@ -1976,8 +2152,6 @@
             
             // Handle Read More text logic for bilingual setup
             const isHindi = document.body.classList.contains('hindi-mode');
-            const readMoreText = isHindi ? 'और पढ़ें ↓' : 'Read more ↓';
-            const showLessText = isHindi ? 'कम दिखाएं ↑' : 'Show less ↑';
 
             document.querySelectorAll('.concept-card .read-more').forEach(r => {
                 r.innerHTML = `<span class="lang-en">Read more ↓</span><span class="lang-hi">और पढ़ें ↓</span>`;
