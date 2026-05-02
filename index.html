@@ -45,6 +45,13 @@
             overflow-x: hidden;
         }
 
+        /* ── LANGUAGE TOGGLE CSS ── */
+        .lang-hi { display: none !important; }
+        body.hindi-mode .lang-en { display: none !important; }
+        body.hindi-mode .lang-hi { display: block !important; }
+        body.hindi-mode span.lang-hi { display: inline !important; }
+        body.hindi-mode td.lang-hi, body.hindi-mode th.lang-hi { display: table-cell !important; }
+
         /* ── NAV ── */
         nav {
             position: fixed;
@@ -74,6 +81,12 @@
             font-style: italic;
         }
 
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
         .nav-links {
             display: flex;
             gap: 2rem;
@@ -92,6 +105,23 @@
 
         .nav-links a:hover {
             color: var(--gold-light);
+        }
+
+        .lang-toggle-btn {
+            background: transparent;
+            color: #fff;
+            border: 1px solid var(--gold);
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+        .lang-toggle-btn:hover {
+            background: var(--gold);
+            color: var(--ink);
         }
 
         /* ── HERO ── */
@@ -584,175 +614,6 @@
             margin-bottom: 2rem;
         }
 
-        .maze-progress {
-            display: flex;
-            gap: 0.4rem;
-            margin-bottom: 2.5rem;
-        }
-
-        .maze-step {
-            height: 3px;
-            flex: 1;
-            background: var(--border);
-            transition: background 0.4s;
-        }
-
-        .maze-step.done {
-            background: var(--gold);
-        }
-
-        .maze-step.active {
-            background: var(--crimson);
-        }
-
-        .maze-scenario {
-            font-size: 0.72rem;
-            font-weight: 600;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--muted);
-            margin-bottom: 0.6rem;
-        }
-
-        .maze-question {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.4rem;
-            font-weight: 600;
-            line-height: 1.4;
-            margin-bottom: 0.6rem;
-        }
-
-        .maze-context {
-            font-size: 0.82rem;
-            color: var(--muted);
-            line-height: 1.65;
-            margin-bottom: 2rem;
-            padding-left: 1rem;
-            border-left: 2px solid var(--gold);
-        }
-
-        .maze-choices {
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-        }
-
-        .maze-choice {
-            padding: 1rem 1.2rem;
-            border: 1px solid var(--border);
-            background: var(--cream);
-            cursor: pointer;
-            display: flex;
-            gap: 1rem;
-            align-items: flex-start;
-            transition: border-color 0.2s, background 0.2s, transform 0.15s;
-            text-align: left;
-        }
-
-        .maze-choice:hover {
-            border-color: var(--gold);
-            background: #FFF9EE;
-            transform: translateX(4px);
-        }
-
-        .maze-choice-letter {
-            width: 26px;
-            height: 26px;
-            min-width: 26px;
-            border: 1.5px solid var(--gold);
-            color: var(--gold);
-            font-size: 0.72rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .maze-choice-text strong {
-            display: block;
-            font-size: 0.88rem;
-            margin-bottom: 0.25rem;
-        }
-
-        .maze-choice-text span {
-            font-size: 0.75rem;
-            color: var(--muted);
-        }
-
-        .maze-outcome {
-            display: none;
-            padding: 2rem;
-            border: 1px solid;
-            margin-top: 0;
-        }
-
-        .maze-outcome.good {
-            border-color: #6DBF7E;
-            background: rgba(109, 191, 126, 0.06);
-        }
-
-        .maze-outcome.caution {
-            border-color: #E8C44A;
-            background: rgba(232, 196, 74, 0.06);
-        }
-
-        .maze-outcome.bad {
-            border-color: #E07070;
-            background: rgba(224, 112, 112, 0.06);
-        }
-
-        .maze-outcome-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 0.6rem;
-        }
-
-        .maze-outcome p {
-            font-size: 0.83rem;
-            line-height: 1.7;
-            color: #444;
-        }
-
-        .maze-nav {
-            display: flex;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .maze-btn {
-            padding: 0.7rem 1.5rem;
-            font-size: 0.78rem;
-            font-weight: 600;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            cursor: pointer;
-            border: none;
-            transition: 0.2s;
-        }
-
-        .maze-btn-primary {
-            background: var(--navy);
-            color: #fff;
-        }
-
-        .maze-btn-primary:hover {
-            background: var(--gold);
-            color: var(--ink);
-        }
-
-        .maze-btn-secondary {
-            background: transparent;
-            color: var(--muted);
-            border: 1px solid var(--border);
-        }
-
-        .maze-btn-secondary:hover {
-            color: var(--ink);
-            border-color: var(--ink);
-        }
-
         /* Nav To Button */
         .navToButton-card {
             background: var(--card-bg);
@@ -794,10 +655,6 @@
             transform: translateY(-4px);
             box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
             border-color: var(--gold);
-        }
-
-        .navToButton-card:hover::before {
-            transform: scaleX(1);
         }
 
 
@@ -860,24 +717,10 @@
             overflow: hidden;
         }
 
-        .mag-card-img.c1 {
-            background: linear-gradient(135deg, #1A2744, #2E4080);
-        }
-
-        .mag-card-img.c2 {
-            background: linear-gradient(135deg, #4A1515, #8B1A1A);
-            height: 140px;
-        }
-
-        .mag-card-img.c3 {
-            background: linear-gradient(135deg, #1A3A1A, #3A6A3A);
-            height: 140px;
-        }
-
-        .mag-card-img.c4 {
-            background: linear-gradient(135deg, #3A2800, #8B6000);
-            height: 140px;
-        }
+        .mag-card-img.c1 { background: linear-gradient(135deg, #1A2744, #2E4080); }
+        .mag-card-img.c2 { background: linear-gradient(135deg, #4A1515, #8B1A1A); height: 140px; }
+        .mag-card-img.c3 { background: linear-gradient(135deg, #1A3A1A, #3A6A3A); height: 140px; }
+        .mag-card-img.c4 { background: linear-gradient(135deg, #3A2800, #8B6000); height: 140px; }
 
         .mag-card-body {
             padding: 1.5rem;
@@ -972,6 +815,42 @@
             color: var(--ink);
         }
 
+        /* Interactive Widgets (Mockups) */
+        .widget-container {
+            background-color: var(--card-bg-widget);
+            border: 1px solid var(--accent-gold);
+            padding: 3rem;
+            border-radius: 4px;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .widget-container h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-burgundy);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: var(--primary-burgundy);
+            color: var(--bg-color);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 1.5rem;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-gold);
+            color: var(--primary-burgundy);
+        }
+
         /* ── FOOTER ── */
         footer {
             background: var(--ink);
@@ -1041,10 +920,10 @@
         }
 
         .video-modal {
-            display: none; /* Hidden by default */
+            display: none; 
             position: fixed;
             inset: 0;
-            z-index: 9999; /* Ensures it sits above your navigation bar */
+            z-index: 9999; 
             align-items: center;
             justify-content: center;
             opacity: 0;
@@ -1059,7 +938,7 @@
         .video-modal-overlay {
             position: absolute;
             inset: 0;
-            background: rgba(28, 26, 22, 0.85); /* Your --ink color with opacity */
+            background: rgba(28, 26, 22, 0.85); 
             backdrop-filter: blur(5px);
         }
 
@@ -1112,7 +991,7 @@
             text-align: center;
         }
 
-        /* Make it stack on mobile screens */
+        /* Make modal stack on mobile screens */
         @media (max-width: 768px) {
             .video-modal-grid {
                 grid-template-columns: 1fr;
@@ -1127,108 +1006,26 @@
 
         /* ── RESPONSIVE ── */
         @media (max-width: 900px) {
-            nav {
-                padding: 0 1.5rem;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            section {
-                padding: 5rem 1.5rem;
-            }
-
-            .hero {
-                padding: 7rem 1.5rem 4rem;
-            }
-
-            .hero-float-tag {
-                display: none;
-            }
-
-            .concepts-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .mag-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .intro-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .calculator-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .survey-strip {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            footer {
-                flex-direction: column;
-                gap: 1.5rem;
-            }
-
-            .footer-group-list {
-                text-align: left;
-            }
+            nav { padding: 0 1.5rem; }
+            .nav-links { display: none; }
+            .lang-toggle-btn { margin-left: 0; }
+            section { padding: 5rem 1.5rem; }
+            .hero { padding: 7rem 1.5rem 4rem; }
+            .hero-float-tag { display: none; }
+            .concepts-grid { grid-template-columns: 1fr 1fr; }
+            .mag-grid { grid-template-columns: 1fr; }
+            .intro-grid { grid-template-columns: 1fr; }
+            .calculator-grid { grid-template-columns: 1fr 1fr; }
+            .survey-strip { flex-direction: column; text-align: center; }
+            footer { flex-direction: column; gap: 1.5rem; }
+            .footer-group-list { text-align: left; }
         }
 
         @media (max-width: 600px) {
-            .concepts-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .intro-stat-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .calculator-grid {
-                grid-template-columns: 1fr;
-            }
+            .concepts-grid { grid-template-columns: 1fr; }
+            .intro-stat-grid { grid-template-columns: 1fr 1fr; }
+            .calculator-grid { grid-template-columns: 1fr; }
         }
-
-        /* Interactive Widgets (Mockups) */
-        .widget-container {
-            background-color: var(--card-bg-widget);
-            border: 1px solid var(--accent-gold);
-            padding: 3rem;
-            border-radius: 4px;
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .widget-container h3 {
-            font-family: 'Playfair Display', serif;
-            color: var(--primary-burgundy);
-        }
-
-
-        .btn {
-            display: inline-block;
-            padding: 1rem 2rem;
-            background-color: var(--primary-burgundy);
-            color: var(--bg-color);
-            text-decoration: none;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            margin-top: 1.5rem;
-        }
-
-        .btn:hover {
-            background-color: var(--accent-gold);
-            color: var(--primary-burgundy);
-        }
-
     </style>
 </head>
 
@@ -1237,34 +1034,51 @@
     <!-- NAV -->
     <nav>
         <div class="nav-logo"><span>Beyond</span> Wills</div>
-        <ul class="nav-links">
-            <li><a href="#concepts">Concepts</a></li>
-            <li><a href="#compare">Compare</a></li>
-            <li><a href="#maze">Mind Maze</a></li>
-            <li><a href="#calculator">Calculator</a></li>
-            <li><a href="#magazine">Magazine</a></li>
-        </ul>
+        <div class="nav-right">
+            <ul class="nav-links">
+                <li><a href="#concepts"><span class="lang-en">Concepts</span><span class="lang-hi">अवधारणाएं</span></a></li>
+                <li><a href="#compare"><span class="lang-en">Compare</span><span class="lang-hi">तुलना</span></a></li>
+                <li><a href="#maze"><span class="lang-en">Mind Maze</span><span class="lang-hi">माइंड मेज़</span></a></li>
+                <li><a href="#calculator"><span class="lang-en">Calculator</span><span class="lang-hi">कैलकुलेटर</span></a></li>
+                <li><a href="#magazine"><span class="lang-en">Magazine</span><span class="lang-hi">पत्रिका</span></a></li>
+            </ul>
+            <button class="lang-toggle-btn" onclick="toggleLanguage()">हिंदी में पढ़ें</button>
+        </div>
     </nav>
 
     <!-- HERO -->
     <section class="hero" id="top">
         <div class="hero-grid-bg"></div>
         <div class="hero-rule"></div>
-        <div class="hero-eyebrow">The Estate Playbook</div>
-        <h1>Beyond <em>Wills</em> - <br>Estate Planning<br>in India</h1>
-        <p class="hero-sub">A comprehensive guide to alternative legal mechanisms for wealth and estate management -
-            from gifts and trusts to waqfs and family arrangements.</p>
+        <div class="hero-eyebrow">
+            <span class="lang-en">The Estate Playbook</span>
+            <span class="lang-hi">एस्टेट प्लेबुक</span>
+        </div>
+        <h1>
+            <span class="lang-en">Beyond <em>Wills</em> - <br>Estate Planning<br>in India</span>
+            <span class="lang-hi">वसीयत के <em>परे</em> - <br>भारत में<br>संपत्ति योजना</span>
+        </h1>
+        <p class="hero-sub">
+            <span class="lang-en">A comprehensive guide to alternative legal mechanisms for wealth and estate management - from gifts and trusts to waqfs and family arrangements.</span>
+            <span class="lang-hi">धन और संपत्ति प्रबंधन के लिए वैकल्पिक कानूनी तंत्रों के लिए एक व्यापक मार्गदर्शिका - उपहार और ट्रस्ट से लेकर वक्फ और पारिवारिक व्यवस्था तक।</span>
+        </p>
         <div class="hero-authors">Ansh · Sarthak · Mudra · Agrima &nbsp;|&nbsp; B.A. LL.B. (Hons)</div>
         <a href="#concepts" class="hero-cta">
-            Start Exploring
+            <span class="lang-en">Start Exploring</span>
+            <span class="lang-hi">अन्वेषण शुरू करें</span>
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M3 8h10M9 4l4 4-4 4" />
             </svg>
         </a>
         <div class="hero-float-tag">
-            <strong>Did you know?</strong>
-            <p>Most Indians associate estate planning only with Wills. But the law offers far richer tools - trusts,
-                gifts, waqf, and family settlements - each with distinct advantages.</p>
+            <strong>
+                <span class="lang-en">Did you know?</span>
+                <span class="lang-hi">क्या आप जानते हैं?</span>
+            </strong>
+            <p>
+                <span class="lang-en">Most Indians associate estate planning only with Wills. But the law offers far richer tools - trusts, gifts, waqf, and family settlements - each with distinct advantages.</span>
+                <span class="lang-hi">अधिकतर भारतीय एस्टेट प्लानिंग को केवल वसीयत से जोड़ते हैं। लेकिन कानून कहीं अधिक समृद्ध उपकरण प्रदान करता है - ट्रस्ट, उपहार, वक्फ और पारिवारिक बस्तियां - जिनमें से प्रत्येक के अलग-अलग फायदे हैं।</span>
+            </p>
         </div>
         <div class="hero-scroll">
             <span>Scroll</span>
@@ -1276,73 +1090,131 @@
     <section class="intro" id="intro">
         <div class="intro-grid fade-in">
             <div>
-                <div class="section-eyebrow">The Problem</div>
-                <h2 class="section-title">Why Estate Planning Is Misunderstood</h2>
-                <p class="section-desc">In India, estate planning conversations begin and end with Wills. Yet the legal
-                    framework provides multiple powerful mechanisms that can offer greater flexibility, privacy, and
-                    control. This guide untangles all of them.</p>
+                <div class="section-eyebrow">
+                    <span class="lang-en">The Problem</span>
+                    <span class="lang-hi">समस्या</span>
+                </div>
+                <h2 class="section-title">
+                    <span class="lang-en">Why Estate Planning Is Misunderstood</span>
+                    <span class="lang-hi">संपत्ति योजना को क्यों गलत समझा जाता है</span>
+                </h2>
+                <p class="section-desc">
+                    <span class="lang-en">In India, estate planning conversations begin and end with Wills. Yet the legal framework provides multiple powerful mechanisms that can offer greater flexibility, privacy, and control. This guide untangles all of them.</span>
+                    <span class="lang-hi">भारत में, संपत्ति नियोजन की बातचीत वसीयत के साथ शुरू और खत्म होती है। फिर भी कानूनी ढांचा कई शक्तिशाली तंत्र प्रदान करता है जो अधिक लचीलापन, गोपनीयता और नियंत्रण प्रदान कर सकता है। यह मार्गदर्शिका उन सभी को सुलझाती है।</span>
+                </p>
                 <div class="intro-stat-grid">
                     <div class="intro-stat">
                         <span class="intro-stat-num">4</span>
-                        <span class="intro-stat-label">Key Mechanisms Beyond Wills</span>
+                        <span class="intro-stat-label">
+                            <span class="lang-en">Key Mechanisms Beyond Wills</span>
+                            <span class="lang-hi">वसीयत से परे प्रमुख तंत्र</span>
+                        </span>
                     </div>
                     <div class="intro-stat">
                         <span class="intro-stat-num">~70%</span>
-                        <span class="intro-stat-label">Indians die intestate (without a will)</span>
+                        <span class="intro-stat-label">
+                            <span class="lang-en">Indians die intestate (without a will)</span>
+                            <span class="lang-hi">भारतीय बिना वसीयत के मर जाते हैं</span>
+                        </span>
                     </div>
                     <div class="intro-stat">
                         <span class="intro-stat-num">3</span>
-                        <span class="intro-stat-label">Personal Law Frameworks in India</span>
+                        <span class="intro-stat-label">
+                            <span class="lang-en">Personal Law Frameworks in India</span>
+                            <span class="lang-hi">भारत में पर्सनल लॉ फ्रेमवर्क</span>
+                        </span>
                     </div>
                     <div class="intro-stat">
                         <span class="intro-stat-num">1925</span>
-                        <span class="intro-stat-label">Indian Succession Act — still in force</span>
+                        <span class="intro-stat-label">
+                            <span class="lang-en">Indian Succession Act — still in force</span>
+                            <span class="lang-hi">भारतीय उत्तराधिकार अधिनियम — अभी भी लागू है</span>
+                        </span>
                     </div>
                     <div class="intro-highlight">
-                        "Estate planning is not about death. It is about ensuring that what you built during your
-                        lifetime reflects your intentions — even after you are gone."
-                        <cite>— Conceptual premise of this guide</cite>
+                        <span class="lang-en">"Estate planning is not about death. It is about ensuring that what you built during your lifetime reflects your intentions — even after you are gone."</span>
+                        <span class="lang-hi">"संपत्ति योजना मौत के बारे में नहीं है। यह सुनिश्चित करने के बारे में है कि आपने अपने जीवनकाल में जो बनाया है वह आपके इरादों को दर्शाता है - आपके जाने के बाद भी।"</span>
+                        <cite><span class="lang-en">— Conceptual premise of this guide</span><span class="lang-hi">— इस गाइड का वैचारिक आधार</span></cite>
                     </div>
                 </div>
             </div>
             <div>
-                <div class="section-eyebrow">How to Use This Guide</div>
-                <h2 class="section-title" style="font-size:1.6rem;">Five Ways to Explore</h2>
-                <p class="section-desc" style="margin-bottom:1.5rem;">This website is designed for general users - No prior legal knowledge required. Navigate any way you prefer.</p>
+                <div class="section-eyebrow">
+                    <span class="lang-en">How to Use This Guide</span>
+                    <span class="lang-hi">इस गाइड का उपयोग कैसे करें</span>
+                </div>
+                <h2 class="section-title" style="font-size:1.6rem;">
+                    <span class="lang-en">Five Ways to Explore</span>
+                    <span class="lang-hi">अन्वेषण करने के पांच तरीके</span>
+                </h2>
+                <p class="section-desc" style="margin-bottom:1.5rem;">
+                    <span class="lang-en">This website is designed for general users - No prior legal knowledge required. Navigate any way you prefer.</span>
+                    <span class="lang-hi">यह वेबसाइट सामान्य उपयोगकर्ताओं के लिए डिज़ाइन की गई है - किसी पूर्व कानूनी ज्ञान की आवश्यकता नहीं है। अपने अनुसार नेविगेट करें।</span>
+                </p>
                 <div class="navToButton-grid">
                     <div class="navToButton-card" onclick="navToSection('concepts')">
                         <span class="navToButton-icon">📖</span>
                         <div>
-                            <strong class="navToButton-title">Read the Concepts</strong>
-                            <span class="navToButton-desc">Plain-language explainers on Gifts, Trusts, Waqf and Family Arrangements.</span>
+                            <strong class="navToButton-title">
+                                <span class="lang-en">Read the Concepts</span>
+                                <span class="lang-hi">अवधारणाओं को पढ़ें</span>
+                            </strong>
+                            <span class="navToButton-desc">
+                                <span class="lang-en">Plain-language explainers on Gifts, Trusts, Waqf and Family Arrangements.</span>
+                                <span class="lang-hi">उपहार, ट्रस्ट, वक्फ और पारिवारिक व्यवस्था पर सरल भाषा में व्याख्या।</span>
+                            </span>
                         </div>
                     </div>
                     <div class="navToButton-card" onclick="navToSection('compare')">
                         <span class="navToButton-icon">⚖️</span>
                         <div>
-                            <strong class="navToButton-title">Compare the Mechanisms</strong>
-                            <span class="navToButton-desc">Side-by-side table across legal formality, control, timing, and tax implications.</span>
+                            <strong class="navToButton-title">
+                                <span class="lang-en">Compare the Mechanisms</span>
+                                <span class="lang-hi">तंत्र की तुलना करें</span>
+                            </strong>
+                            <span class="navToButton-desc">
+                                <span class="lang-en">Side-by-side table across legal formality, control, timing, and tax implications.</span>
+                                <span class="lang-hi">कानूनी औपचारिकता, नियंत्रण, समय और कर निहितार्थों में साथ-साथ तालिका।</span>
+                            </span>
                         </div>
                     </div>
                     <div class="navToButton-card" onclick="navToSection('maze')">
                         <span class="navToButton-icon">🌀</span>
                         <div>
-                            <strong class="navToButton-title">Try the Mind Maze</strong>
-                            <span class="navToButton-desc">Interactive scenario simulation — see what happens if you pick different options.</span>
+                            <strong class="navToButton-title">
+                                <span class="lang-en">Try the Mind Maze</span>
+                                <span class="lang-hi">माइंड मेज़ आज़माएं</span>
+                            </strong>
+                            <span class="navToButton-desc">
+                                <span class="lang-en">Interactive scenario simulation — see what happens if you pick different options.</span>
+                                <span class="lang-hi">इंटरएक्टिव परिदृश्य सिमुलेशन — देखें कि यदि आप अलग-अलग विकल्प चुनते हैं तो क्या होता है।</span>
+                            </span>
                         </div>
                     </div>
                     <div class="navToButton-card" onclick="navToSection('calculator')">
                         <span class="navToButton-icon">🧮</span>
                         <div>
-                            <strong class="navToButton-title">Use the Succession Calculator</strong>
-                            <span class="navToButton-desc">Understand intestate distribution under your personal law — quickly and clearly.</span>
+                            <strong class="navToButton-title">
+                                <span class="lang-en">Use the Succession Calculator</span>
+                                <span class="lang-hi">उत्तराधिकार कैलकुलेटर का उपयोग करें</span>
+                            </strong>
+                            <span class="navToButton-desc">
+                                <span class="lang-en">Understand intestate distribution under your personal law — quickly and clearly.</span>
+                                <span class="lang-hi">अपने व्यक्तिगत कानून के तहत निर्वसीयत वितरण को समझें - जल्दी और स्पष्ट रूप से।</span>
+                            </span>
                         </div>
                     </div>
                     <div class="navToButton-card" onclick="navToSection('magazine')">
                         <span class="navToButton-icon">📰</span>
                         <div>
-                            <strong class="navToButton-title">Browse the Magazine</strong>
-                            <span class="navToButton-desc">Short articles on estate planning trends, family law, and common misconceptions.</span>
+                            <strong class="navToButton-title">
+                                <span class="lang-en">Browse the Magazine</span>
+                                <span class="lang-hi">पत्रिका ब्राउज़ करें</span>
+                            </strong>
+                            <span class="navToButton-desc">
+                                <span class="lang-en">Short articles on estate planning trends, family law, and common misconceptions.</span>
+                                <span class="lang-hi">एस्टेट प्लानिंग के रुझान, पारिवारिक कानून और आम गलत धारणाओं पर लघु लेख।</span>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -1352,107 +1224,145 @@
 
     <!-- CONCEPTS -->
     <section class="concepts" id="concepts">
-        <div class="section-eyebrow">Core Mechanisms</div>
-        <h2 class="section-title">The Four Alternatives to a Will</h2>
-        <p class="section-desc">Each mechanism offers a distinct approach to transferring and managing wealth. Click any
-            card to read more.</p>
+        <div class="section-eyebrow">
+            <span class="lang-en">Core Mechanisms</span>
+            <span class="lang-hi">मुख्य तंत्र</span>
+        </div>
+        <h2 class="section-title">
+            <span class="lang-en">The Four Alternatives to a Will</span>
+            <span class="lang-hi">वसीयत के चार विकल्प</span>
+        </h2>
+        <p class="section-desc">
+            <span class="lang-en">Each mechanism offers a distinct approach to transferring and managing wealth. Click any card to read more.</span>
+            <span class="lang-hi">प्रत्येक तंत्र धन हस्तांतरित करने और प्रबंधित करने के लिए एक अलग दृष्टिकोण प्रदान करता है। अधिक पढ़ने के लिए किसी भी कार्ड पर क्लिक करें।</span>
+        </p>
         <div class="concepts-grid fade-in">
 
             <div class="concept-card" onclick="toggleConcept(this)">
                 <div class="concept-icon">🎁</div>
-                <div class="concept-num">01 / Gift</div>
-                <div class="concept-title">Gifts</div>
-                <div class="concept-tagline">Transferring property to a loved one during your lifetime — no conditions,
-                    no consideration.</div>
-                <span class="read-more">Read more ↓</span>
+                <div class="concept-num">
+                    <span class="lang-en">01 / Gift</span>
+                    <span class="lang-hi">01 / उपहार</span>
+                </div>
+                <div class="concept-title">
+                    <span class="lang-en">Gifts</span>
+                    <span class="lang-hi">उपहार (Gifts)</span>
+                </div>
+                <div class="concept-tagline">
+                    <span class="lang-en">Transferring property to a loved one during your lifetime — no conditions, no consideration.</span>
+                    <span class="lang-hi">अपने जीवनकाल के दौरान किसी प्रियजन को संपत्ति हस्तांतरित करना - कोई शर्त नहीं, कोई प्रतिफल नहीं।</span>
+                </div>
+                <span class="read-more"><span class="lang-en">Read more ↓</span><span class="lang-hi">और पढ़ें ↓</span></span>
                 <div class="concept-expand">
-                    <p>A gift under the Transfer of Property Act, 1882 (Section 122) is a voluntary, gratuitous transfer
-                        of movable or immovable property by a living transferor (donor) to a transferee (donee). Unlike
-                        a will, a gift takes effect immediately during the donor's lifetime.<br><br>
-                        <strong>Key requirements:</strong> The gift must be accepted by the donee during the donor's
-                        lifetime. For immovable property, the gift deed must be registered under the Registration Act,
-                        1908. Gifts made "in contemplation of death" (causa mortis) are treated differently.<br><br>
-                        <strong>Practical note:</strong> Gifts to relatives are generally exempt from income tax under
-                        Section 56(2) of the Income Tax Act. However, stamp duty on gift deeds can be significant.
+                    <p class="lang-en">A gift under the Transfer of Property Act, 1882 (Section 122) is a voluntary, gratuitous transfer of movable or immovable property by a living transferor (donor) to a transferee (donee). Unlike a will, a gift takes effect immediately during the donor's lifetime.<br><br>
+                        <strong>Key requirements:</strong> The gift must be accepted by the donee during the donor's lifetime. For immovable property, the gift deed must be registered under the Registration Act, 1908. Gifts made "in contemplation of death" (causa mortis) are treated differently.<br><br>
+                        <strong>Practical note:</strong> Gifts to relatives are generally exempt from income tax under Section 56(2) of the Income Tax Act. However, stamp duty on gift deeds can be significant.
                     </p>
+                    <p class="lang-hi">संपत्ति हस्तांतरण अधिनियम, 1882 (धारा 122) के तहत उपहार एक जीवित हस्तांतरणकर्ता (दाता) द्वारा हस्तांतरिती (प्राप्तकर्ता) को चल या अचल संपत्ति का स्वैच्छिक, मुफ्त हस्तांतरण है। वसीयत के विपरीत, उपहार दाता के जीवनकाल के दौरान तुरंत प्रभावी होता है।<br><br>
+                        <strong>प्रमुख आवश्यकताएं:</strong> उपहार को दाता के जीवनकाल के दौरान प्राप्तकर्ता द्वारा स्वीकार किया जाना चाहिए। अचल संपत्ति के लिए, उपहार विलेख (गिफ्ट डीड) को पंजीकरण अधिनियम, 1908 के तहत पंजीकृत किया जाना चाहिए।<br><br>
+                        <strong>व्यावहारिक नोट:</strong> रिश्तेदारों को दिए गए उपहार आम तौर पर आयकर अधिनियम की धारा 56(2) के तहत आयकर से मुक्त होते हैं। हालांकि, उपहार विलेखों पर स्टाम्प शुल्क महत्वपूर्ण हो सकता है।
+                    </p>
+                    
                     <button class="video-trigger-btn" onclick="openVideoModal(event, 'UuRlRTfaf-M', '3vmnX0rN3us', 'Gifts')">
-                        🎥 Watch Video Guides
+                        🎥 <span class="lang-en">Watch Video Guides</span><span class="lang-hi">वीडियो गाइड देखें</span>
                     </button>
-                    <span class="concept-tag">Transfer of Property Act, 1882</span>
+                    <span class="concept-tag"><span class="lang-en">Transfer of Property Act, 1882</span><span class="lang-hi">संपत्ति हस्तांतरण अधिनियम, 1882</span></span>
                 </div>
             </div>
 
             <div class="concept-card" onclick="toggleConcept(this)">
                 <div class="concept-icon">🏛️</div>
-                <div class="concept-num">02 / Trust</div>
-                <div class="concept-title">Trusts</div>
-                <div class="concept-tagline">Placing property in the hands of a trustee to manage — for long-term
-                    benefit of your chosen beneficiaries.</div>
-                <span class="read-more">Read more ↓</span>
+                <div class="concept-num">
+                    <span class="lang-en">02 / Trust</span>
+                    <span class="lang-hi">02 / ट्रस्ट</span>
+                </div>
+                <div class="concept-title">
+                    <span class="lang-en">Trusts</span>
+                    <span class="lang-hi">ट्रस्ट (Trusts)</span>
+                </div>
+                <div class="concept-tagline">
+                    <span class="lang-en">Placing property in the hands of a trustee to manage — for long-term benefit of your chosen beneficiaries.</span>
+                    <span class="lang-hi">प्रबंधन के लिए ट्रस्टी के हाथों में संपत्ति रखना - आपके चुने हुए लाभार्थियों के दीर्घकालिक लाभ के लिए।</span>
+                </div>
+                <span class="read-more"><span class="lang-en">Read more ↓</span><span class="lang-hi">और पढ़ें ↓</span></span>
                 <div class="concept-expand">
-                    <p>A trust, governed by the Indian Trusts Act, 1882, involves the transfer of property by a settlor
-                        (author of trust) to a trustee, who is obligated to manage it for the benefit of designated
-                        beneficiaries. Trusts are highly flexible and can be tailored to specific needs.<br><br>
-                        <strong>Types:</strong> Private trusts (for family benefit), public trusts
-                        (charitable/religious), living trusts (created during lifetime), and testamentary trusts
-                        (created through a will).<br><br>
-                        <strong>Key advantage:</strong> A well-structured trust can bypass the lengthy probate process,
-                        maintain privacy, and offer clear instructions for intergenerational wealth management —
-                        particularly useful for business families.
+                    <p class="lang-en">A trust, governed by the Indian Trusts Act, 1882, involves the transfer of property by a settlor (author of trust) to a trustee, who is obligated to manage it for the benefit of designated beneficiaries. Trusts are highly flexible and can be tailored to specific needs.<br><br>
+                        <strong>Types:</strong> Private trusts (for family benefit), public trusts (charitable/religious), living trusts (created during lifetime), and testamentary trusts (created through a will).<br><br>
+                        <strong>Key advantage:</strong> A well-structured trust can bypass the lengthy probate process, maintain privacy, and offer clear instructions for intergenerational wealth management — particularly useful for business families.
                     </p>
+                    <p class="lang-hi">भारतीय ट्रस्ट अधिनियम, 1882 द्वारा शासित ट्रस्ट में, संपत्ति एक सेटलर (ट्रस्ट के निर्माता) द्वारा ट्रस्टी को हस्तांतरित की जाती है, जो इसे नामित लाभार्थियों के लाभ के लिए प्रबंधित करने के लिए बाध्य है। ट्रस्ट अत्यधिक लचीले होते हैं।<br><br>
+                        <strong>प्रकार:</strong> निजी ट्रस्ट (पारिवारिक लाभ के लिए), सार्वजनिक ट्रस्ट (धर्मार्थ/धार्मिक), जीवित ट्रस्ट (जीवनकाल के दौरान बनाए गए), और वसीयती ट्रस्ट (वसीयत के माध्यम से बनाए गए)।<br><br>
+                        <strong>प्रमुख लाभ:</strong> एक अच्छी तरह से संरचित ट्रस्ट लंबी प्रोबेट प्रक्रिया से बच सकता है, गोपनीयता बनाए रख सकता है, और व्यापारिक परिवारों के लिए विशेष रूप से उपयोगी है।
+                    </p>
+
                     <button class="video-trigger-btn" onclick="openVideoModal(event, 'UEF6p_28UdY', 'EG9TmRck71U', 'Trusts')">
-                        🎥 Watch Video Guides
+                        🎥 <span class="lang-en">Watch Video Guides</span><span class="lang-hi">वीडियो गाइड देखें</span>
                     </button>
-                    <span class="concept-tag">Indian Trusts Act, 1882</span>
+                    <span class="concept-tag"><span class="lang-en">Indian Trusts Act, 1882</span><span class="lang-hi">भारतीय ट्रस्ट अधिनियम, 1882</span></span>
                 </div>
             </div>
 
             <div class="concept-card" onclick="toggleConcept(this)">
                 <div class="concept-icon">🕌</div>
-                <div class="concept-num">03 / Waqf</div>
-                <div class="concept-title">Waqf</div>
-                <div class="concept-tagline">A permanent, irrevocable dedication of property for religious or charitable
-                    purposes under Islamic law.</div>
-                <span class="read-more">Read more ↓</span>
+                <div class="concept-num">
+                    <span class="lang-en">03 / Waqf</span>
+                    <span class="lang-hi">03 / वक्फ</span>
+                </div>
+                <div class="concept-title">
+                    <span class="lang-en">Waqf</span>
+                    <span class="lang-hi">वक्फ (Waqf)</span>
+                </div>
+                <div class="concept-tagline">
+                    <span class="lang-en">A permanent, irrevocable dedication of property for religious or charitable purposes under Islamic law.</span>
+                    <span class="lang-hi">इस्लामी कानून के तहत धार्मिक या धर्मार्थ उद्देश्यों के लिए संपत्ति का स्थायी, अपरिवर्तनीय समर्पण।</span>
+                </div>
+                <span class="read-more"><span class="lang-en">Read more ↓</span><span class="lang-hi">और पढ़ें ↓</span></span>
                 <div class="concept-expand">
-                    <p>A Waqf is the permanent dedication of property — movable or immovable — by a Muslim person for
-                        religious, pious, or charitable purposes as recognised by Islamic law. It is governed
-                        principally by the Waqf Act, 1995 and managed through the Waqf Board.<br><br>
-                        <strong>Types:</strong> Public Waqf (for the benefit of the public at large), Private Waqf
-                        (waqf-alal-aulad, for the benefit of one's family/descendants), and Government Waqf.<br><br>
-                        <strong>Key feature:</strong> Once dedicated as Waqf, the property cannot be transferred, sold,
-                        or mortgaged. The Mutawalli (manager) administers the property. Recent legislative changes (Waqf
-                        Amendment Act, 2025) have significantly altered the governance framework.
+                    <p class="lang-en">A Waqf is the permanent dedication of property — movable or immovable — by a Muslim person for religious, pious, or charitable purposes as recognised by Islamic law. It is governed principally by the Waqf Act, 1995 and managed through the Waqf Board.<br><br>
+                        <strong>Types:</strong> Public Waqf (for the benefit of the public at large), Private Waqf (waqf-alal-aulad, for the benefit of one's family/descendants), and Government Waqf.<br><br>
+                        <strong>Key feature:</strong> Once dedicated as Waqf, the property cannot be transferred, sold, or mortgaged. The Mutawalli (manager) administers the property. Recent legislative changes (Waqf Amendment Act, 2025) have significantly altered the governance framework.
                     </p>
+                    <p class="lang-hi">वक्फ एक मुस्लिम व्यक्ति द्वारा इस्लामी कानून द्वारा मान्यता प्राप्त धार्मिक, पवित्र या धर्मार्थ उद्देश्यों के लिए संपत्ति - चल या अचल - का स्थायी समर्पण है। यह मुख्य रूप से वक्फ अधिनियम, 1995 द्वारा शासित है।<br><br>
+                        <strong>प्रकार:</strong> सार्वजनिक वक्फ (बड़े पैमाने पर जनता के लाभ के लिए), निजी वक्फ (वक्फ-अलल-औलाद, किसी के परिवार / वंशजों के लाभ के लिए), और सरकारी वक्फ।<br><br>
+                        <strong>मुख्य विशेषता:</strong> एक बार वक्फ के रूप में समर्पित होने के बाद, संपत्ति को हस्तांतरित, बेचा या गिरवी नहीं रखा जा सकता है। मुतवल्ली (प्रबंधक) संपत्ति का प्रशासन करता है।
+                    </p>
+
                     <button class="video-trigger-btn" onclick="openVideoModal(event, 'N_VCOGtGMD0', 'S4C_9CX8yww', 'Waqf')">
-                        🎥 Watch Video Guides
+                        🎥 <span class="lang-en">Watch Video Guides</span><span class="lang-hi">वीडियो गाइड देखें</span>
                     </button>
-                    <span class="concept-tag">Waqf Act, 1995</span>
+                    <span class="concept-tag"><span class="lang-en">Waqf Act, 1995</span><span class="lang-hi">वक्फ अधिनियम, 1995</span></span>
                 </div>
             </div>
 
             <div class="concept-card" onclick="toggleConcept(this)">
                 <div class="concept-icon">🤝</div>
-                <div class="concept-num">04 / Arrangement</div>
-                <div class="concept-title">Family Arrangements</div>
-                <div class="concept-tagline">Informal or formal agreements between family members to resolve disputes
-                    and distribute property amicably.</div>
-                <span class="read-more">Read more ↓</span>
+                <div class="concept-num">
+                    <span class="lang-en">04 / Arrangement</span>
+                    <span class="lang-hi">04 / व्यवस्था</span>
+                </div>
+                <div class="concept-title">
+                    <span class="lang-en">Family Arrangements</span>
+                    <span class="lang-hi">पारिवारिक व्यवस्था</span>
+                </div>
+                <div class="concept-tagline">
+                    <span class="lang-en">Informal or formal agreements between family members to resolve disputes and distribute property amicably.</span>
+                    <span class="lang-hi">विवादों को सुलझाने और संपत्ति को सौहार्दपूर्ण ढंग से वितरित करने के लिए परिवार के सदस्यों के बीच अनौपचारिक या औपचारिक समझौते।</span>
+                </div>
+                <span class="read-more"><span class="lang-en">Read more ↓</span><span class="lang-hi">और पढ़ें ↓</span></span>
                 <div class="concept-expand">
-                    <p>A family arrangement is an agreement among members of the same family, intended to preserve
-                        family property, avoid litigation, and settle disputes — whether existing or anticipated. Courts
-                        in India have consistently upheld and encouraged family arrangements.<br><br>
-                        <strong>Key features:</strong> Not strictly governed by one statute — they draw on general
-                        contract law, property law, and equity. They can be oral or written. While not always mandatory,
-                        registration is advisable when immovable property is involved.<br><br>
-                        <strong>Landmark case:</strong> In <em>Kale v. Deputy Director of Consolidation</em> (1976), the
-                        Supreme Court laid down that a family arrangement is binding even if not registered, provided it
-                        is genuine, bona fide, and for the benefit of the family.
+                    <p class="lang-en">A family arrangement is an agreement among members of the same family, intended to preserve family property, avoid litigation, and settle disputes — whether existing or anticipated. Courts in India have consistently upheld and encouraged family arrangements.<br><br>
+                        <strong>Key features:</strong> Not strictly governed by one statute — they draw on general contract law, property law, and equity. They can be oral or written. While not always mandatory, registration is advisable when immovable property is involved.<br><br>
+                        <strong>Landmark case:</strong> In <em>Kale v. Deputy Director of Consolidation</em> (1976), the Supreme Court laid down that a family arrangement is binding even if not registered, provided it is genuine, bona fide, and for the benefit of the family.
                     </p>
+                    <p class="lang-hi">पारिवारिक व्यवस्था एक ही परिवार के सदस्यों के बीच एक समझौता है, जिसका उद्देश्य पारिवारिक संपत्ति को संरक्षित करना, मुकदमेबाजी से बचना और विवादों को निपटाना है। भारत में अदालतों ने लगातार पारिवारिक व्यवस्था को बरकरार रखा है और प्रोत्साहित किया है।<br><br>
+                        <strong>मुख्य विशेषताएं:</strong> सख्ती से एक क़ानून द्वारा शासित नहीं - वे सामान्य अनुबंध कानून, संपत्ति कानून और इक्विटी पर आकर्षित होते हैं। वे मौखिक या लिखित हो सकते हैं।<br><br>
+                        <strong>ऐतिहासिक मामला:</strong> काले बनाम उप निदेशक चकबंदी (1976) में, सुप्रीम कोर्ट ने यह निर्धारित किया कि एक पारिवारिक व्यवस्था बाध्यकारी है, भले ही पंजीकृत न हो, बशर्ते यह वास्तविक हो और परिवार के लाभ के लिए हो।
+                    </p>
+
                     <button class="video-trigger-btn" onclick="openVideoModal(event, 'SIuCNSwyA8M', '4n1Jh-D2mYg', 'Family Arrangements')">
-                        🎥 Watch Video Guides
+                        🎥 <span class="lang-en">Watch Video Guides</span><span class="lang-hi">वीडियो गाइड देखें</span>
                     </button>
-                    <span class="concept-tag">General Contract + Equity Law</span>
+                    <span class="concept-tag"><span class="lang-en">General Contract + Equity Law</span><span class="lang-hi">सामान्य अनुबंध + इक्विटी कानून</span></span>
                 </div>
             </div>
         </div>
@@ -1460,68 +1370,97 @@
 
     <!-- COMPARISON TABLE -->
     <section class="comparison" id="compare">
-        <div class="section-eyebrow">Side-by-Side Analysis</div>
-        <h2 class="section-title">Evaluating the Mechanisms</h2>
-        <p class="section-desc">How do the four mechanisms stack up against each other? Compare across the dimensions
-            that matter most.</p>
+        <div class="section-eyebrow">
+            <span class="lang-en">Side-by-Side Analysis</span>
+            <span class="lang-hi">तुलनात्मक विश्लेषण</span>
+        </div>
+        <h2 class="section-title">
+            <span class="lang-en">Evaluating the Mechanisms</span>
+            <span class="lang-hi">तंत्र का मूल्यांकन</span>
+        </h2>
+        <p class="section-desc">
+            <span class="lang-en">How do the four mechanisms stack up against each other? Compare across the dimensions that matter most.</span>
+            <span class="lang-hi">चारों तंत्र एक दूसरे के खिलाफ कैसे खड़े होते हैं? सबसे महत्वपूर्ण आयामों में तुलना करें।</span>
+        </p>
         <div class="table-wrap fade-in">
             <table>
                 <thead>
                     <tr>
-                        <th>Mechanism</th>
-                        <th>When Transfer Occurs</th>
-                        <th>Owner Retains Control?</th>
-                        <th>Registration Required?</th>
-                        <th>Tax Implications</th>
-                        <th>Revocable?</th>
-                        <th>Best Used When</th>
+                        <th>
+                            <span class="lang-en">Mechanism</span>
+                            <span class="lang-hi">तंत्र</span>
+                        </th>
+                        <th>
+                            <span class="lang-en">When Transfer Occurs</span>
+                            <span class="lang-hi">स्थानांतरण कब होता है</span>
+                        </th>
+                        <th>
+                            <span class="lang-en">Owner Retains Control?</span>
+                            <span class="lang-hi">क्या मालिक नियंत्रण रखता है?</span>
+                        </th>
+                        <th>
+                            <span class="lang-en">Registration Required?</span>
+                            <span class="lang-hi">पंजीकरण आवश्यक है?</span>
+                        </th>
+                        <th>
+                            <span class="lang-en">Tax Implications</span>
+                            <span class="lang-hi">कर प्रभाव</span>
+                        </th>
+                        <th>
+                            <span class="lang-en">Revocable?</span>
+                            <span class="lang-hi">रद्द करने योग्य?</span>
+                        </th>
+                        <th>
+                            <span class="lang-en">Best Used When</span>
+                            <span class="lang-hi">कब सबसे अच्छा उपयोग किया जाता है</span>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Will</td>
-                        <td>After death (testamentary)</td>
-                        <td class="tag-yes">Yes — until death</td>
-                        <td class="tag-partial">Optional (but advisable)</td>
-                        <td>Estate duty abolished; inheritance tax proposed in debates</td>
-                        <td class="tag-yes">Yes</td>
-                        <td>Simple estate, clear beneficiaries</td>
+                        <td><span class="lang-en">Will</span><span class="lang-hi">वसीयत</span></td>
+                        <td><span class="lang-en">After death (testamentary)</span><span class="lang-hi">मृत्यु के बाद</span></td>
+                        <td class="tag-yes"><span class="lang-en">Yes — until death</span><span class="lang-hi">हां - मृत्यु तक</span></td>
+                        <td class="tag-partial"><span class="lang-en">Optional (but advisable)</span><span class="lang-hi">वैकल्पिक</span></td>
+                        <td><span class="lang-en">Estate duty abolished; inheritance tax proposed in debates</span><span class="lang-hi">एस्टेट ड्यूटी समाप्त; विरासत कर बहस में प्रस्तावित</span></td>
+                        <td class="tag-yes"><span class="lang-en">Yes</span><span class="lang-hi">हां</span></td>
+                        <td><span class="lang-en">Simple estate, clear beneficiaries</span><span class="lang-hi">सरल संपत्ति, स्पष्ट लाभार्थी</span></td>
                     </tr>
                     <tr>
-                        <td>Gift</td>
-                        <td>Immediately (lifetime)</td>
-                        <td class="tag-no">No — after gift is made</td>
-                        <td class="tag-yes">Yes (immovable property)</td>
-                        <td>Exempt if to relatives; stamp duty applicable</td>
-                        <td class="tag-no">Generally No</td>
-                        <td>Immediate transfer, tax planning, family support</td>
+                        <td><span class="lang-en">Gift</span><span class="lang-hi">उपहार</span></td>
+                        <td><span class="lang-en">Immediately (lifetime)</span><span class="lang-hi">तुरंत (आजीवन)</span></td>
+                        <td class="tag-no"><span class="lang-en">No — after gift is made</span><span class="lang-hi">नहीं</span></td>
+                        <td class="tag-yes"><span class="lang-en">Yes (immovable property)</span><span class="lang-hi">हां (अचल संपत्ति)</span></td>
+                        <td><span class="lang-en">Exempt if to relatives; stamp duty applicable</span><span class="lang-hi">रिश्तेदारों को छूट; स्टाम्प शुल्क लागू</span></td>
+                        <td class="tag-no"><span class="lang-en">Generally No</span><span class="lang-hi">आम तौर पर नहीं</span></td>
+                        <td><span class="lang-en">Immediate transfer, tax planning, family support</span><span class="lang-hi">तत्काल स्थानांतरण, कर योजना</span></td>
                     </tr>
                     <tr>
-                        <td>Trust</td>
-                        <td>On trust creation</td>
-                        <td class="tag-partial">Partial — via trustee role</td>
-                        <td class="tag-partial">Yes (for immovable property)</td>
-                        <td>Taxed as per trust type; private discretionary trusts taxed at max rate</td>
-                        <td class="tag-partial">Depends on trust deed</td>
-                        <td>Long-term management, minors, business families</td>
+                        <td><span class="lang-en">Trust</span><span class="lang-hi">ट्रस्ट</span></td>
+                        <td><span class="lang-en">On trust creation</span><span class="lang-hi">निर्माण पर</span></td>
+                        <td class="tag-partial"><span class="lang-en">Partial — via trustee role</span><span class="lang-hi">आंशिक</span></td>
+                        <td class="tag-partial"><span class="lang-en">Yes (for immovable property)</span><span class="lang-hi">हां (अचल संपत्ति के लिए)</span></td>
+                        <td><span class="lang-en">Taxed as per trust type; private discretionary trusts taxed at max rate</span><span class="lang-hi">ट्रस्ट प्रकार के अनुसार कर लगाया जाता है</span></td>
+                        <td class="tag-partial"><span class="lang-en">Depends on trust deed</span><span class="lang-hi">ट्रस्ट डीड पर निर्भर करता है</span></td>
+                        <td><span class="lang-en">Long-term management, minors, business families</span><span class="lang-hi">दीर्घकालिक प्रबंधन, व्यापारिक परिवार</span></td>
                     </tr>
                     <tr>
-                        <td>Waqf</td>
-                        <td>On dedication</td>
-                        <td class="tag-no">No — managed by Mutawalli</td>
-                        <td class="tag-yes">Yes</td>
-                        <td>Largely exempt if public/charitable</td>
-                        <td class="tag-no">No — irrevocable</td>
-                        <td>Religious/charitable dedication, Muslim families</td>
+                        <td><span class="lang-en">Waqf</span><span class="lang-hi">वक्फ</span></td>
+                        <td><span class="lang-en">On dedication</span><span class="lang-hi">समर्पण पर</span></td>
+                        <td class="tag-no"><span class="lang-en">No — managed by Mutawalli</span><span class="lang-hi">नहीं - मुतवल्ली द्वारा प्रबंधित</span></td>
+                        <td class="tag-yes"><span class="lang-en">Yes</span><span class="lang-hi">हां</span></td>
+                        <td><span class="lang-en">Largely exempt if public/charitable</span><span class="lang-hi">सार्वजनिक / धर्मार्थ होने पर काफी हद तक छूट</span></td>
+                        <td class="tag-no"><span class="lang-en">No — irrevocable</span><span class="lang-hi">नहीं - अपरिवर्तनीय</span></td>
+                        <td><span class="lang-en">Religious/charitable dedication, Muslim families</span><span class="lang-hi">धार्मिक / धर्मार्थ समर्पण, मुस्लिम परिवार</span></td>
                     </tr>
                     <tr>
-                        <td>Family Arrangement</td>
-                        <td>As per agreement</td>
-                        <td class="tag-partial">Depends on terms</td>
-                        <td class="tag-partial">Advisable if immovable property</td>
-                        <td>Neutral — internal family transfer</td>
-                        <td class="tag-partial">By mutual consent</td>
-                        <td>Dispute resolution, existing joint property</td>
+                        <td><span class="lang-en">Family Arrangement</span><span class="lang-hi">पारिवारिक व्यवस्था</span></td>
+                        <td><span class="lang-en">As per agreement</span><span class="lang-hi">समझौते के अनुसार</span></td>
+                        <td class="tag-partial"><span class="lang-en">Depends on terms</span><span class="lang-hi">शर्तों पर निर्भर करता है</span></td>
+                        <td class="tag-partial"><span class="lang-en">Advisable if immovable property</span><span class="lang-hi">अचल संपत्ति होने पर उचित</span></td>
+                        <td><span class="lang-en">Neutral — internal family transfer</span><span class="lang-hi">तटस्थ - आंतरिक पारिवारिक स्थानांतरण</span></td>
+                        <td class="tag-partial"><span class="lang-en">By mutual consent</span><span class="lang-hi">आपसी सहमति से</span></td>
+                        <td><span class="lang-en">Dispute resolution, existing joint property</span><span class="lang-hi">विवाद समाधान, मौजूदा संयुक्त संपत्ति</span></td>
                     </tr>
                 </tbody>
             </table>
@@ -1530,17 +1469,37 @@
 
     <!-- MIND MAZE -->
     <section class="maze" id="maze">
-        <div class="section-eyebrow">Interactive Simulation</div>
-        <h2 class="section-title">Mind Maze</h2>
-        <p class="section-desc">You're the decision-maker. Navigate a real-life scenario and discover which legal
-            mechanism fits your situation - and what the consequences are.</p>
+        <div class="section-eyebrow">
+            <span class="lang-en">Interactive Simulation</span>
+            <span class="lang-hi">इंटरएक्टिव सिमुलेशन</span>
+        </div>
+        <h2 class="section-title">
+            <span class="lang-en">Mind Maze</span>
+            <span class="lang-hi">माइंड मेज़</span>
+        </h2>
+        <p class="section-desc">
+            <span class="lang-en">You're the decision-maker. Navigate a real-life scenario and discover which legal mechanism fits your situation - and what the consequences are.</span>
+            <span class="lang-hi">आप निर्णय लेने वाले हैं। एक वास्तविक जीवन परिदृश्य नेविगेट करें और पता लगाएं कि कौन सा कानूनी तंत्र आपकी स्थिति में फिट बैठता है - और इसके परिणाम क्या हैं।</span>
+        </p>
         <div class="maze-container fade-in" id="mazeContainer">
-            <div class="maze-badge">🌀 Interactive Scenario</div>
+            <div class="maze-badge">
+                <span class="lang-en">🌀 Interactive Scenario</span>
+                <span class="lang-hi">🌀 इंटरएक्टिव परिदृश्य</span>
+            </div>
 
             <div class="widget-container" style="margin-bottom: 3rem;">
-                <h3>Mind Maze: Decision Simulation</h3>
-                <p>A scenario-based decision simulation. Users will be presented with hypothetical scenarios involving property ownership and family relationships to illustrate the legal consequences of different choices.</p>
-                <button class="btn" onclick="enterMindMaze()">Enter the Mind Maze</button>
+                <h3>
+                    <span class="lang-en">Mind Maze: Decision Simulation</span>
+                    <span class="lang-hi">माइंड मेज़: निर्णय सिमुलेशन</span>
+                </h3>
+                <p>
+                    <span class="lang-en">A scenario-based decision simulation. Users will be presented with hypothetical scenarios involving property ownership and family relationships to illustrate the legal consequences of different choices.</span>
+                    <span class="lang-hi">परिदृश्य-आधारित निर्णय सिमुलेशन। विभिन्न विकल्पों के कानूनी परिणामों को स्पष्ट करने के लिए उपयोगकर्ताओं को संपत्ति के स्वामित्व और पारिवारिक संबंधों से जुड़े काल्पनिक परिदृश्य प्रस्तुत किए जाएंगे।</span>
+                </p>
+                <button class="btn" onclick="enterMindMaze()">
+                    <span class="lang-en">Enter the Mind Maze</span>
+                    <span class="lang-hi">माइंड मेज़ में प्रवेश करें</span>
+                </button>
             </div>
             
             <div id="mazeContent"></div>
@@ -1550,69 +1509,127 @@
 
     <!-- CALCULATOR -->
     <section class="calculator" id="calculator">
-        <span class="calc-innovation">★ Group's Key Innovation</span>
-        <div class="section-eyebrow">Intestate Succession Calculator</div>
-        <h2 class="section-title">What Happens If There's No Will?</h2>
-        <p class="section-desc">Under Indian law, different succession rules apply based on religion. Enter your family
-            details below to see a simplified overview of how property would be distributed.</p>
-        <!-- Calculator Grid (Needs to be updated) -->
+        <span class="calc-innovation">
+            <span class="lang-en">★ Group's Key Innovation</span>
+            <span class="lang-hi">★ समूह का प्रमुख नवाचार</span>
+        </span>
+        <div class="section-eyebrow">
+            <span class="lang-en">Intestate Succession Calculator</span>
+            <span class="lang-hi">निर्वसीयत उत्तराधिकार कैलकुलेटर</span>
+        </div>
+        <h2 class="section-title">
+            <span class="lang-en">What Happens If There's No Will?</span>
+            <span class="lang-hi">यदि कोई वसीयत नहीं है तो क्या होता है?</span>
+        </h2>
+        <p class="section-desc">
+            <span class="lang-en">Under Indian law, different succession rules apply based on religion. Enter your family details below to see a simplified overview of how property would be distributed.</span>
+            <span class="lang-hi">भारतीय कानून के तहत, धर्म के आधार पर अलग-अलग उत्तराधिकार नियम लागू होते हैं। संपत्ति कैसे वितरित की जाएगी, इसका सरलीकृत अवलोकन देखने के लिए नीचे अपने परिवार का विवरण दर्ज करें।</span>
+        </p>
+        <!-- Calculator Grid -->
         <div class="calculator-grid fade-in">
 
             <div class="concept-card" onclick="openCalculator('shia')">
                 <div class="concept-icon">🕋</div>
-                <div class="concept-num">01 / Shia Succession Calculator</div>
-                <div class="concept-title">Shia Law</div>
+                <div class="concept-num">
+                    <span class="lang-en">01 / Shia Succession Calculator</span>
+                    <span class="lang-hi">01 / शिया उत्तराधिकार कैलकुलेटर</span>
+                </div>
+                <div class="concept-title">
+                    <span class="lang-en">Shia Law</span>
+                    <span class="lang-hi">शिया कानून</span>
+                </div>
                 <div class="concept-tagline"></div>
-                <span class="concept-tag">Ithna Ashari Jurisprudence</span>
+                <span class="concept-tag">
+                    <span class="lang-en">Ithna Ashari Jurisprudence</span>
+                    <span class="lang-hi">इथना अशरी न्यायशास्त्र</span>
+                </span>
             </div>
 
             <div class="concept-card" onclick="openCalculator('sunni')">
                 <div class="concept-icon">🕌</div>
-                <div class="concept-num">02 / Sunni Succession Calculator</div>
-                <div class="concept-title">Sunni Law</div>
+                <div class="concept-num">
+                    <span class="lang-en">02 / Sunni Succession Calculator</span>
+                    <span class="lang-hi">02 / सुन्नी उत्तराधिकार कैलकुलेटर</span>
+                </div>
+                <div class="concept-title">
+                    <span class="lang-en">Sunni Law</span>
+                    <span class="lang-hi">सुन्नी कानून</span>
+                </div>
                 <div class="concept-tagline"></div>
-                <span class="concept-tag">Hanafi Jurisprudence</span>
+                <span class="concept-tag">
+                    <span class="lang-en">Hanafi Jurisprudence</span>
+                    <span class="lang-hi">हनफी न्यायशास्त्र</span>
+                </span>
             </div>
 
             <div class="concept-card" onclick="openCalculator('christian')">
                 <div class="concept-icon">⛪</div>
-                <div class="concept-num">03 / Christian Succession Calculator</div>
-                <div class="concept-title">Christian Law</div>
+                <div class="concept-num">
+                    <span class="lang-en">03 / Christian Succession Calculator</span>
+                    <span class="lang-hi">03 / ईसाई उत्तराधिकार कैलकुलेटर</span>
+                </div>
+                <div class="concept-title">
+                    <span class="lang-en">Christian Law</span>
+                    <span class="lang-hi">ईसाई कानून</span>
+                </div>
                 <div class="concept-tagline"></div>
-                <span class="concept-tag">Indian Succession Act, 1925 [§29 - §49]</span>
+                <span class="concept-tag">
+                    <span class="lang-en">Indian Succession Act, 1925 [§29 - §49]</span>
+                    <span class="lang-hi">भारतीय उत्तराधिकार अधिनियम, 1925 [§29 - §49]</span>
+                </span>
             </div>
 
             <div class="concept-card" onclick="openCalculator('parsi')">
                 <div class="concept-icon">🪽</div>
-                <div class="concept-num">04 / Parsi Succession Calculator</div>
-                <div class="concept-title">Parsi Law</div>
+                <div class="concept-num">
+                    <span class="lang-en">04 / Parsi Succession Calculator</span>
+                    <span class="lang-hi">04 / पारसी उत्तराधिकार कैलकुलेटर</span>
+                </div>
+                <div class="concept-title">
+                    <span class="lang-en">Parsi Law</span>
+                    <span class="lang-hi">पारसी कानून</span>
+                </div>
                 <div class="concept-tagline"></div>
-                <span class="concept-tag">Indian Succession Act, 1925 [§50 - §56]</span>
+                <span class="concept-tag">
+                    <span class="lang-en">Indian Succession Act, 1925 [§50 - §56]</span>
+                    <span class="lang-hi">भारतीय उत्तराधिकार अधिनियम, 1925 [§50 - §56]</span>
+                </span>
             </div>
         </div>
         <p style="font-size:0.72rem;color:var(--muted);margin-top:1.5rem;line-height:1.65;">
-            ⚠️ <strong>Disclaimer:</strong> This calculator provides a simplified educational overview only. Actual
-            succession depends on the number of heirs, specific provisions of applicable personal laws, and court
-            interpretations. This does not constitute legal advice.
+            ⚠️ <strong><span class="lang-en">Disclaimer:</span><span class="lang-hi">अस्वीकरण:</span></strong> 
+            <span class="lang-en">This calculator provides a simplified educational overview only. Actual succession depends on the number of heirs, specific provisions of applicable personal laws, and court interpretations. This does not constitute legal advice.</span>
+            <span class="lang-hi">यह कैलकुलेटर केवल एक सरलीकृत शैक्षिक अवलोकन प्रदान करता है। वास्तविक उत्तराधिकार वारिसों की संख्या, लागू व्यक्तिगत कानूनों के विशिष्ट प्रावधानों और अदालत की व्याख्याओं पर निर्भर करता है। यह कानूनी सलाह नहीं है।</span>
         </p>
     </section>
 
     <!-- MAGAZINE -->
     <section class="magazine" id="magazine">
-        <div class="section-eyebrow">Magazine</div>
-        <h2 class="section-title">Broader Conversations on Estate Planning</h2>
-        <p class="section-desc">Short articles exploring the social, cultural, and legal dimensions of estate planning
-            in India.</p>
+        <div class="section-eyebrow">
+            <span class="lang-en">Magazine</span>
+            <span class="lang-hi">पत्रिका</span>
+        </div>
+        <h2 class="section-title">
+            <span class="lang-en">Broader Conversations on Estate Planning</span>
+            <span class="lang-hi">एस्टेट प्लानिंग पर व्यापक बातचीत</span>
+        </h2>
+        <p class="section-desc">
+            <span class="lang-en">Short articles exploring the social, cultural, and legal dimensions of estate planning in India.</span>
+            <span class="lang-hi">भारत में संपत्ति योजना के सामाजिक, सांस्कृतिक और कानूनी आयामों की खोज करने वाले लघु लेख।</span>
+        </p>
         <div class="mag-grid fade-in">
             <div class="mag-card">
                 <div class="mag-card-img c1">🏢</div>
                 <div class="mag-card-body">
                     <span class="mag-tag">Cover Story</span>
-                    <div class="mag-card-title">The Rise of the Family Trust in India's Business Dynasties</div>
-                    <div class="mag-card-excerpt">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maxime enim
-                        explicabo voluptas. Molestiae ipsa explicabo facilis corporis sint voluptatem? Perferendis dicta
-                        mollitia nobis modi ullam non enim officiis vel neque suscipit, optio, assumenda autem quos
-                        deleniti, eum corrupti! Dolores, impedit.</div>
+                    <div class="mag-card-title">
+                        <span class="lang-en">The Rise of the Family Trust in India's Business Dynasties</span>
+                        <span class="lang-hi">भारत के व्यापारिक राजवंशों में फैमिली ट्रस्ट का उदय</span>
+                    </div>
+                    <div class="mag-card-excerpt">
+                        <span class="lang-en">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maxime enim explicabo voluptas. Molestiae ipsa explicabo facilis corporis sint voluptatem? Perferendis dicta mollitia nobis modi ullam non enim officiis vel neque suscipit, optio, assumenda autem quos deleniti, eum corrupti! Dolores, impedit.</span>
+                        <span class="lang-hi">लोरम इप्सम डोलर सिट अमेट कंसेक्टेटुर एडिपिसिसिंग एलीट। मैक्सिम एनिमे एक्सप्लेकाबो वोलुप्टस। मोलेस्टिया इप्सा एक्सप्लेकाबो फैसिलिस कॉर्पोरिस सिंट वोलुप्टेटेम? परफेरेंडिस डिक्टा...</span>
+                    </div>
                     <div class="mag-card-meta"><span>Sarthak Misra</span><span>Trusts</span><span>8 min read</span>
                     </div>
                 </div>
@@ -1621,20 +1638,29 @@
                 <div class="mag-card-img c2">📜</div>
                 <div class="mag-card-body">
                     <span class="mag-tag">Business Families</span>
-                    <div class="mag-card-title">Why Indian Families Avoid Estate Planning - And What It Costs Them</div>
-                    <div class="mag-card-excerpt">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non ex est
-                        adipisci ad consectetur debitis. Inventore minima ipsum iure praesentium.</div>
-                    <div class="mag-card-meta"><span>Agrima Sahu</span><span>Estate Planning</span><span>5 min
-                            read</span></div>
+                    <div class="mag-card-title">
+                        <span class="lang-en">Why Indian Families Avoid Estate Planning - And What It Costs Them</span>
+                        <span class="lang-hi">भारतीय परिवार एस्टेट प्लानिंग से क्यों बचते हैं - और इससे उन्हें क्या कीमत चुकानी पड़ती है</span>
+                    </div>
+                    <div class="mag-card-excerpt">
+                        <span class="lang-en">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non ex est adipisci ad consectetur debitis. Inventore minima ipsum iure praesentium.</span>
+                        <span class="lang-hi">लोरम इप्सम डोलर, सिट अमेट कंसेक्टेटुर एडिपिसिसिंग एलीट। नॉन एक्स एस्ट एडिपिसि एड कंसेक्टेटुर डेबिटिस।</span>
+                    </div>
+                    <div class="mag-card-meta"><span>Agrima Sahu</span><span>Estate Planning</span><span>5 min read</span></div>
                 </div>
             </div>
             <div class="mag-card">
                 <div class="mag-card-img c3">🌿</div>
                 <div class="mag-card-body">
                     <span class="mag-tag">Analysis</span>
-                    <div class="mag-card-title">Waqf in Modern India: Law, Land, and Controversy</div>
-                    <div class="mag-card-excerpt">The 2025 Waqf Amendment Act has upended decades of waqf governance.
-                        What does it mean for Muslim estate planning today?</div>
+                    <div class="mag-card-title">
+                        <span class="lang-en">Waqf in Modern India: Law, Land, and Controversy</span>
+                        <span class="lang-hi">आधुनिक भारत में वक्फ: कानून, भूमि और विवाद</span>
+                    </div>
+                    <div class="mag-card-excerpt">
+                        <span class="lang-en">The 2025 Waqf Amendment Act has upended decades of waqf governance. What does it mean for Muslim estate planning today?</span>
+                        <span class="lang-hi">2025 के वक्फ संशोधन अधिनियम ने वक्फ शासन के दशकों को खत्म कर दिया है। आज मुस्लिम संपत्ति योजना के लिए इसका क्या अर्थ है?</span>
+                    </div>
                     <div class="mag-card-meta"><span>Mudra Mehta</span><span>Waqf</span><span>6 min read</span></div>
                 </div>
             </div>
@@ -1642,10 +1668,13 @@
                 <div class="mag-card-img c4" style="width:220px;min-width:220px;height:auto;">🎁</div>
                 <div class="mag-card-body" style="flex:1;">
                     <span class="mag-tag">Explainer</span>
-                    <div class="mag-card-title">Gift Deed vs. Will: Which Is Better for Your Situation?</div>
-                    <div class="mag-card-excerpt">Many families wrestle with this exact question. A gift deed transfers
-                        property during your lifetime; a will does it after death. Both have significant tax, legal, and
-                        relational consequences. This article lays out a clear framework for choosing between them.
+                    <div class="mag-card-title">
+                        <span class="lang-en">Gift Deed vs. Will: Which Is Better for Your Situation?</span>
+                        <span class="lang-hi">गिफ्ट डीड बनाम वसीयत: आपकी स्थिति के लिए कौन सा बेहतर है?</span>
+                    </div>
+                    <div class="mag-card-excerpt">
+                        <span class="lang-en">Many families wrestle with this exact question. A gift deed transfers property during your lifetime; a will does it after death. Both have significant tax, legal, and relational consequences. This article lays out a clear framework for choosing between them.</span>
+                        <span class="lang-hi">कई परिवार इस सटीक सवाल से जूझते हैं। एक उपहार विलेख आपके जीवनकाल के दौरान संपत्ति को स्थानांतरित करता है; वसीयत मृत्यु के बाद ऐसा करती है। दोनों के महत्वपूर्ण कर, कानूनी और संबंधपरक परिणाम हैं। यह लेख उनके बीच चयन करने के लिए एक स्पष्ट रूपरेखा तैयार करता है।</span>
                     </div>
                     <div class="mag-card-meta"><span>Ansh Tanwar</span><span>Gifts</span><span>4 min read</span></div>
                 </div>
@@ -1656,27 +1685,44 @@
     <!-- SURVEY STRIP -->
     <div class="survey-strip">
         <div>
-            <h3>Take Our Public Awareness Survey</h3>
-            <p>Help us understand how much Indians know about estate planning. Your responses will be analysed and
-                published in this guide.</p>
+            <h3>
+                <span class="lang-en">Take Our Public Awareness Survey</span>
+                <span class="lang-hi">हमारा जन जागरूकता सर्वेक्षण लें</span>
+            </h3>
+            <p>
+                <span class="lang-en">Help us understand how much Indians know about estate planning. Your responses will be analysed and published in this guide.</span>
+                <span class="lang-hi">यह समझने में हमारी सहायता करें कि भारतीय संपत्ति योजना के बारे में कितना जानते हैं। आपकी प्रतिक्रियाओं का विश्लेषण किया जाएगा और इस गाइड में प्रकाशित किया जाएगा।</span>
+            </p>
         </div>
-        <button class="survey-btn" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLScKM1PPukLzUWHnONaXsR3feDPMJ4UJIg3mJvMCfmJ3jZ9wHw/viewform', '_blank')">Participate in Survey →</button>
+        <button class="survey-btn" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLScKM1PPukLzUWHnONaXsR3feDPMJ4UJIg3mJvMCfmJ3jZ9wHw/viewform', '_blank')">
+            <span class="lang-en">Participate in Survey →</span>
+            <span class="lang-hi">सर्वेक्षण में भाग लें →</span>
+        </button>
     </div>
 
-    <!-- ── THE VIDEO MODAL (Sits hidden at the bottom of the page) ── -->
+    <!-- ── THE VIDEO MODAL ── -->
     <div id="videoModal" class="video-modal">
         <div class="video-modal-overlay" onclick="closeVideoModal()"></div>
         <div class="video-modal-content">
             <button class="video-modal-close" onclick="closeVideoModal()">&times;</button>
-            <h3 id="videoModalTitle">Video Guides</h3>
+            <h3 id="videoModalTitle">
+                <span class="lang-en">Video Guides</span>
+                <span class="lang-hi">वीडियो गाइड</span>
+            </h3>
             
             <div class="video-modal-grid">
                 <div class="video-wrapper">
-                    <h4>English Explanation</h4>
+                    <h4>
+                        <span class="lang-en">English Explanation</span>
+                        <span class="lang-hi">अंग्रेजी स्पष्टीकरण</span>
+                    </h4>
                     <iframe id="engVideoIframe" width="100%" height="250" src="" frameborder="0" allowfullscreen style="border-radius: 4px; border: 1px solid var(--border);"></iframe>
                 </div>
                 <div class="video-wrapper">
-                    <h4>Hindi Explanation (हिंदी)</h4>
+                    <h4>
+                        <span class="lang-en">Hindi Explanation (हिंदी)</span>
+                        <span class="lang-hi">हिंदी स्पष्टीकरण</span>
+                    </h4>
                     <iframe id="hinVideoIframe" width="100%" height="250" src="" frameborder="0" allowfullscreen style="border-radius: 4px; border: 1px solid var(--border);"></iframe>
                 </div>
             </div>
@@ -1687,15 +1733,21 @@
     <footer>
         <div>
             <div class="footer-logo">Beyond Wills</div>
-            <p>A digital guide on alternative legal mechanisms for estate and wealth management in India. Created as
-                part of Family Law II, B.A. LL.B. (Hons.) Academic Component.</p>
-            <p style="margin-top:0.75rem;">This guide is for educational purposes only and does not constitute legal
-                advice.</p>
+            <p>
+                <span class="lang-en">A digital guide on alternative legal mechanisms for estate and wealth management in India. Created as part of Family Law II, B.A. LL.B. (Hons.) Academic Component.</span>
+                <span class="lang-hi">भारत में संपत्ति और धन प्रबंधन के लिए वैकल्पिक कानूनी तंत्र पर एक डिजिटल गाइड। पारिवारिक कानून II, बी.ए. एलएल.बी. (ऑनर्स) शैक्षणिक घटक के भाग के रूप में बनाया गया।</span>
+            </p>
+            <p style="margin-top:0.75rem;">
+                <span class="lang-en">This guide is for educational purposes only and does not constitute legal advice.</span>
+                <span class="lang-hi">यह मार्गदर्शिका केवल शैक्षिक उद्देश्यों के लिए है और कानूनी सलाह नहीं है।</span>
+            </p>
         </div>
         <div class="footer-group-list">
             <p
                 style="color:#8A8070;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.5rem;">
-                Research Group</p>
+                <span class="lang-en">Research Group</span>
+                <span class="lang-hi">अनुसंधान समूह</span>
+            </p>
             <p>Ansh Tanwar</p>
             <p>Sarthak Misra</p>
             <p>Mudra Mehta</p>
@@ -1715,9 +1767,22 @@
             const isOpen = card.classList.contains('open');
             document.querySelectorAll('.concept-card').forEach(c => c.classList.remove('open'));
             if (!isOpen) card.classList.add('open');
-            const rm = card.querySelector('.read-more');
-            document.querySelectorAll('.concept-card .read-more').forEach(r => r.textContent = 'Read more ↓');
-            if (!isOpen && rm) rm.textContent = 'Show less ↑';
+            
+            // Handle Read More text logic for bilingual setup
+            const isHindi = document.body.classList.contains('hindi-mode');
+            const readMoreText = isHindi ? 'और पढ़ें ↓' : 'Read more ↓';
+            const showLessText = isHindi ? 'कम दिखाएं ↑' : 'Show less ↑';
+
+            document.querySelectorAll('.concept-card .read-more').forEach(r => {
+                r.innerHTML = `<span class="lang-en">Read more ↓</span><span class="lang-hi">और पढ़ें ↓</span>`;
+            });
+            
+            if (!isOpen) {
+                const rm = card.querySelector('.read-more');
+                if (rm) {
+                    rm.innerHTML = `<span class="lang-en">Show less ↑</span><span class="lang-hi">कम दिखाएं ↑</span>`;
+                }
+            }
         }
 
         // ── NAV TO SECTIONS ──
@@ -1728,17 +1793,34 @@
             }
         }
 
+        // ── LANGUAGE TOGGLE LOGIC ──
+        function toggleLanguage() {
+            document.body.classList.toggle('hindi-mode');
+            const btn = document.querySelector('.lang-toggle-btn');
+            
+            if (document.body.classList.contains('hindi-mode')) {
+                btn.innerHTML = "Read in English";
+            } else {
+                btn.innerHTML = "हिंदी में पढ़ें";
+            }
+        }
+
         // ── VIDEO MODAL LOGIC ──
         function openVideoModal(event, engId, hinId, title) {
-            // This stops the card from accidentally collapsing when you click the button
             event.stopPropagation();
             
-            // Dynamically set the title and the YouTube URLs
-            document.getElementById('videoModalTitle').textContent = title + ' Explainer';
+            // Set dynamic title based on language mode
+            const isHindi = document.body.classList.contains('hindi-mode');
+            const modalTitle = document.getElementById('videoModalTitle');
+            if (isHindi) {
+                modalTitle.innerHTML = `<span class="lang-hi">${title} - वीडियो गाइड</span>`;
+            } else {
+                modalTitle.innerHTML = `<span class="lang-en">${title} Video Guide</span>`;
+            }
+            
             document.getElementById('engVideoIframe').src = `https://www.youtube.com/embed/${engId}?autoplay=0`;
             document.getElementById('hinVideoIframe').src = `https://www.youtube.com/embed/${hinId}?autoplay=0`;
             
-            // Show the modal with a smooth fade-in
             const modal = document.getElementById('videoModal');
             modal.style.display = 'flex';
             setTimeout(() => {
@@ -1750,10 +1832,8 @@
             const modal = document.getElementById('videoModal');
             modal.classList.remove('active');
             
-            // Wait for the fade-out animation to finish, then hide and wipe the videos
             setTimeout(() => {
                 modal.style.display = 'none';
-                // Wiping the src is crucial! It stops the video audio from playing in the background after closing.
                 document.getElementById('engVideoIframe').src = '';
                 document.getElementById('hinVideoIframe').src = '';
             }, 300);
@@ -1761,13 +1841,11 @@
 
         // ── MIND MAZE ──
         function enterMindMaze() {
-            // Placeholder for entering the Mind Maze simulation
             window.open('maze_data/index.html', '_blank');
         }
 
         // ── SUCCESSION CALCULATOR ──
         function openCalculator(school) {
-            // Implementation for opening the succession calculator based on the school
             const pages = {
                 shia: 'pages/shia_updated.html',
                 sunni: 'pages/sunni_updated.html',
@@ -1775,13 +1853,15 @@
                 parsi: 'pages/parsi_updated.html'
             };
 
-            // Check if the selected school has a corresponding page
             if (pages[school]) {
-                // Navigate to the respective subpage in the same tab
                 window.location.href = pages[school];
             } else {
-                // Fallback message if the page is not yet available
-                alert('Succession calculator for ' + school + ' is under development. Stay tuned!');
+                const isHindi = document.body.classList.contains('hindi-mode');
+                if(isHindi) {
+                    alert(school + ' के लिए उत्तराधिकार कैलकुलेटर विकास के अधीन है। बने रहें!');
+                } else {
+                    alert('Succession calculator for ' + school + ' is under development. Stay tuned!');
+                }
             }
         }
     </script>
