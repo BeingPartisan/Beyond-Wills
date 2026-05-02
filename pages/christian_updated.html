@@ -1,568 +1,885 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Christian Intestate Calculator</title>
-    <style>
-        :root {
-            --primary: #3b82f6;
-            --primary-dark: #2563eb;
-            --bg: #f8fafc;
-            --card-bg: #ffffff;
-            --text: #0f172a;
-            --text-muted: #64748b;
-            --border: #e2e8f0;
-            --danger: #ef4444;
-            --radius: 12px;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Christian Intestate Calculator — ISA 1925</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    /* ═══════════════════════ DESIGN TOKENS ═══════════════════════ */
+    :root {
+      --green:   #1c3d2e;
+      --gold:    #b8973d;
+      --cream:   #f5f0e8;
+      --parchment: #ece5d3;
+      --border:  #d4c5a0;
+      --muted:   #9a8560;
+      --text:    #2c1810;
+      --white:   #fff;
+      --red-bg:  #fee2e2;
+      --red-text:#991b1b;
+      --grn-bg:  #d1fae5;
+      --grn-text:#065f46;
+      --amber-bg:#fffbeb;
+      --amber-border:#fbbf24;
+      --amber-text:#92400e;
+      --blue-bg: #eff6ff;
+      --blue-border:#93c5fd;
+      --blue-text:#1e40af;
+      --radius:  10px;
+    }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+    /* ═══════════════════════ RESET & BASE ═══════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            padding: 20px;
-        }
+    body {
+      font-family: 'IBM Plex Mono', monospace;
+      background: linear-gradient(135deg, var(--cream) 0%, var(--parchment) 100%);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
+    /* ═══════════════════════ BACK BUTTON ═══════════════════════ */
+    .back-home-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: rgba(245, 240, 232, 0.92);
+      color: var(--green);
+      padding: 10px 16px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-family: 'IBM Plex Mono', monospace;
+      font-weight: 600;
+      font-size: 0.75rem;
+      letter-spacing: 0.04em;
+      border: 1.5px solid var(--border);
+      box-shadow: 0 4px 12px rgba(28,61,46,.12);
+      backdrop-filter: blur(8px);
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      z-index: 1000;
+    }
+    .back-home-btn .arrow { font-size: 1rem; transition: transform 0.2s ease; }
+    .back-home-btn:hover { transform: translateY(-2px); border-color: var(--gold); box-shadow: 0 6px 16px rgba(184,151,61,.2); color: var(--green); }
+    .back-home-btn:hover .arrow { transform: translateX(-3px); }
 
-        header {
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            color: white;
-            padding: 30px 20px;
-            text-align: center;
-            border-radius: var(--radius) var(--radius) 0 0;
-            margin-bottom: 24px;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-        }
+    @media (max-width: 768px) {
+      .back-home-btn { top: 14px; left: 14px; padding: 8px 13px; font-size: 0.7rem; gap: 5px; }
+      .back-home-btn .arrow { font-size: 0.9rem; }
+    }
+    @media (max-width: 480px) {
+      .back-home-btn { top: 12px; left: 12px; padding: 9px 12px; font-size: 0; gap: 0; }
+      .back-home-btn .arrow { font-size: 1.1rem; }
+    }
 
-        header h1 {
-            font-size: 1.8rem;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
+    /* ═══════════════════════ HEADER ═══════════════════════ */
+    header {
+      background: var(--green);
+      padding: 22px 28px;
+      text-align: center;
+      border-bottom: 3px solid var(--gold);
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(45deg,rgba(184,151,61,.04) 0,rgba(184,151,61,.04) 1px,transparent 0,transparent 50%);
+      background-size: 18px 18px;
+    }
+    .h-eyebrow { font-size: 10px; letter-spacing: 4px; color: var(--gold); margin-bottom: 5px; position: relative; }
+    .h-title   { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 700; color: var(--cream); position: relative; }
+    .h-sub     { font-family: 'Cormorant Garamond', serif; font-style: italic; color: #c4b08a; font-size: 15px; margin-top: 3px; position: relative; }
 
-        header p {
-            color: #94a3b8;
-            font-size: 1rem;
-        }
+    /* ═══════════════════════ LAYOUT ═══════════════════════ */
+    .container { max-width: 740px; margin: 0 auto; padding: 22px 18px; }
 
-        .card {
-            background: var(--card-bg);
-            border-radius: var(--radius);
-            padding: 30px;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
-            margin-bottom: 24px;
-            border: 1px solid var(--border);
-        }
+    /* ═══════════════════════ CARDS ═══════════════════════ */
+    .card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 22px;
+      border: 1.5px solid var(--border);
+      box-shadow: 0 2px 10px rgba(0,0,0,.05);
+      margin-bottom: 16px;
+    }
+    .stage-card { display: none; animation: fadeIn 0.35s ease; }
+    .stage-card.active { display: block; }
 
-        .stage-card {
-            display: none;
-            animation: fadeIn 0.4s ease-in-out;
-        }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
 
-        .stage-card.active {
-            display: block;
-        }
+    .card-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--green);
+      margin-bottom: 14px;
+      border-bottom: 2px solid #f0e8d5;
+      padding-bottom: 8px;
+    }
+    .section-label {
+      font-size: 9px;
+      letter-spacing: 2.5px;
+      color: var(--muted);
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: block;
+    }
+    .stage-badge {
+      display: inline-block;
+      background: var(--green);
+      color: var(--gold);
+      font-size: 9px;
+      letter-spacing: 2px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 20px;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-5px);
-            }
+    /* ═══════════════════════ RADIO BUTTONS (styled as toggle pills) ═══════════════════════ */
+    .radio-group { display: flex; gap: 10px; flex-wrap: wrap; }
+    .radio-option { flex: 1; min-width: 120px; position: relative; }
+    .radio-option input[type="radio"] { position: absolute; opacity: 0; width: 0; height: 0; }
+    .radio-option label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 16px;
+      border: 2px solid var(--border);
+      border-radius: 7px;
+      cursor: pointer;
+      transition: all 0.15s;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 15px;
+      font-weight: 600;
+      background: var(--white);
+      color: var(--muted);
+      text-align: center;
+      margin: 0;
+      user-select: none;
+    }
+    .radio-option label:hover { border-color: var(--gold); color: var(--text); }
+    .radio-option input[type="radio"]:checked + label {
+      border-color: var(--green);
+      background: var(--green);
+      color: var(--cream);
+    }
 
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+    /* ═══════════════════════ FORM ELEMENTS ═══════════════════════ */
+    .form-group { margin-bottom: 18px; }
+    label.field-label { display: block; font-size: 12px; font-weight: 600; margin-bottom: 6px; color: var(--muted); letter-spacing: .03em; }
 
-        h2 {
-            color: var(--text);
-            font-size: 1.4rem;
-            margin-bottom: 12px;
-            border-bottom: 2px solid var(--bg);
-            padding-bottom: 10px;
-        }
+    input[type="text"],
+    input[type="number"],
+    select {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      font-size: 12px;
+      font-family: 'IBM Plex Mono', monospace;
+      color: var(--text);
+      background: var(--cream);
+      transition: border-color .15s;
+      outline: none;
+    }
+    input:focus, select:focus { border-color: var(--gold); }
 
-        h3 {
-            color: var(--primary);
-            font-size: 1.2rem;
-            margin-bottom: 16px;
-            margin-top: 24px;
-        }
+    /* ═══════════════════════ CHILD ROWS ═══════════════════════ */
+    .child-row {
+      background: var(--cream);
+      border: 1.5px solid var(--border);
+      border-radius: 7px;
+      padding: 14px;
+      margin-bottom: 10px;
+      position: relative;
+      border-left: 3px solid var(--gold);
+    }
+    .child-row-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+      align-items: end;
+    }
+    @media (max-width: 560px) { .child-row-grid { grid-template-columns: 1fr; } }
 
-        .form-group {
-            margin-bottom: 20px;
-        }
+    .child-row .remove-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
 
-        label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: #334155;
-            font-size: 0.95rem;
-        }
+    /* ═══════════════════════ BUTTONS ═══════════════════════ */
+    .add-btn {
+      width: 100%;
+      padding: 8px 14px;
+      font-size: 12px;
+      color: var(--green);
+      background: none;
+      border: 1.5px dashed var(--muted);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all .15s;
+      margin-top: 8px;
+      font-family: 'IBM Plex Mono', monospace;
+    }
+    .add-btn:hover { border-color: var(--green); color: var(--green); }
 
-        input[type="text"],
-        input[type="number"],
-        select {
-            width: 100%;
-            padding: 12px 16px;
-            border: 2px solid var(--border);
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: all 0.2s;
-            color: var(--text);
-            background: #fff;
-        }
+    .remove-btn {
+      background: var(--red-bg);
+      color: var(--red-text);
+      border: none;
+      padding: 4px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .05em;
+      transition: all .15s;
+      font-family: 'IBM Plex Mono', monospace;
+    }
+    .remove-btn:hover { background: #fca5a5; }
 
-        input:focus,
-        select:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-        }
+    .calc-btn {
+      width: 100%;
+      padding: 14px;
+      border-radius: 8px;
+      border: none;
+      background: var(--green);
+      color: var(--cream);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      letter-spacing: .04em;
+      box-shadow: 0 4px 14px rgba(28,61,46,.25);
+      transition: all .15s;
+      display: none;
+      margin-bottom: 16px;
+    }
+    .calc-btn:hover { background: #14402e; box-shadow: 0 6px 18px rgba(28,61,46,.35); transform: translateY(-1px); }
 
-        .radio-group {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
+    /* ═══════════════════════ SIBLING INPUT GRID ═══════════════════════ */
+    .sibling-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 14px;
+    }
+    @media (max-width: 480px) { .sibling-grid { grid-template-columns: 1fr; } }
 
-        .radio-option {
-            flex: 1;
-            min-width: 140px;
-            position: relative;
-        }
+    /* ═══════════════════════ LEGAL NOTE ═══════════════════════ */
+    #legalNote {
+      background: var(--blue-bg);
+      border: 1.5px solid var(--blue-border);
+      border-radius: var(--radius);
+      padding: 13px 16px;
+      font-size: 11px;
+      color: var(--blue-text);
+      line-height: 1.7;
+      margin-bottom: 16px;
+      display: none;
+      white-space: pre-line;
+    }
 
-        .radio-option input[type="radio"] {
-            position: absolute;
-            opacity: 0;
-        }
+    /* ═══════════════════════ RESULTS ═══════════════════════ */
+    #results { display: none; }
 
-        .radio-option label {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 16px;
-            border: 2px solid var(--border);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-weight: 500;
-            margin: 0;
-            background: #f8fafc;
-            color: var(--text-muted);
-            text-align: center;
-        }
+    /* Rule box — identical to Parsi */
+    .rule-box {
+      background: var(--green);
+      border-radius: var(--radius);
+      padding: 18px 22px;
+      margin-bottom: 16px;
+      border: 2px solid var(--gold);
+    }
+    .rule-eyebrow { font-size: 9px; letter-spacing: 3px; color: var(--gold); margin-bottom: 3px; }
+    .rule-title   { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 700; color: var(--cream); margin-bottom: 6px; }
+    .rule-desc    { font-size: 11px; color: #c4b08a; line-height: 1.7; }
 
-        .radio-option label:hover {
-            border-color: #cbd5e1;
-            background: #f1f5f9;
-        }
+    /* Stats grid */
+    .stats-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 16px; }
+    .stat-card  { background: var(--white); border: 1.5px solid var(--border); border-radius: 8px; padding: 12px; text-align: center; }
+    .stat-value { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 700; color: var(--green); line-height: 1; }
+    .stat-label { font-size: 9px; letter-spacing: 2px; color: var(--muted); margin-top: 4px; font-weight: 600; }
 
-        .radio-option input[type="radio"]:checked+label {
-            border-color: var(--primary);
-            background: #eff6ff;
-            color: var(--primary-dark);
-        }
+    /* Distribution bar */
+    .dist-bar-wrap { background: var(--white); border-radius: var(--radius); padding: 18px 22px; margin-bottom: 16px; border: 1.5px solid var(--border); }
+    .dist-bar { display: flex; height: 30px; border-radius: 7px; overflow: hidden; margin-top: 10px; margin-bottom: 10px; gap: 2px; }
+    .bar-seg  { position: relative; min-width: 2px; transition: flex .3s; }
+    .bar-label { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); color: #fff; font-size: 10px; font-weight: 700; white-space: nowrap; text-shadow: 0 1px 3px rgba(0,0,0,.5); }
+    .legend   { display: flex; flex-wrap: wrap; gap: 8px; }
+    .legend-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--text); }
+    .legend-dot  { width: 9px; height: 9px; border-radius: 2px; flex-shrink: 0; }
 
-        .calc-btn {
-            width: 100%;
-            padding: 14px 24px;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            background: var(--primary);
-            color: white;
-            display: none;
-        }
+    /* Results table */
+    .result-table { background: var(--white); border-radius: var(--radius); border: 1.5px solid var(--border); overflow: hidden; margin-bottom: 14px; }
+    table { width: 100%; border-collapse: collapse; }
+    th { padding: 11px 14px; text-align: left; font-size: 9px; letter-spacing: 2px; color: var(--muted); font-weight: 600; background: #f0e8d5; white-space: nowrap; }
+    th.r { text-align: right; }
+    td { padding: 11px 14px; font-size: 13px; border-top: 1px solid #f0e8d5; vertical-align: middle; }
+    tr:hover td { background: #faf8f3; }
+    td.r { text-align: right; }
+    tfoot tr td { background: #f0e8d5; border-top: 2px solid var(--border); font-weight: 700; font-size: 12px; }
+    .heir-name { font-weight: 600; font-size: 13px; color: var(--text); }
+    .heir-note { font-size: 10px; color: var(--muted); margin-top: 1px; }
+    .frac { font-family: 'IBM Plex Mono', monospace; font-size: 15px; font-weight: 600; color: var(--green); }
+    .pct  { font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--gold); }
+    .mini-bar  { height: 7px; background: #f0e8d5; border-radius: 4px; overflow: hidden; width: 80px; }
+    .mini-fill { height: 100%; border-radius: 4px; }
+    .dot-cell  { display: flex; align-items: center; gap: 8px; }
+    .dot       { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
 
-        .calc-btn:hover {
-            background: var(--primary-dark);
-            transform: translateY(-1px);
-        }
+    /* Disclaimer */
+    .disclaimer {
+      background: var(--amber-bg);
+      border: 1.5px solid var(--amber-border);
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 11px;
+      color: var(--amber-text);
+      line-height: 1.7;
+    }
+    .disclaimer strong { display: block; margin-bottom: 3px; }
 
-        .add-btn {
-            width: 100%;
-            padding: 14px;
-            background: #f8fafc;
-            border: 2px dashed #cbd5e1;
-            color: var(--text-muted);
-            font-weight: 600;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s;
-            margin-top: 16px;
-        }
+    /* Print action bar */
+    .results-actions { display: flex; justify-content: flex-end; margin-bottom: 12px; }
+    .print-btn {
+      padding: 8px 16px;
+      border-radius: 7px;
+      border: 1.5px solid var(--border);
+      background: var(--white);
+      color: var(--muted);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      letter-spacing: .05em;
+      transition: all .15s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .print-btn:hover { border-color: var(--green); color: var(--green); }
 
-        .add-btn:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-            background: #eff6ff;
-        }
+    /* ═══════════════════════ PRINT ═══════════════════════ */
+    @media print {
+      body { background: white !important; }
+      .back-home-btn, .add-btn, .remove-btn, .calc-btn, .results-actions { display: none !important; }
+      .stage-card:not(.active) { display: none !important; }
+      header { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+      .rule-box, .dist-bar-wrap, .bar-seg, .mini-fill, .dot, .legend-dot { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+    }
 
-        .remove-btn {
-            background: #fee2e2;
-            color: var(--danger);
-            border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            font-weight: 600;
-            transition: all 0.2s;
-        }
-
-        .remove-btn:hover {
-            background: #fca5a5;
-        }
-
-        .child-row {
-            background: #f8fafc;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 16px;
-            border-left: 4px solid var(--primary);
-            position: relative;
-        }
-
-        .child-row-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 16px;
-            margin-bottom: 10px;
-            align-items: end;
-        }
-
-        @media (max-width: 600px) {
-            .child-row-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .child-row .remove-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-        }
-
-        .results {
-            margin-top: 20px;
-            display: none;
-        }
-
-        .share-item {
-            background: #ffffff;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 16px;
-            margin-bottom: 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        #legalNote {
-            background: #eff6ff;
-            border-left: 4px solid var(--primary);
-            padding: 16px;
-            border-radius: 0 8px 8px 0;
-            color: #1e40af;
-            font-size: 0.95rem;
-            margin-top: 20px;
-            margin-bottom: 20px;
-            display: none;
-            line-height: 1.5;
-        }
-
-        @media print {
-            body {
-                background: white;
-            }
-
-            header {
-                background: #1e293b !important;
-                color: white !important;
-                border-radius: 0;
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
-            }
-
-            .add-btn,
-            .remove-btn,
-            .calc-btn {
-                display: none !important;
-            }
-
-            .card {
-                box-shadow: none;
-                border: 1px solid #e2e8f0;
-            }
-        }
-
-/* -------------------------------------------- */
-        .back-home-btn {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            background: rgba(255, 255, 255, 0.95);
-            color: #1e293b;
-            padding: 10px 16px;
-            border-radius: 999px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            border: 1px solid #e2e8f0;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-            backdrop-filter: blur(8px);
-            transition: all 0.25s ease;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            z-index: 1000;
-        }
-
-        .back-home-btn .arrow {
-            font-size: 1.1rem;
-            transition: transform 0.2s ease;
-        }
-
-        .back-home-btn:hover {
-            transform: translateY(-3px);
-            border-color: #3b82f6;
-            box-shadow: 0 8px 18px rgba(59, 130, 246, 0.25);
-        }
-
-        .back-home-btn:hover .arrow {
-            transform: translateX(-3px);
-        }
-
-    </style>
+    /* ═══════════════════════ RESPONSIVE ═══════════════════════ */
+    @media (max-width: 600px) {
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .h-title { font-size: 22px; }
+      .container { padding: 14px 12px; }
+    }
+  </style>
 </head>
-
 <body>
 
-    <div class="container">
-        <!-- Back to Home Button -->
-        <a href="../index.html#calculator" class="back-home-btn">
-            <span class="arrow">←</span> Back to Home
-        </a>
+<!-- Back to Home -->
+<a href="../index.html#calculator" class="back-home-btn">
+  <span class="arrow">←</span> Back to Home
+</a>
 
-        <!-- Header Area -->
-        <header>
-            <h1>Intestate Succession Calculator</h1>
-            <p>Indian Succession Act, 1925</p>
-        </header>
+<!-- Header -->
+<header>
+  <div class="h-eyebrow">INDIAN SUCCESSION ACT, 1925 · PART V</div>
+  <div class="h-title">Christian Intestate Succession</div>
+  <div class="h-sub">Property Distribution Calculator — Sections 31–49</div>
+</header>
 
-        <div class="card stage-card active" id="stage-1">
-            <h3>Stage 1: Spouse</h3>
-            <label>Is there a surviving spouse (widow/widower)?</label>
-            <div class="radio-group">
-                <div class="radio-option"><input type="radio" name="spouse" id="spouse_yes" value="yes"><label
-                        for="spouse_yes">Yes</label></div>
-                <div class="radio-option"><input type="radio" name="spouse" id="spouse_no" value="no"><label
-                        for="spouse_no">No</label></div>
-            </div>
+<div class="container">
+
+  <!-- Stage 1: Spouse -->
+  <div class="card stage-card active" id="stage-1">
+    <div class="card-title"><span class="stage-badge">STAGE 1</span> Spouse</div>
+    <span class="section-label">SURVIVING SPOUSE</span>
+    <p style="font-size:12px;color:var(--muted);margin-bottom:12px">Is there a surviving widow or widower?</p>
+    <div class="radio-group">
+      <div class="radio-option">
+        <input type="radio" name="spouse" id="spouse_yes" value="yes">
+        <label for="spouse_yes">Yes</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" name="spouse" id="spouse_no" value="no">
+        <label for="spouse_no">No</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stage 2: Descendants? -->
+  <div class="card stage-card" id="stage-2">
+    <div class="card-title"><span class="stage-badge">STAGE 2</span> Lineal Descendants</div>
+    <span class="section-label">CHILDREN OR GRANDCHILDREN</span>
+    <p style="font-size:12px;color:var(--muted);margin-bottom:12px">Are there any surviving children or grandchildren?</p>
+    <div class="radio-group">
+      <div class="radio-option">
+        <input type="radio" name="descendants" id="desc_yes" value="yes">
+        <label for="desc_yes">Yes</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" name="descendants" id="desc_no" value="no">
+        <label for="desc_no">No</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stage 2b: Children Detail -->
+  <div class="card stage-card" id="stage-2-children">
+    <div class="card-title"><span class="stage-badge">STAGE 2B</span> Lineal Descendants Detail</div>
+    <div id="childrenContainer"></div>
+    <button class="add-btn" onclick="addChild()">+ Add Child</button>
+  </div>
+
+  <!-- Stage 3: Father -->
+  <div class="card stage-card" id="stage-3">
+    <div class="card-title"><span class="stage-badge">STAGE 3</span> Father</div>
+    <span class="section-label">SURVIVING FATHER</span>
+    <p style="font-size:12px;color:var(--muted);margin-bottom:12px">Is the intestate's father alive?</p>
+    <div class="radio-group">
+      <div class="radio-option">
+        <input type="radio" name="father" id="father_yes" value="yes">
+        <label for="father_yes">Yes</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" name="father" id="father_no" value="no">
+        <label for="father_no">No</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stage 4: Mother & Siblings -->
+  <div class="card stage-card" id="stage-4">
+    <div class="card-title"><span class="stage-badge">STAGE 4</span> Mother &amp; Siblings</div>
+    <span class="section-label">SURVIVING MOTHER</span>
+    <p style="font-size:12px;color:var(--muted);margin-bottom:12px">Is the intestate's mother alive?</p>
+    <div class="radio-group" style="margin-bottom:18px">
+      <div class="radio-option">
+        <input type="radio" name="mother" id="mother_yes" value="yes">
+        <label for="mother_yes">Yes</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" name="mother" id="mother_no" value="no" checked>
+        <label for="mother_no">No</label>
+      </div>
+    </div>
+    <div class="sibling-grid">
+      <div>
+        <span class="section-label">SURVIVING SIBLINGS</span>
+        <input type="number" id="survivingSiblings" value="0" min="0">
+      </div>
+      <div>
+        <span class="section-label">PRE-DECEASED SIBLINGS <span style="font-size:9px;font-weight:400">(with living children)</span></span>
+        <input type="number" id="deceasedSiblings" value="0" min="0">
+      </div>
+    </div>
+  </div>
+
+  <!-- Legal Note -->
+  <div id="legalNote"></div>
+
+  <!-- Calculate Button -->
+  <button id="calcBtn" class="calc-btn" onclick="calculateShares()">⚖ Calculate Distribution</button>
+
+  <!-- Results -->
+  <div id="results"></div>
+
+</div><!-- end container -->
+
+<script>
+// ═══════════════════════════════════════════════════════
+// STAGE WIRING
+// ═══════════════════════════════════════════════════════
+const s1         = document.getElementById('stage-1');
+const s2         = document.getElementById('stage-2');
+const s2Children = document.getElementById('stage-2-children');
+const s3         = document.getElementById('stage-3');
+const s4         = document.getElementById('stage-4');
+const calcBtn    = document.getElementById('calcBtn');
+
+document.querySelectorAll('input[name="spouse"]').forEach(r => r.addEventListener('change', () => {
+  s2.classList.add('active');
+  checkReadyState();
+}));
+
+document.querySelectorAll('input[name="descendants"]').forEach(r => r.addEventListener('change', e => {
+  if (e.target.value === 'yes') {
+    s2Children.classList.add('active');
+    s3.classList.remove('active');
+    s4.classList.remove('active');
+    updateLegalNote('The presence of lineal descendants excludes parents and siblings from inheritance (§ 37–41, ISA 1925).');
+  } else {
+    s2Children.classList.remove('active');
+    s3.classList.add('active');
+    document.querySelectorAll('input[name="father"]').forEach(r => r.checked = false);
+    s4.classList.remove('active');
+    updateLegalNote('No lineal descendants — the estate passes to the next class of heirs beginning with the father (§ 42, ISA 1925).');
+  }
+  checkReadyState();
+}));
+
+document.querySelectorAll('input[name="father"]').forEach(r => r.addEventListener('change', e => {
+  if (e.target.value === 'yes') {
+    s4.classList.remove('active');
+    updateLegalNote('A surviving father excludes the mother and all siblings from inheritance (§ 42, ISA 1925).');
+  } else {
+    s4.classList.add('active');
+    updateLegalNote('No father — the estate passes to the mother and siblings (§ 43–47, ISA 1925).');
+  }
+  checkReadyState();
+}));
+
+function checkReadyState() {
+  const spouse = document.querySelector('input[name="spouse"]:checked');
+  const desc   = document.querySelector('input[name="descendants"]:checked');
+  const father = document.querySelector('input[name="father"]:checked');
+  let ready = false;
+  if (spouse && desc) {
+    if (desc.value === 'yes') ready = true;
+    else if (desc.value === 'no' && father) ready = true;
+  }
+  calcBtn.style.display = ready ? 'block' : 'none';
+  document.getElementById('results').style.display = 'none';
+}
+
+// ═══════════════════════════════════════════════════════
+// CHILDREN STATE
+// ═══════════════════════════════════════════════════════
+let childrenData = [{ id: Date.now(), name: 'Child 1', status: 'alive', grandchildren: 0 }];
+
+function renderChildren() {
+  const container = document.getElementById('childrenContainer');
+  container.innerHTML = '';
+  childrenData.forEach(child => {
+    const row = document.createElement('div');
+    row.className = 'child-row';
+    row.innerHTML = `
+      ${childrenData.length > 1 ? `<button class="remove-btn" onclick="removeChildrenData(${child.id})">× Remove</button>` : ''}
+      <div class="child-row-grid">
+        <div>
+          <span class="section-label">NAME</span>
+          <input type="text" value="${esc(child.name)}" onchange="updateChild(${child.id},'name',this.value)">
         </div>
-
-        <div class="card stage-card" id="stage-2">
-            <h3>Stage 2: Lineal Descendants</h3>
-            <label>Are there any surviving children or grandchildren?</label>
-            <div class="radio-group">
-                <div class="radio-option"><input type="radio" name="descendants" id="desc_yes" value="yes"><label
-                        for="desc_yes">Yes</label></div>
-                <div class="radio-option"><input type="radio" name="descendants" id="desc_no" value="no"><label
-                        for="desc_no">No</label></div>
-            </div>
+        <div>
+          <span class="section-label">STATUS</span>
+          <select onchange="updateChild(${child.id},'status',this.value)">
+            <option value="alive"    ${child.status==='alive'    ?'selected':''}>Alive</option>
+            <option value="deceased" ${child.status==='deceased' ?'selected':''}>Pre-deceased</option>
+          </select>
         </div>
-
-        <div class="card stage-card" id="stage-2-children">
-            <h3>Lineal Descendants Details</h3>
-            <div id="childrenContainer"></div>
-            <button class="add-btn" onclick="addChild()">+ Add Child</button>
+        <div style="display:${child.status==='deceased'?'block':'none'}">
+          <span class="section-label">SURVIVING GRANDCHILDREN</span>
+          <input type="number" min="0" value="${child.grandchildren}" onchange="updateChild(${child.id},'grandchildren',this.value)">
         </div>
+      </div>
+    `;
+    container.appendChild(row);
+  });
+}
+function addChild() {
+  childrenData.push({ id: Date.now(), name: `Child ${childrenData.length + 1}`, status: 'alive', grandchildren: 0 });
+  renderChildren();
+}
+function removeChildrenData(id) { childrenData = childrenData.filter(c => c.id !== id); renderChildren(); }
+function updateChild(id, field, value) {
+  const child = childrenData.find(c => c.id === id);
+  if (child) {
+    child[field] = field === 'grandchildren' ? (parseInt(value) || 0) : value;
+    if (field === 'status') renderChildren();
+  }
+}
+renderChildren();
 
-        <div class="card stage-card" id="stage-3">
-            <h3>Stage 3: Parents</h3>
-            <label>Is the intestate's Father alive?</label>
-            <div class="radio-group">
-                <div class="radio-option"><input type="radio" name="father" id="father_yes" value="yes"><label
-                        for="father_yes">Yes</label></div>
-                <div class="radio-option"><input type="radio" name="father" id="father_no" value="no"><label
-                        for="father_no">No</label></div>
-            </div>
-        </div>
+// ═══════════════════════════════════════════════════════
+// COLOURS
+// ═══════════════════════════════════════════════════════
+const HEIR_COLORS = {
+  spouse:   '#4f46e5',
+  child:    '#059669',
+  grandchild: '#0d9488',
+  father:   '#b8973d',
+  mother:   '#c4a04a',
+  sibling:  '#7c3aed',
+  dec_sibling: '#0284c7',
+  government: '#9ca3af'
+};
+const CHILD_PALETTE = ['#059669','#0d9488','#d97706','#dc2626','#7c3aed','#0284c7','#db2777','#065f46'];
 
-        <div class="card stage-card" id="stage-4">
-            <h3>Stage 4: Mother & Siblings</h3>
-            <label>Is the intestate's Mother alive?</label>
-            <div class="radio-group" style="margin-bottom: 20px;">
-                <div class="radio-option"><input type="radio" name="mother" id="mother_yes" value="yes"><label
-                        for="mother_yes">Yes</label></div>
-                <div class="radio-option"><input type="radio" name="mother" id="mother_no" value="no" checked><label
-                        for="mother_no">No</label></div>
-            </div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-                <div><label>Surviving Siblings</label><input type="number" id="survivingSiblings" value="0" min="0">
-                </div>
-                <div><label>Pre-deceased Siblings<br><small style="font-weight:normal; color:#64748b;">(who left living
-                            children)</small></label><input type="number" id="deceasedSiblings" value="0" min="0"></div>
-            </div>
-        </div>
+// ═══════════════════════════════════════════════════════
+// LEGAL NOTE HELPERS
+// ═══════════════════════════════════════════════════════
+let currentNote = '';
+function updateLegalNote(msg) {
+  if (msg === currentNote) return;
+  currentNote = msg;
+  const el = document.getElementById('legalNote');
+  el.textContent = msg;
+  el.style.display = msg ? 'block' : 'none';
+}
+function amendLegalNote(extra) {
+  if (!extra || extra === currentNote) return;
+  currentNote = currentNote ? currentNote + '\n\n' + extra : extra;
+  const el = document.getElementById('legalNote');
+  el.textContent = currentNote;
+  el.style.display = 'block';
+}
 
-        <div id="legalNote"></div>
-        <button id="calcBtn" class="calc-btn" onclick="calculateShares()">Calculate Exact Shares</button>
+// ═══════════════════════════════════════════════════════
+// FRACTION HELPERS
+// ═══════════════════════════════════════════════════════
+function formatFraction(decimal) {
+  const t = 0.0001;
+  const checks = [[1,1],[1,2],[1,3],[2,3],[1,4],[3,4],[1,5],[2,5],[3,5],[4,5],[1,6],[5,6],[1,8],[3,8],[5,8],[7,8],[1,9],[1,10],[1,12],[1,15],[1,16],[1,18],[1,20]];
+  for (const [n,d] of checks) { if (Math.abs(decimal - n/d) < t) return `${n}/${d}`; }
+  for (let d = 2; d <= 100; d++) { const n = Math.round(decimal * d); if (Math.abs(decimal - n/d) < t) return `${n}/${d}`; }
+  return (decimal * 100).toFixed(2) + '%';
+}
 
-        <div id="results" class="card results">
-            <h3>Distribution Breakdown</h3>
-            <div id="resultsContent"></div>
-        </div>
+function gcd(a, b) { return b === 0 ? a : gcd(b, a % b); }
+
+// ═══════════════════════════════════════════════════════
+// MAIN CALCULATION
+// ═══════════════════════════════════════════════════════
+function calculateShares() {
+  currentNote = '';
+
+  const hasSpouse       = document.querySelector('input[name="spouse"]:checked').value === 'yes';
+  const pathDescendants = document.querySelector('input[name="descendants"]:checked').value === 'yes';
+
+  let validBranches = [];
+  let numBranches   = 0;
+  if (pathDescendants) {
+    validBranches = childrenData.filter(c => c.status === 'alive' || (c.status === 'deceased' && c.grandchildren > 0));
+    numBranches   = validBranches.length;
+  }
+
+  const pathFather          = !pathDescendants && document.querySelector('input[name="father"]:checked')?.value === 'yes';
+  const hasMother           = !pathDescendants && !pathFather && document.querySelector('input[name="mother"]:checked')?.value === 'yes';
+  const survivingSiblings   = !pathDescendants && !pathFather ? (parseInt(document.getElementById('survivingSiblings').value) || 0) : 0;
+  const deceasedSiblings    = !pathDescendants && !pathFather ? (parseInt(document.getElementById('deceasedSiblings').value) || 0) : 0;
+  const totalSiblingBranches = survivingSiblings + deceasedSiblings;
+
+  // Each result: { name, note, fraction (string), decimal, section, color }
+  let results = [];
+  let spouseDec = 0;
+  let ruleTitle = '';
+  let ruleEyebrow = '';
+  let ruleDesc = '';
+
+  // ── SPOUSE SHARE ──
+  if (hasSpouse) {
+    if (numBranches > 0) {
+      spouseDec = 1/3;
+      ruleTitle   = 'Spouse + Lineal Descendants';
+      ruleEyebrow = 'CASE A · § 33(a), ISA 1925';
+      ruleDesc    = 'One-third of the estate devolves upon the surviving spouse. The remaining two-thirds is distributed among the lineal descendants per stirpes (§ 37–40).';
+      results.push({ name: 'Spouse', fraction: '1/3', decimal: 1/3, section: '§ 33(a)', color: HEIR_COLORS.spouse });
+    } else if (pathFather || hasMother || totalSiblingBranches > 0) {
+      spouseDec = 1/2;
+      ruleTitle   = 'Spouse + Other Heirs (No Descendants)';
+      ruleEyebrow = 'CASE B · § 33(b), ISA 1925';
+      ruleDesc    = 'One-half of the estate devolves upon the surviving spouse. The remaining half passes to the next class of heirs.';
+      results.push({ name: 'Spouse', fraction: '1/2', decimal: 1/2, section: '§ 33(b)', color: HEIR_COLORS.spouse });
+    } else {
+      spouseDec = 1;
+      ruleTitle   = 'Spouse Only — Sole Heir';
+      ruleEyebrow = 'CASE C · § 33(c), ISA 1925';
+      ruleDesc    = 'No lineal descendants or other kindred survive. The entire estate devolves upon the surviving spouse.';
+      results.push({ name: 'Spouse', fraction: '1', decimal: 1, section: '§ 33(c)', color: HEIR_COLORS.spouse });
+    }
+  }
+
+  const remaining = 1 - spouseDec;
+
+  // ── REMAINING DISTRIBUTION ──
+  if (remaining > 0.0001) {
+    if (numBranches > 0) {
+      const livingCount = validBranches.filter(c => c.status === 'alive').length;
+
+      if (livingCount === 0) {
+        // All branches predeceased → per capita among grandchildren
+        const totalGC = validBranches.reduce((s, c) => s + c.grandchildren, 0);
+        if (totalGC > 0) {
+          if (!ruleTitle) { ruleTitle = 'Grandchildren Only (Per Capita)'; ruleEyebrow = 'CASE D · § 38, ISA 1925'; ruleDesc = 'All children have predeceased. Grandchildren inherit equally per capita across all branches.'; }
+          const share = remaining / totalGC;
+          results.push({ name: `Each Grandchild`, note: `${totalGC} grandchildren — equal shares`, fraction: formatFraction(share), decimal: share, section: '§ 38', color: HEIR_COLORS.grandchild });
+        }
+      } else {
+        // At least one child alive → per stirpes
+        if (!ruleTitle) { ruleTitle = hasSpouse ? 'Spouse + Lineal Descendants' : 'Lineal Descendants Only'; ruleEyebrow = `CASE ${hasSpouse?'A':'E'} · § 37–40, ISA 1925`; ruleDesc = 'The estate (or remainder after spouse share) is divided equally among all branches of lineal descendants. A predeceased child\'s share passes per stirpes to their surviving children.'; }
+        const sharePerBranch = remaining / numBranches;
+        let ci = 0;
+        validBranches.forEach(child => {
+          const col = CHILD_PALETTE[ci++ % CHILD_PALETTE.length];
+          if (child.status === 'alive') {
+            results.push({ name: child.name || `Child`, fraction: formatFraction(sharePerBranch), decimal: sharePerBranch, section: '§ 37/40', color: col });
+          } else if (child.grandchildren > 0) {
+            const gcShare = sharePerBranch / child.grandchildren;
+            results.push({ name: `Each child of ${child.name || 'predeceased child'}`, note: `${child.grandchildren} grandchild${child.grandchildren>1?'ren':''} — branch share ÷ ${child.grandchildren}`, fraction: formatFraction(gcShare), decimal: gcShare, section: '§ 40 (per stirpes)', color: HEIR_COLORS.grandchild });
+          }
+        });
+      }
+
+    } else if (pathFather) {
+      if (!ruleTitle) { ruleTitle = 'Father Inherits'; ruleEyebrow = 'CASE F · § 42, ISA 1925'; ruleDesc = 'The father is alive. He inherits the entire residue, excluding the mother and siblings.'; }
+      results.push({ name: 'Father', fraction: formatFraction(remaining), decimal: remaining, section: '§ 42', color: HEIR_COLORS.father });
+
+    } else {
+      const kindredSlots = (hasMother ? 1 : 0) + totalSiblingBranches;
+      if (kindredSlots > 0) {
+        if (!ruleTitle) { ruleTitle = 'Mother, Siblings &amp; Their Issue'; ruleEyebrow = 'CASE G · § 43–47, ISA 1925'; ruleDesc = 'The mother, surviving siblings, and branches of predeceased siblings each inherit an equal share of the residue.'; }
+        const perSlot = remaining / kindredSlots;
+        if (hasMother)            results.push({ name: 'Mother', fraction: formatFraction(perSlot), decimal: perSlot, section: '§ 43–46', color: HEIR_COLORS.mother });
+        if (survivingSiblings > 0) results.push({ name: `Each Surviving Sibling`, note: `${survivingSiblings} sibling${survivingSiblings>1?'s':''}`, fraction: formatFraction(perSlot), decimal: perSlot, section: '§ 43/47', color: HEIR_COLORS.sibling });
+        if (deceasedSiblings > 0)  results.push({ name: `Branch of Predeceased Sibling`, note: `${deceasedSiblings} branch${deceasedSiblings>1?'es':''} — divide internally`, fraction: formatFraction(perSlot) + ' (split)', decimal: perSlot, section: '§ 44/47', color: HEIR_COLORS.dec_sibling });
+      } else if (!hasSpouse) {
+        if (!ruleTitle) { ruleTitle = 'No Eligible Heirs — Escheat'; ruleEyebrow = 'CASE H · § 34/48, ISA 1925'; ruleDesc = 'No eligible heirs under Part V have been found. The estate escheats to the Government or passes to the nearest remote kindred under § 48.'; }
+        results.push({ name: 'Government / Remote Kindred', fraction: '1', decimal: 1, section: '§ 34/48', color: HEIR_COLORS.government });
+      }
+    }
+  }
+
+  // ── BUILD LEGAL NOTE ──
+  updateLegalNote('');
+  const noteLines = [...new Set(results.map(r => r.section))].join(' · ');
+  updateLegalNote(`Applicable provisions: ${noteLines}. ${ruleDesc}`);
+
+  // ── RENDER RESULTS ──
+  renderResults(results, ruleTitle, ruleEyebrow, ruleDesc);
+}
+
+// ═══════════════════════════════════════════════════════
+// RENDER
+// ═══════════════════════════════════════════════════════
+function renderResults(results, ruleTitle, ruleEyebrow, ruleDesc) {
+  const total     = results.reduce((s, r) => s + r.decimal, 0);
+  const heirCount = results.filter(r => r.color !== HEIR_COLORS.government).length;
+  const sections  = [...new Set(results.map(r => r.section))].join(', ');
+
+  const ra = document.getElementById('results');
+  ra.style.display = 'block';
+  ra.innerHTML = `
+    <!-- Print action -->
+    <div class="results-actions">
+      <button class="print-btn" onclick="window.print()">🖨 Print / Save PDF</button>
     </div>
 
-    <script>
-        const s1 = document.getElementById('stage-1');
-        const s2 = document.getElementById('stage-2');
-        const s2Children = document.getElementById('stage-2-children');
-        const s3 = document.getElementById('stage-3');
-        const s4 = document.getElementById('stage-4');
-        const calcBtn = document.getElementById('calcBtn');
+    <!-- Rule Box -->
+    <div class="rule-box">
+      <div class="rule-eyebrow">${ruleEyebrow}</div>
+      <div class="rule-title">${ruleTitle}</div>
+      <div class="rule-desc">${ruleDesc}</div>
+    </div>
 
-        document.querySelectorAll('input[name="spouse"]').forEach(r => r.addEventListener('change', () => { s2.classList.add('active'); checkReadyState(); }));
-        document.querySelectorAll('input[name="descendants"]').forEach(r => r.addEventListener('change', (e) => {
-            if (e.target.value === 'yes') { s2Children.classList.add('active'); s3.classList.remove('active'); s4.classList.remove('active'); updateLegalNote("Under law, the presence of lineal descendants excludes parents and siblings from inheritance."); }
-            else { s2Children.classList.remove('active'); s3.classList.add('active'); document.querySelectorAll('input[name="father"]').forEach(r => r.checked = false); s4.classList.remove('active'); updateLegalNote("Since there are no lineal descendants, the estate passes to the next class of heirs (parents)."); }
-            checkReadyState();
-        }));
-        document.querySelectorAll('input[name="father"]').forEach(r => r.addEventListener('change', (e) => {
-            if (e.target.value === 'yes') { s4.classList.remove('active'); updateLegalNote("Under law, the father excludes the mother and all siblings from inheritance."); }
-            else { s4.classList.add('active'); updateLegalNote("Since there is no father, the estate passes to the mother and siblings."); }
-            checkReadyState();
-        }));
+    <!-- Stats -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-value">${heirCount || results.length}</div>
+        <div class="stat-label">ELIGIBLE HEIRS</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" style="font-size:18px;padding-top:6px">${ruleEyebrow.split('·')[0].trim()}</div>
+        <div class="stat-label">APPLICABLE RULE</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">100%</div>
+        <div class="stat-label">DISTRIBUTED</div>
+      </div>
+    </div>
 
-        function checkReadyState() {
-            const spouse = document.querySelector('input[name="spouse"]:checked'); const desc = document.querySelector('input[name="descendants"]:checked'); const father = document.querySelector('input[name="father"]:checked');
-            let isReady = false;
-            if (spouse && desc) { if (desc.value === 'yes') { isReady = true; } else if (desc.value === 'no' && father) { isReady = true; } }
-            calcBtn.style.display = isReady ? 'block' : 'none'; document.getElementById("results").style.display = "none";
-        }
+    <!-- Distribution Bar -->
+    <div class="dist-bar-wrap">
+      <div class="section-label">ESTATE DISTRIBUTION OVERVIEW</div>
+      <div class="dist-bar">
+        ${results.map(r => `
+          <div class="bar-seg" style="flex:${r.decimal};background:${r.color}" title="${esc(r.name)}: ${(r.decimal*100).toFixed(2)}%">
+            ${r.decimal > 0.08 ? `<div class="bar-label">${(r.decimal*100).toFixed(0)}%</div>` : ''}
+          </div>`).join('')}
+      </div>
+      <div class="legend">
+        ${results.map(r => `<div class="legend-item"><div class="legend-dot" style="background:${r.color}"></div>${esc(r.name)}</div>`).join('')}
+      </div>
+    </div>
 
-        let childrenData = [{ id: Date.now(), name: "Child 1", status: "alive", grandchildren: 0 }];
-
-        function renderChildren() {
-            const container = document.getElementById("childrenContainer"); container.innerHTML = "";
-            childrenData.forEach((child) => {
-                const row = document.createElement("div"); row.className = "child-row";
-                row.innerHTML = `
-                ${childrenData.length > 1 ? `<button class="remove-btn" onclick="removeChildrenData(${child.id})">Remove</button>` : ''}
-                <div class="child-row-grid">
-                    <div><label>Name</label><input type="text" value="${child.name}" onchange="updateChild(${child.id}, 'name', this.value)"></div>
-                    <div><label>Status</label><select onchange="updateChild(${child.id}, 'status', this.value)"><option value="alive" ${child.status === 'alive' ? 'selected' : ''}>Alive</option><option value="deceased" ${child.status === 'deceased' ? 'selected' : ''}>Pre-deceased</option></select></div>
-                    <div style="display: ${child.status === 'deceased' ? 'block' : 'none'};"><label>Grandchildren</label><input type="number" min="0" value="${child.grandchildren}" onchange="updateChild(${child.id}, 'grandchildren', this.value)"></div>
+    <!-- Results Table -->
+    <div class="result-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Heir</th>
+            <th>Provision</th>
+            <th class="r">Fraction</th>
+            <th class="r">Percentage</th>
+            <th>Share</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${results.map(r => `
+            <tr>
+              <td>
+                <div class="dot-cell">
+                  <div class="dot" style="background:${r.color}"></div>
+                  <div>
+                    <div class="heir-name">${esc(r.name)}</div>
+                    ${r.note ? `<div class="heir-note">↳ ${esc(r.note)}</div>` : ''}
+                  </div>
                 </div>
-            `;
-                container.appendChild(row);
-            });
-        }
+              </td>
+              <td style="color:var(--muted);font-size:11px">${r.section}</td>
+              <td class="r"><span class="frac">${r.fraction}</span></td>
+              <td class="r"><span class="pct">${(r.decimal*100).toFixed(2)}%</span></td>
+              <td>
+                <div class="mini-bar">
+                  <div class="mini-fill" style="width:${r.decimal*100}%;background:${r.color}"></div>
+                </div>
+              </td>
+            </tr>`).join('')}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="2">TOTAL</td>
+            <td class="r" style="font-family:'IBM Plex Mono',monospace">1</td>
+            <td class="r" style="font-family:'IBM Plex Mono',monospace">100% ✓</td>
+            <td></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
 
-        function addChild() { childrenData.push({ id: Date.now(), name: `Child ${childrenData.length + 1}`, status: "alive", grandchildren: 0 }); renderChildren(); }
-        function removeChildrenData(id) { childrenData = childrenData.filter(c => c.id !== id); renderChildren(); }
-        function updateChild(id, field, value) { const child = childrenData.find(c => c.id === id); if (child) { child[field] = field === 'grandchildren' ? parseInt(value) || 0 : value; if (field === 'status') renderChildren(); } }
-        renderChildren();
+    <!-- Disclaimer -->
+    <div class="disclaimer">
+      <strong>⚠ Practitioner Note</strong>
+      This calculator applies intestate succession rules for Christians under Part V (Sections 31–49) of the Indian Succession Act, 1925. Key limitations: <em>(i)</em> the per stirpes / per capita distinction depends on whether any child survives; <em>(ii)</em> for predeceased siblings, only the count of branches is entered — further internal distribution within each branch is not computed; <em>(iii)</em> special rules for domicile, agricultural land in certain states, and property under personal law statutes are not modelled. This tool does not constitute legal advice.
+    </div>
+  `;
 
-        function calculateShares() {
-            const hasSpouse = document.querySelector('input[name="spouse"]:checked').value === 'yes';
-            const pathDescendants = document.querySelector('input[name="descendants"]:checked').value === 'yes';
-            let validBranches = []; let numBranches = 0;
+  ra.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
 
-            if (pathDescendants) { validBranches = childrenData.filter(c => c.status === 'alive' || (c.status === 'deceased' && c.grandchildren > 0)); numBranches = validBranches.length; }
-            const pathFather = !pathDescendants && document.querySelector('input[name="father"]:checked').value === 'yes';
-            const hasMother = !pathDescendants && !pathFather && document.querySelector('input[name="mother"]:checked')?.value === 'yes';
-            const survivingSiblings = !pathDescendants && !pathFather ? (parseInt(document.getElementById("survivingSiblings").value) || 0) : 0;
-            const deceasedSiblings = !pathDescendants && !pathFather ? (parseInt(document.getElementById("deceasedSiblings").value) || 0) : 0;
-            const totalSiblingBranches = survivingSiblings + deceasedSiblings;
-            let results = []; let spouseFraction = 0;
-
-            if (hasSpouse) {
-                if (numBranches > 0) { spouseFraction = 1 / 3; updateLegalNote("Under Section 33(a), since there are lineal descendants, the spouse inherits one-third of the estate."); results.push({ name: "Spouse", fraction: "1/3", percentage: 33.33, section: "Sec 33(a)" }); }
-                else if (pathFather || hasMother || totalSiblingBranches > 0) { spouseFraction = 1 / 2; updateLegalNote("Under Section 33(b), since there are no lineal descendants but other heirs exist, the spouse inherits half of the estate."); results.push({ name: "Spouse", fraction: "1/2", percentage: 50.00, section: "Sec 33(b)" }); }
-                else { spouseFraction = 1; updateLegalNote("Under Section 33(c), the entire estate devolves upon the spouse as no other heirs are present."); results.push({ name: "Spouse", fraction: "1/1 (All)", percentage: 100.00, section: "Sec 33(c)" }); }
-            }
-
-            let remainingFraction = 1 - spouseFraction;
-            if (remainingFraction > 0) {
-                if (numBranches > 0) {
-                    const livingChildrenCount = validBranches.filter(c => c.status === 'alive').length;
-                    if (livingChildrenCount === 0) {
-                        let totalGrandchildren = validBranches.reduce((sum, child) => sum + child.grandchildren, 0); let sharePerGrandchild = remainingFraction / totalGrandchildren;
-                        updateLegalNote("Under Section 38 (Per Capita), the remaining estate is divided equally among all surviving grandchildren.");
-                        results.push({ name: `Each Grandchild (${totalGrandchildren} total)`, fraction: formatFraction(sharePerGrandchild), percentage: (sharePerGrandchild * 100).toFixed(2), section: "Sec 38 (Per Capita)" });
-                    } else {
-                        let sharePerBranch = remainingFraction / numBranches;
-                        validBranches.forEach(child => {
-                            if (child.status === 'alive') { updateLegalNote("Under Section 37 (Per Stirpes), the remaining estate is divided among the surviving descendants of each branch."); results.push({ name: child.name, fraction: formatFraction(sharePerBranch), percentage: (sharePerBranch * 100).toFixed(2), section: "Sec 37/40" }); }
-                            else if (child.status === 'deceased' && child.grandchildren > 0) { let sharePerGrandchild = sharePerBranch / child.grandchildren; updateLegalNote("Under Section 40 (Per Stirpes), the remaining estate is divided among the surviving descendants of each deceased branch."); results.push({ name: `Each of ${child.name}'s children (${child.grandchildren})`, fraction: formatFraction(sharePerGrandchild), percentage: (sharePerGrandchild * 100).toFixed(2), section: "Sec 40 (Per Stirpes)" }); }
-                        });
-                    }
-                } else if (pathDescendants && numBranches === 0) { updateLegalNote("You selected 'Yes' for descendants but added no valid heirs."); results.push({ name: "Error", fraction: "0/0", percentage: 0, section: "You selected 'Yes' for descendants but added no valid heirs." }); }
-                else if (pathFather) { updateLegalNote("Under Section 42, since the father is alive, the estate passes to the father."); results.push({ name: "Father", fraction: formatFraction(remainingFraction), percentage: (remainingFraction * 100).toFixed(2), section: "Sec 42" }); }
-                else {
-                    const kindredDivisor = (hasMother ? 1 : 0) + totalSiblingBranches;
-                    if (kindredDivisor > 0) {
-                        const sharePerKindred = remainingFraction / kindredDivisor; const percentage = (sharePerKindred * 100).toFixed(2);
-                        updateLegalNote("");
-                        if (hasMother) { amendLegalNote("Under Section 43-46, the mother inherits a share of the estate."); results.push({ name: "Mother", fraction: formatFraction(sharePerKindred), percentage: percentage, section: "Sec 43-46" }) };
-                        if (survivingSiblings > 0) { amendLegalNote("Under Section 43/47, each surviving sibling inherits a share of the estate."); results.push({ name: `Each Surviving Sibling (${survivingSiblings})`, fraction: formatFraction(sharePerKindred), percentage: percentage, section: "Sec 43/47" }) };
-                        if (deceasedSiblings > 0) { amendLegalNote("Under Section 44/47, the branch of each pre-deceased sibling inherits a share of the estate."); results.push({ name: `Branch of Pre-deceased Sibling (${deceasedSiblings})`, fraction: formatFraction(sharePerKindred) + " (split)", percentage: percentage, section: "Sec 44/47" }) };
-                    } else if (!hasSpouse) { updateLegalNote("Under Section 34 / 48, the estate passes to the government or the nearest remote kindred."); results.push({ name: "Government / Nearest Remote Kindred", fraction: "1/1 (All)", percentage: 100.00, section: "Sec 34 / 48" }); }
-                }
-            }
-
-            const resultsDiv = document.getElementById("results"); const resultsContent = document.getElementById("resultsContent"); resultsContent.innerHTML = "";
-            results.forEach(res => {
-                const div = document.createElement("div"); div.className = "share-item";
-                div.innerHTML = `<span><strong style="font-size: 1.1rem; color: #0f172a;">${res.name}</strong><br><small style="color: #64748b;">${res.section}</small></span><span style="text-align: right; color: #2563eb;"><strong style="font-size: 1.3rem;">${res.percentage}%</strong><br><small style="color: #334155; font-weight: 600;">${res.fraction} Share</small></span>`;
-                resultsContent.appendChild(div);
-            });
-            resultsDiv.style.display = "block"; resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
-
-        function formatFraction(decimal) {
-            const tolerance = 0.0001;
-            if (Math.abs(decimal - 1) < tolerance) return "1/1"; if (Math.abs(decimal - 1 / 2) < tolerance) return "1/2"; if (Math.abs(decimal - 1 / 3) < tolerance) return "1/3"; if (Math.abs(decimal - 2 / 3) < tolerance) return "2/3"; if (Math.abs(decimal - 1 / 4) < tolerance) return "1/4"; if (Math.abs(decimal - 1 / 5) < tolerance) return "1/5"; if (Math.abs(decimal - 1 / 6) < tolerance) return "1/6"; if (Math.abs(decimal - 1 / 8) < tolerance) return "1/8"; if (Math.abs(decimal - 1 / 9) < tolerance) return "1/9"; if (Math.abs(decimal - 1 / 10) < tolerance) return "1/10"; if (Math.abs(decimal - 1 / 12) < tolerance) return "1/12";
-            for (let denominator = 2; denominator <= 50; denominator++) { let numerator = Math.round(decimal * denominator); if (Math.abs(decimal - (numerator / denominator)) < tolerance) return `${numerator}/${denominator}`; } return (decimal * 100).toFixed(2) + "%";
-        }
-
-        let currentNote = "";
-        function updateLegalNote(message) {
-            if (message === currentNote) return; currentNote = message;
-            const note = document.getElementById("legalNote");
-            if (message) { note.innerText = message; note.style.display = "block"; } else { note.style.display = "none"; }
-        }
-        function amendLegalNote(additionalMessage) {
-            if (additionalMessage && additionalMessage !== currentNote) {
-                if (currentNote == "") { currentNote = additionalMessage; } else { currentNote += "\n\n" + additionalMessage; }
-                const note = document.getElementById("legalNote"); note.innerText = currentNote; note.style.display = "block";
-            }
-        }
-    </script>
-
+// ═══════════════════════════════════════════════════════
+// UTILITY
+// ═══════════════════════════════════════════════════════
+function esc(str) {
+  if (!str) return '';
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+</script>
 </body>
-
 </html>

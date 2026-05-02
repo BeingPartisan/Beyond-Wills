@@ -228,7 +228,7 @@
 
         .hero-scroll {
             position: absolute;
-            bottom: 2rem;
+            bottom: 3rem;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
@@ -1018,6 +1018,113 @@
             transform: none;
         }
 
+        /* ── VIDEO MODAL ── */
+        .video-trigger-btn {
+            background: var(--cream);
+            color: var(--ink);
+            border: 1px solid var(--gold);
+            padding: 0.6rem 1.2rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 4px;
+            margin: 1.5rem 0 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+        }
+
+        .video-trigger-btn:hover {
+            background: var(--gold);
+            color: #fff;
+        }
+
+        .video-modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            inset: 0;
+            z-index: 9999; /* Ensures it sits above your navigation bar */
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .video-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .video-modal-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(28, 26, 22, 0.85); /* Your --ink color with opacity */
+            backdrop-filter: blur(5px);
+        }
+
+        .video-modal-content {
+            position: relative;
+            background: var(--card-bg);
+            width: 90%;
+            max-width: 900px;
+            padding: 2.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--gold);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            z-index: 10000;
+        }
+
+        .video-modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            color: var(--muted);
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .video-modal-close:hover {
+            color: var(--crimson);
+        }
+
+        .video-modal-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--navy);
+            text-align: center;
+        }
+
+        .video-modal-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .video-wrapper h4 {
+            font-size: 0.9rem;
+            margin-bottom: 0.8rem;
+            color: var(--ink);
+            text-align: center;
+        }
+
+        /* Make it stack on mobile screens */
+        @media (max-width: 768px) {
+            .video-modal-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            .video-modal-content {
+                padding: 1.5rem;
+                max-height: 90vh;
+                overflow-y: auto;
+            }
+        }
+
         /* ── RESPONSIVE ── */
         @media (max-width: 900px) {
             nav {
@@ -1143,9 +1250,9 @@
     <section class="hero" id="top">
         <div class="hero-grid-bg"></div>
         <div class="hero-rule"></div>
-        <div class="hero-eyebrow">Family Law II — Academic Project</div>
+        <div class="hero-eyebrow">The Estate Playbook</div>
         <h1>Beyond <em>Wills</em> - <br>Estate Planning<br>in India</h1>
-        <p class="hero-sub">A comprehensive guide to alternative legal mechanisms for wealth and estate management —
+        <p class="hero-sub">A comprehensive guide to alternative legal mechanisms for wealth and estate management -
             from gifts and trusts to waqfs and family arrangements.</p>
         <div class="hero-authors">Ansh · Sarthak · Mudra · Agrima &nbsp;|&nbsp; B.A. LL.B. (Hons)</div>
         <a href="#concepts" class="hero-cta">
@@ -1201,8 +1308,7 @@
             <div>
                 <div class="section-eyebrow">How to Use This Guide</div>
                 <h2 class="section-title" style="font-size:1.6rem;">Five Ways to Explore</h2>
-                <p class="section-desc" style="margin-bottom:1.5rem;">This website is designed for general users — not
-                    legal scholars. Navigate any way you prefer.</p>
+                <p class="section-desc" style="margin-bottom:1.5rem;">This website is designed for general users - No prior legal knowledge required. Navigate any way you prefer.</p>
                 <div class="navToButton-grid">
                     <div class="navToButton-card" onclick="navToSection('concepts')">
                         <span class="navToButton-icon">📖</span>
@@ -1269,6 +1375,9 @@
                         <strong>Practical note:</strong> Gifts to relatives are generally exempt from income tax under
                         Section 56(2) of the Income Tax Act. However, stamp duty on gift deeds can be significant.
                     </p>
+                    <button class="video-trigger-btn" onclick="openVideoModal(event, 'UuRlRTfaf-M', '3vmnX0rN3us', 'Gifts')">
+                        🎥 Watch Video Guides
+                    </button>
                     <span class="concept-tag">Transfer of Property Act, 1882</span>
                 </div>
             </div>
@@ -1291,6 +1400,9 @@
                         maintain privacy, and offer clear instructions for intergenerational wealth management —
                         particularly useful for business families.
                     </p>
+                    <button class="video-trigger-btn" onclick="openVideoModal(event, 'UEF6p_28UdY', 'EG9TmRck71U', 'Trusts')">
+                        🎥 Watch Video Guides
+                    </button>
                     <span class="concept-tag">Indian Trusts Act, 1882</span>
                 </div>
             </div>
@@ -1312,6 +1424,9 @@
                         or mortgaged. The Mutawalli (manager) administers the property. Recent legislative changes (Waqf
                         Amendment Act, 2025) have significantly altered the governance framework.
                     </p>
+                    <button class="video-trigger-btn" onclick="openVideoModal(event, 'N_VCOGtGMD0', 'S4C_9CX8yww', 'Waqf')">
+                        🎥 Watch Video Guides
+                    </button>
                     <span class="concept-tag">Waqf Act, 1995</span>
                 </div>
             </div>
@@ -1334,6 +1449,9 @@
                         Supreme Court laid down that a family arrangement is binding even if not registered, provided it
                         is genuine, bona fide, and for the benefit of the family.
                     </p>
+                    <button class="video-trigger-btn" onclick="openVideoModal(event, 'SIuCNSwyA8M', '4n1Jh-D2mYg', 'Family Arrangements')">
+                        🎥 Watch Video Guides
+                    </button>
                     <span class="concept-tag">General Contract + Equity Law</span>
                 </div>
             </div>
@@ -1542,7 +1660,27 @@
             <p>Help us understand how much Indians know about estate planning. Your responses will be analysed and
                 published in this guide.</p>
         </div>
-        <button class="survey-btn">Participate in Survey →</button>
+        <button class="survey-btn" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLScKM1PPukLzUWHnONaXsR3feDPMJ4UJIg3mJvMCfmJ3jZ9wHw/viewform', '_blank')">Participate in Survey →</button>
+    </div>
+
+    <!-- ── THE VIDEO MODAL (Sits hidden at the bottom of the page) ── -->
+    <div id="videoModal" class="video-modal">
+        <div class="video-modal-overlay" onclick="closeVideoModal()"></div>
+        <div class="video-modal-content">
+            <button class="video-modal-close" onclick="closeVideoModal()">&times;</button>
+            <h3 id="videoModalTitle">Video Guides</h3>
+            
+            <div class="video-modal-grid">
+                <div class="video-wrapper">
+                    <h4>English Explanation</h4>
+                    <iframe id="engVideoIframe" width="100%" height="250" src="" frameborder="0" allowfullscreen style="border-radius: 4px; border: 1px solid var(--border);"></iframe>
+                </div>
+                <div class="video-wrapper">
+                    <h4>Hindi Explanation (हिंदी)</h4>
+                    <iframe id="hinVideoIframe" width="100%" height="250" src="" frameborder="0" allowfullscreen style="border-radius: 4px; border: 1px solid var(--border);"></iframe>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- FOOTER -->
@@ -1590,10 +1728,41 @@
             }
         }
 
+        // ── VIDEO MODAL LOGIC ──
+        function openVideoModal(event, engId, hinId, title) {
+            // This stops the card from accidentally collapsing when you click the button
+            event.stopPropagation();
+            
+            // Dynamically set the title and the YouTube URLs
+            document.getElementById('videoModalTitle').textContent = title + ' Explainer';
+            document.getElementById('engVideoIframe').src = `https://www.youtube.com/embed/${engId}?autoplay=0`;
+            document.getElementById('hinVideoIframe').src = `https://www.youtube.com/embed/${hinId}?autoplay=0`;
+            
+            // Show the modal with a smooth fade-in
+            const modal = document.getElementById('videoModal');
+            modal.style.display = 'flex';
+            setTimeout(() => {
+                modal.classList.add('active');
+            }, 10);
+        }
+
+        function closeVideoModal() {
+            const modal = document.getElementById('videoModal');
+            modal.classList.remove('active');
+            
+            // Wait for the fade-out animation to finish, then hide and wipe the videos
+            setTimeout(() => {
+                modal.style.display = 'none';
+                // Wiping the src is crucial! It stops the video audio from playing in the background after closing.
+                document.getElementById('engVideoIframe').src = '';
+                document.getElementById('hinVideoIframe').src = '';
+            }, 300);
+        }
+
         // ── MIND MAZE ──
         function enterMindMaze() {
             // Placeholder for entering the Mind Maze simulation
-            window.location.href = 'maze_data/index.html';
+            window.open('maze_data/index.html', '_blank');
         }
 
         // ── SUCCESSION CALCULATOR ──
@@ -1603,7 +1772,7 @@
                 shia: 'pages/shia_updated.html',
                 sunni: 'pages/sunni_updated.html',
                 christian: 'pages/christian_updated.html',
-                // parsi: 'pages/parsi_updated.html'
+                parsi: 'pages/parsi_updated.html'
             };
 
             // Check if the selected school has a corresponding page
